@@ -1,0 +1,30 @@
+@import "variables";
+@import "mixins";
+@import "elements";
+@import "components/template/header";
+@import "components/template/navbar";
+@import "components/profile";
+
+body {
+  font-size: 14px;
+  color: $colorText;
+  background: $backgroundBody;
+}
+
+.app-wrapper {
+  width: 960px;
+  height: 100%;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.app-container {
+  margin-top: $heightHeader;
+  padding-top: 15px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-areas:
+  "nav main main";
+  grid-template-columns: 2fr 10fr;
+  grid-gap: 10px;
+}

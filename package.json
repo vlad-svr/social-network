@@ -1,11 +1,12 @@
 {
-  "name": "my-app",
+  "name": "social-network",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3"
@@ -30,5 +31,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "devDependencies": {},
+  "keywords": [
+    "social-network",
+    "react",
+    "js",
+    "javascript"
+  ],
+  "author": "Vladislav Sviridow <v_l_a_d_i_k1@mail.ru>",
+  "license": "ISC"
 }

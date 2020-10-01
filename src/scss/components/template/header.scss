@@ -1,0 +1,31 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $heightHeader;
+  background: $mainColor;
+  border-bottom: 1px solid $mainColor;
+
+  &__container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    width: 34px;
+  }
+
+  &__profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between}
+
+  &__username {
+    color: #fff;
+    padding-right: 10px;
+    font-weight: bold;
+  }
+}
