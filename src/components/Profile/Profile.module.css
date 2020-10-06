@@ -1,0 +1,43 @@
+.main {
+  display: grid;
+  grid-area: main;
+  grid-template:
+          "avatar profile profile"
+          "avatar profile profile"
+          "avatar profile profile"
+          "avatar photos photos"
+          "friends photos photos"
+          "friends posts posts"
+          "friends posts posts"
+          "video posts posts"
+          "video posts posts"
+          "video posts posts"
+          "video posts posts"
+          "audio posts posts"
+          "audio posts posts";
+  grid-template-columns: 230px 1fr;
+  grid-template-rows: repeat(13, 1fr);
+  grid-gap: 15px;
+}
+
+.avatar {
+    grid-area: avatar;
+}
+.friends {
+    grid-area: friends;
+}
+.profile_info {
+    grid-area: profile;
+}
+.photos {
+    grid-area: photos;
+}
+.posts {
+    grid-area: posts;
+}
+.video {
+    grid-area: video;
+}
+.audio {
+    grid-area: audio;
+}

@@ -1,0 +1,23 @@
+.main_photos {
+    padding: 15px;
+}
+
+.list {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.item {
+    margin-left: 6px;
+}
+
+.item:first-child {
+    margin-left: 0;
+}
+
+.img {
+    width: 123px;
+    height: 123px;
+    object-fit: cover;
+}

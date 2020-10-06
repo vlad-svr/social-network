@@ -1,0 +1,32 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--heightHeader);
+  background: var(--mainColor);
+  border-bottom: 1px solid var(--mainColor);
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 34px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+
+.username {
+  color: #fff;
+  padding-right: 10px;
+  font-weight: bold;
+}

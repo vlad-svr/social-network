@@ -1,0 +1,19 @@
+.nav {
+  grid-area: nav;
+}
+
+.item {
+    padding: 5px;
+}
+
+.link {
+    color: var(--colorText);
+    text-decoration: none;
+    display: block;
+    white-space: nowrap;
+}
+
+.link:hover {
+  background: #dce1e6;
+  border-radius: 2px;
+}
