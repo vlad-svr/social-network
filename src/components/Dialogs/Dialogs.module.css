@@ -1,0 +1,75 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 3fr 6fr;
+    grid-template-rows: auto 1fr;
+    padding: 10px;
+    grid-gap: 10px;
+    max-height: calc(100vh - 15vh);
+}
+
+.title {
+    padding: 0 16px;
+}
+
+.dialogs_items {
+    border-right: 2px solid var(--steel_gray_120);
+    overflow-y: auto;
+    padding: 0 5px;
+}
+
+.dialog {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.username {
+    color: var(--colorText);
+}
+
+.dialog:hover {
+    background: #dce1e6;
+    border-radius: 2px;
+}
+
+.dialog.active {
+    background: #dce1e6;
+    border-radius: 2px;
+}
+
+.avatar {
+    margin-right: 20px;
+    width: 36px;
+    height: 36px;
+}
+
+.messages {
+    grid-column: 2;
+    grid-row: 1/3;
+    padding: 10px 20px;
+    overflow-y: auto;
+    font-size: 1rem;
+}
+
+.message {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.message p {
+    margin: 2px 0;
+}
+
+.message span {
+    font-weight: 500;
+}
+
+.message .avatar {
+    width: 36px;
+    height: 36px;
+    margin-right: 10px;
+}

@@ -1,0 +1,13 @@
+:root {
+  --mainColor: #4a76a8;
+  --colorText: #2a5885;
+  --backgroundBody: #edeef0;
+  --backgroundComponent: #fff;
+  --steel_gray_120: #d3d9de;
+  --steel_gray_80: #e7e8ec;
+  --textGray: #828282;
+  --buttonBg: #5181b8;
+  --buttonGray: #e5ebf1;
+
+  --heightHeader: 42px;
+}
