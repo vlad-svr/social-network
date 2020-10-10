@@ -1,4 +1,5 @@
 .main_avatar {
+    grid-area: avatar;
     padding: 15px;
 }
 

@@ -45,6 +45,7 @@ body {
     box-shadow: 0 1px 0 0 var(--steel_gray_120), 0 0 0 1px var(--steel_gray_80);
 }
 
+
 .button_blue {
     padding: 7px 16px 8px;
     margin: 0;
@@ -54,6 +55,7 @@ body {
     border-radius: 4px;
     background-color: var(--buttonBg);
     color: white;
+    outline: none;
 }
 
 .button_gray {

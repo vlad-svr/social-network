@@ -9,29 +9,31 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 import Photos from './Photos/Photos';
 
 
-const Profile = () => {
+const Profile = (props) => {
     return (
         <div className={s.main}>
             <div className={'card ' + s.avatar}>
-                <Avatar />
+                <Avatar/>
             </div>
             <div className={'card ' + s.friends}>
-                <Friends />
+                <Friends/>
             </div>
             <div className={'card ' + s.profile_info}>
-                <ProfileInfo />
+                <ProfileInfo/>
             </div>
             <div className={'card ' + s.photos}>
-                <Photos />
+                <Photos/>
             </div>
             <div className={'card ' + s.posts}>
-                <MyPosts />
+                <MyPosts posts={props.state.posts}
+                         newPostText={props.state.newPostText}
+                         dispatch={props.dispatch}/>
             </div>
             <div className={'card ' + s.video}>
-                <Video />
+                <Video/>
             </div>
             <div className={'card ' + s.audio}>
-                <Audio />
+                <Audio/>
             </div>
         </div>
     )

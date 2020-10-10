@@ -1,0 +1,28 @@
+.dialog {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.username {
+    color: var(--colorText);
+}
+
+.dialog:hover {
+    background: #dce1e6;
+    border-radius: 2px;
+}
+
+.dialog.active {
+    background: #dce1e6;
+    border-radius: 2px;
+}
+
+.avatar {
+    margin-right: 20px;
+    width: 36px;
+    height: 36px;
+}
+
