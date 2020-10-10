@@ -10,10 +10,10 @@ const Post = (props) => {
                     <p className={s.message}>{props.message}</p>
                 </div>
                 <div className={s.statistics}>
-                    <p className={s.like}>
+                    <div className={s.like}>
                         <img className={s.like_btn} src="https://cdn0.iconfinder.com/data/icons/essentials-9/128/__Heart-256.png" alt="like"/>
                         <span className={s.like_text}>{props.likeCount}</span>
-                    </p>
+                    </div>
                 </div>
             </div>
     )
