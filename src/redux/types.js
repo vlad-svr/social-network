@@ -2,3 +2,6 @@ export const ADD_POST = 'ADD_POST';
 export const UPDATE_NEW_POST_CHANGE = 'UPDATE_NEW_POST_CHANGE';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const UPDATE_NEW_MESSAGE_CHANGE = 'UPDATE_NEW_MESSAGE_CHANGE';
+export const FOLLOW = 'FOLLOW';
+export const UNFOLLOW = 'UNFOLLOW';
+export const SET_USERS = 'SET_USERS';

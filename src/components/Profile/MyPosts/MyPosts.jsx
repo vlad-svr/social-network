@@ -1,24 +1,20 @@
 import React from 'react';
 import s from './MyPosts.module.css'
 import Post from './Post/Post';
-import {addPostCreater, updateNewPostChangeCreater} from '../../../redux/actions';
-
 
 
 const MyPosts = (props) => {
-
     const postsElements = props.posts
         .map(p => <Post key={p.id} message={p.message} likeCount={p.likesCount} />).reverse()
 
     const newPostMessage = React.createRef()
 
-    function addPost() {
-        props.dispatch(addPostCreater())
+    function onAddPost() {
+        props.addPost()
     }
 
     function onPostChange() {
-        props.dispatch(
-            updateNewPostChangeCreater(newPostMessage.current.value))
+        props.updateNewPostText(newPostMessage.current.value)
     }
 
     return (
@@ -31,7 +27,7 @@ const MyPosts = (props) => {
                           name="" id=""
                           value={props.newPostText}
                           placeholder="Что у Вас нового..."/>
-                <button onClick={addPost} className="button_blue">Опубликовать</button>
+                <button onClick={onAddPost} className="button_blue">Опубликовать</button>
             </div>
             {postsElements}
         </div>

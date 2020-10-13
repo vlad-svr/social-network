@@ -12,6 +12,11 @@ const Navbar = () => {
                     Моя страница
                 </div>
             </NavLink>
+            <NavLink className={c.link} to='/users'>
+                <div className={c.item}>
+                    Люди
+                </div>
+            </NavLink>
             <NavLink className={c.link} to="/news">
                 <div className={c.item}>
                     Новости
