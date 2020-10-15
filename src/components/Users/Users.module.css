@@ -5,6 +5,11 @@
     font-size: 1rem;
 }
 
+.user_card {
+    overflow: hidden;
+    position: relative;
+}
+
 .header {
     padding: 0 20px;
     height: 54px;
@@ -72,5 +77,28 @@
     justify-content: center;
     padding: 15px;
     border-top: 1px solid var(--steel_gray_120);
+}
+
+.page_list {
+    display: flex;
+    list-style-type: none;
+    font-size: 1.2em;
+    padding: 0;
+    margin: 0;
+    color: var(--colorText);
+}
+
+.page_li {
+    cursor: pointer;
+    padding: 5px;
+    width: 20px;
+}
+
+.page_li.selected_page {
+    font-weight: 600;
+}
+
+.page_li:last-child {
+    margin-right: 0;
 }
 

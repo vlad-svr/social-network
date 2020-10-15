@@ -5,3 +5,6 @@ export const UPDATE_NEW_MESSAGE_CHANGE = 'UPDATE_NEW_MESSAGE_CHANGE';
 export const FOLLOW = 'FOLLOW';
 export const UNFOLLOW = 'UNFOLLOW';
 export const SET_USERS = 'SET_USERS';
+export const CURRENT_PAGE = 'CURRENT_PAGE';
+export const TOTAL_USERS = 'TOTAL_USERS';
+export const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';

@@ -1,32 +1,47 @@
 import React from 'react';
+import s from './Users.module.css';
+import userPhoto from '../../assets/images/no-avatar.png';
 import Filters from './Filters/Filters';
-import s from './Users.module.css'
-import * as axios from 'axios';
-import userPhoto from '../../assets/images/no-avatar.png'
+import Preloader from '../common/Preloader/Preloader';
 
 
-class Users extends React.Component {
-    constructor(props) {
-        super(props);
-        axios.get("https://social-network.samuraijs.com/api/1.0/users")
-            .then(response => {
-                this.props.setUsers(response.data.items)
-            })
-    }
-    render() {
-        return (
-            <div className={s.users}>
-                <div className='card '>
-                    <div className={s.header}>
-                        Люди
-                        <span className={s.count_people}>123</span>
-                    </div>
-                    <div className={s.search}>
-                        Search
-                    </div>
-                    <div className={s.users_list}>
-                        {
-                            this.props.users.map(user => (
+const Users = props => {
+    const pagesCount = Math.trunc(props.totalUsersCount / props.pageSize)
+
+    const pages = new Array(pagesCount)
+        .fill('')
+        .map((_, index) => ++index)
+
+    const pagesTemplate =  (
+        <div className={s.search}>
+            <ul className={s.page_list}>
+                {pages.map(item => {
+                    const selected = (item === props.currentPage) ? s.selected_page : ''
+                    return <li className={s.page_li + ' ' + selected}
+                               key={item}
+                               onClick={() => props.onPageChanged(item)}
+                    >{item}</li>
+                })}
+            </ul>
+        </div>
+    )
+
+    return (
+        <div className={s.users}>
+            <div className={'card ' + s.user_card}>
+                <div className={s.header}>
+                    Люди
+                    <span className={s.count_people}>123</span>
+                </div>
+                <div className={s.search}>
+                    Search
+                </div>
+                {pagesTemplate}
+                <div className={s.users_list}>
+                    {
+                        props.isFetching
+                            ? <Preloader />
+                            : props.users.map(user => (
                                 <div key={user.id} className={s.users_card}>
                                     <a href="/12323"><img className='mini_avatar_80' src={user.photos.small ? user.photos.small : userPhoto} alt="avatar"/></a>
                                     <div className={s.users_info}>
@@ -38,24 +53,23 @@ class Users extends React.Component {
                                     </div>
                                     <div className={s.users_control}>
                                         {user.followed
-                                            ? <button onClick={() => {this.props.unfollow(user.id)}} className='button_blue'>Отписаться</button>
-                                            : <button onClick={() => {this.props.follow(user.id)}} className='button_blue'>Подписаться</button>
+                                            ? <button onClick={() => {props.unfollow(user.id)}} className='button_blue'>Отписаться</button>
+                                            : <button onClick={() => {props.follow(user.id)}} className='button_blue'>Подписаться</button>
                                         }
                                     </div>
                                 </div>
                             ))
-                        }
-                    </div>
-                    <div className={s.show_btn}>
-                        <button className="button_blue">Показать еще</button>
-                    </div>
+                    }
                 </div>
-                <div className='card '>
-                    <Filters />
+                <div className={s.show_btn}>
+                    <button className="button_blue">Показать еще</button>
                 </div>
             </div>
-        )
-    }
+            <div className='card '>
+                <Filters />
+            </div>
+        </div>
+    )
 }
 
 export default Users
