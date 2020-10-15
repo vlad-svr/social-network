@@ -2,23 +2,20 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
-import {sendMessageCreater, updateNewMessageChangeCreater} from '../../redux/actions';
 
 
 const Dialogs = (props) => {
-    const dialogsElements = props.state.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id} />)
+    const dialogsElements = props.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id} />)
 
-    const messagesElements = props.state.messages.map(m => <Message key={m.id} message={m.message} myMessage={m.myMessage} />)
+    const messagesElements = props.messages.map(m => <Message key={m.id} message={m.message} myMessage={m.myMessage} />)
 
-    const newMessageText = React.createRef()
 
-    function changeMessageText() {
-        props.dispatch(
-            updateNewMessageChangeCreater(newMessageText.current.value))
+    function onChangeMessageText(e) {
+        props.changeMessageText(e.target.value)
     }
 
-    function sendMessage() {
-        props.dispatch(sendMessageCreater())
+    function onSendMessage() {
+        props.sendMessage()
     }
 
     return (
@@ -34,11 +31,10 @@ const Dialogs = (props) => {
                 <div className={s.form_message}>
                     <textarea
                         placeholder='Напишите сообщение...'
-                        value={props.state.newMessageText}
-                        ref={newMessageText}
+                        value={props.newMessageText}
                         className={s.textarea}
-                        onChange={changeMessageText}/>
-                    <button onClick={sendMessage} className='button_blue'>Отправить</button>
+                        onChange={onChangeMessageText}/>
+                    <button onClick={onSendMessage} className='button_blue'>Отправить</button>
                 </div>
             </div>
         </div>

@@ -1,15 +1,15 @@
 import React from 'react';
 import s from './Profile.module.css'
 import Friends from './Friends/Friends';
-import MyPosts from './MyPosts/MyPosts';
 import Audio from './Audio/Audio';
 import Video from './Video/Video';
 import Avatar from './Avatar/Avatar';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import Photos from './Photos/Photos';
+import MyPostsContainer from './MyPosts/MyPostsContainer';
 
 
-const Profile = (props) => {
+const Profile = () => {
     return (
         <div className={s.main}>
             <div className={'card ' + s.avatar}>
@@ -25,9 +25,7 @@ const Profile = (props) => {
                 <Photos/>
             </div>
             <div className={'card ' + s.posts}>
-                <MyPosts posts={props.state.posts}
-                         newPostText={props.state.newPostText}
-                         dispatch={props.dispatch}/>
+                <MyPostsContainer/>
             </div>
             <div className={'card ' + s.video}>
                 <Video/>

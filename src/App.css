@@ -23,7 +23,7 @@ body {
 }
 
 .wrapper {
-    width: 960px;
+    max-width: 960px;
     height: 100%;
     padding: 0 15px;
     margin: 0 auto;
@@ -58,6 +58,10 @@ body {
     outline: none;
 }
 
+.button_blue:hover, .button_gray:hover {
+    opacity: .88;
+}
+
 .button_gray {
     padding: 7px 16px 8px;
     margin: 0;
@@ -88,6 +92,12 @@ h1 {
     border-radius: 50%;
 }
 
+.mini_avatar_80 {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
 .card__title {
     display: flex;
     margin: 0 0 10px 10px;
@@ -97,13 +107,6 @@ h1 {
 .card__title span {
     margin-left: 10px;
     color: var(--textGray);
-}
-
-.line {
-    width: 100%;
-    height: 1px;
-    margin: 10px 5px;
-    background: var(--steel_gray_120);
 }
 
 .line {
