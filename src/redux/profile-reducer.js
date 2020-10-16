@@ -1,5 +1,5 @@
 import {
-    ADD_POST,
+    ADD_POST, SET_USER_PROFILE,
     UPDATE_NEW_POST_CHANGE
 } from './types';
 
@@ -9,7 +9,8 @@ const initialState = {
         {id: 2, message: 'Hi, i\'m good!', likesCount: 27},
         {id: 3, message: 'Чем занимаешься?', likesCount: 2},
     ],
-    newPostText: ''
+    newPostText: '',
+    profile: null
 }
 
 function profileReducer(state = initialState, action) {
@@ -28,10 +29,10 @@ function profileReducer(state = initialState, action) {
             }
 
         case UPDATE_NEW_POST_CHANGE:
-            return {
-                ...state,
-                newPostText: action.data
-            }
+            return {...state, newPostText: action.data}
+
+        case SET_USER_PROFILE:
+            return {...state, profile: action.profile}
 
         default:
             return state

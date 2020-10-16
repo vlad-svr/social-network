@@ -7,7 +7,6 @@
 
 .user_card {
     overflow: hidden;
-    position: relative;
 }
 
 .header {
@@ -33,6 +32,11 @@
     font-size: 1rem;
     color: black;
     border-bottom: 1px solid var(--steel_gray_80);
+}
+
+.pagination {
+    overflow-x: auto;
+    height: 71px;
 }
 
 .users_list {
@@ -90,8 +94,7 @@
 
 .page_li {
     cursor: pointer;
-    padding: 5px;
-    width: 20px;
+    padding: 0 5px;
 }
 
 .page_li.selected_page {

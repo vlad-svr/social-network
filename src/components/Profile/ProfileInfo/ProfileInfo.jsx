@@ -1,31 +1,44 @@
 import React from 'react';
 import s from './ProfileInfo.module.css'
 
-const ProfileInfo = () => {
+const ProfileInfo = props => {
     return (
         <div className={s.main_profile_info}>
             <div className={s.item}>
                 <div>
-                    <h1 className="h1">Владислав Свиридов</h1>
+                    <h1 className="h1">{props.fullName}</h1>
                 </div>
             </div>
             <div className={s.item}>
-                <div className={s.row}>
-                    <div className={s.label}>День рождения:</div>
-                    <div className={s.labeled}>25 мая 1995 г.</div>
-                </div>
-                <div className={s.row}>
-                    <div className={s.label}>Город:</div>
-                    <div className={s.labeled}>Брест</div>
-                </div>
-                <div className={s.row}>
-                    <div className={s.label}>Место работы:</div>
-                    <div className={s.labeled}>МЧС, Брестский ГОЧС, ПАСЧ №2</div>
-                </div>
-                <div className={s.row}>
-                    <div className={s.label}>Сайт:</div>
-                    <div className={s.labeled}>http://sviridov_vl</div>
-                </div>
+                {
+                    Object.keys(props.contacts).map((key, ind) => {
+                        if (!props.contacts[key]) return false
+                        return <div key={ind} className={s.row}>
+                                    <div className={s.label}>
+                                        {key[0].toUpperCase() + key.slice(1)}
+                                    </div>
+                                    <div className={s.labeled}>
+                                        {props.contacts[key] || 'Не указано'}
+                                    </div>
+                                </div>
+                    })
+                }
+                {
+                    props.lookingForAJob
+                        ? <div className={s.row}>
+                            <div className={s.label}>Ищу работу:</div>
+                            <div className={s.labeled}>{props.lookingForAJobDescription || ''}</div>
+                        </div>
+                        : ''
+                }
+                {
+                    props.aboutMe
+                        ? <div className={s.row}>
+                            <div className={s.label}>Обо мне:</div>
+                            <div className={s.labeled}>{props.aboutMe}</div>
+                        </div>
+                        : ''
+                }
             </div>
         </div>
     )
