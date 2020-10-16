@@ -7,22 +7,32 @@ import Avatar from './Avatar/Avatar';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import Photos from './Photos/Photos';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
+import Preloader from '../common/Preloader/Preloader';
 
 
-const Profile = () => {
+const Profile = (props) => {
+    if (!props.profile) {
+        return <Preloader />
+    }
     return (
         <div className={s.main}>
             <div className={'card ' + s.avatar}>
-                <Avatar/>
+                <Avatar avatar={props.profile.photos.large}/>
             </div>
             <div className={'card ' + s.friends}>
                 <Friends/>
             </div>
             <div className={'card ' + s.profile_info}>
-                <ProfileInfo/>
+                <ProfileInfo
+                    fullName={props.profile.fullName}
+                    contacts={props.profile.contacts}
+                    aboutMe={props.profile.aboutMe}
+                    lookingForAJob={props.profile.lookingForAJob}
+                    lookingForAJobDescription={props.profile.lookingForAJobDescription}
+                />
             </div>
             <div className={'card ' + s.photos}>
-                <Photos/>
+                <Photos photos={props.profile.photos}/>
             </div>
             <div className={'card ' + s.posts}>
                 <MyPostsContainer/>

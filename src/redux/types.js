@@ -8,3 +8,4 @@ export const SET_USERS = 'SET_USERS';
 export const CURRENT_PAGE = 'CURRENT_PAGE';
 export const TOTAL_USERS = 'TOTAL_USERS';
 export const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
+export const SET_USER_PROFILE = 'SET_USER_PROFILE'

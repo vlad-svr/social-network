@@ -3,17 +3,18 @@ import s from './Users.module.css';
 import userPhoto from '../../assets/images/no-avatar.png';
 import Filters from './Filters/Filters';
 import Preloader from '../common/Preloader/Preloader';
+import {NavLink} from 'react-router-dom';
 
 
 const Users = props => {
-    const pagesCount = Math.trunc(props.totalUsersCount / props.pageSize)
+    const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
 
     const pages = new Array(pagesCount)
         .fill('')
         .map((_, index) => ++index)
 
     const pagesTemplate =  (
-        <div className={s.search}>
+        <div className={s.search + ' ' + s.pagination}>
             <ul className={s.page_list}>
                 {pages.map(item => {
                     const selected = (item === props.currentPage) ? s.selected_page : ''
@@ -31,7 +32,7 @@ const Users = props => {
             <div className={'card ' + s.user_card}>
                 <div className={s.header}>
                     Люди
-                    <span className={s.count_people}>123</span>
+                    <span className={s.count_people}>{props.totalUsersCount}</span>
                 </div>
                 <div className={s.search}>
                     Search
@@ -43,10 +44,10 @@ const Users = props => {
                             ? <Preloader />
                             : props.users.map(user => (
                                 <div key={user.id} className={s.users_card}>
-                                    <a href="/12323"><img className='mini_avatar_80' src={user.photos.small ? user.photos.small : userPhoto} alt="avatar"/></a>
+                                    <NavLink to={'/profile/' + user.id}><img className='mini_avatar_80' src={user.photos.small ? user.photos.small : userPhoto} alt="avatar"/></NavLink>
                                     <div className={s.users_info}>
                                         <div className={s.label}>
-                                            <a className={"link_normalize " + s.name} href="/12323">{user.name}</a>
+                                            <NavLink to={'/profile/' + user.id} className={"link_normalize " + s.name}>{user.name}</NavLink>
                                         </div>
                                         <span className={s.label}>{`${"user.location.city"}, ${"user.location.country"}`}</span>
                                         <span className={s.label}>{user.status}</span>

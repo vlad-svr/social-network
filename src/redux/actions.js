@@ -1,48 +1,55 @@
 import {
     ADD_POST, CURRENT_PAGE, FOLLOW,
-    SEND_MESSAGE, SET_USERS, TOGGLE_IS_FETCHING, TOTAL_USERS, UNFOLLOW,
+    SEND_MESSAGE, SET_USER_PROFILE,
+    SET_USERS, TOGGLE_IS_FETCHING,
+    TOTAL_USERS, UNFOLLOW,
     UPDATE_NEW_MESSAGE_CHANGE,
-    UPDATE_NEW_POST_CHANGE
+    UPDATE_NEW_POST_CHANGE,
 } from './types';
 
-export const addPostCreater = () => ({type: ADD_POST})
-export const updateNewPostChangeCreater = data => ({
+export const addPost = () => ({type: ADD_POST})
+export const updateNewPostText = data => ({
     type: UPDATE_NEW_POST_CHANGE,
     data
 })
 
-export const sendMessageCreater = () => ({type: SEND_MESSAGE})
-export const updateNewMessageChangeCreater = data => ({
+export const sendMessage = () => ({type: SEND_MESSAGE})
+export const changeMessageText = data => ({
     type: UPDATE_NEW_MESSAGE_CHANGE,
     data
 })
 
-export const followAC = data => ({
+export const follow = data => ({
     type: FOLLOW,
     userId: data
 })
 
-export const unfollowAC = data => ({
+export const unfollow = data => ({
     type: UNFOLLOW,
     userId: data
 })
 
-export const setUsersAC = data => ({
+export const setUsers = data => ({
     type: SET_USERS,
     users: data
 })
 
-export const setCurrentPageAC = data => ({
+export const setCurrentPage = data => ({
     type: CURRENT_PAGE,
     page: data
 })
 
-export const setUsersTotalCountAC = data => ({
+export const setTotalUsersCount = data => ({
     type: TOTAL_USERS,
     totalCount: data
 })
 
-export const toggleIsFetchingAC = data => ({
+export const toggleIsFetching = data => ({
     type: TOGGLE_IS_FETCHING,
     isFetching: data
+})
+
+export const setUserProfile = data => ({
+    type: SET_USER_PROFILE,
+    profile: data
 })
