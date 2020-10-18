@@ -2,17 +2,18 @@ import {
     CURRENT_PAGE,
     FOLLOW,
     SET_USERS,
-    TOGGLE_IS_FETCHING,
+    TOGGLE_IS_FETCHING, TOGGLE_IS_FOLLOWING_PROGRESS,
     TOTAL_USERS,
     UNFOLLOW,
 } from './types';
 
 const initialState = {
     users: [],
-    pageSize: 5,
+    pageSize: 20,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: false
 }
 
 function usersReducer(state = initialState, action) {
@@ -60,6 +61,12 @@ function usersReducer(state = initialState, action) {
             return {
                 ...state,
                 isFetching: action.isFetching
+            }
+
+        case TOGGLE_IS_FOLLOWING_PROGRESS:
+            return {
+                ...state,
+                followingInProgress: action.isFetching
             }
 
         default:

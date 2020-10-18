@@ -4,6 +4,7 @@ import userPhoto from '../../assets/images/no-avatar.png';
 import Filters from './Filters/Filters';
 import Preloader from '../common/Preloader/Preloader';
 import {NavLink} from 'react-router-dom';
+import {usersAPI} from '../../api/api';
 
 
 const Users = props => {
@@ -54,8 +55,28 @@ const Users = props => {
                                     </div>
                                     <div className={s.users_control}>
                                         {user.followed
-                                            ? <button onClick={() => {props.unfollow(user.id)}} className='button_blue'>Отписаться</button>
-                                            : <button onClick={() => {props.follow(user.id)}} className='button_blue'>Подписаться</button>
+                                            ? <button
+                                                disabled={props.followingInProgress}
+                                                onClick={() => {
+                                                    props.toggleFollowingInProgress(true)
+                                                    usersAPI.unfollow(user.id).then(data => {
+                                                        data.resultCode === 0 && props.unfollow(user.id)
+                                                        props.toggleFollowingInProgress(false)
+                                                    })
+                                                }}
+                                                className='button_blue'>Отписаться</button>
+
+                                            : <button
+                                                disabled={props.followingInProgress}
+                                                onClick={() => {
+                                                    props.toggleFollowingInProgress(true)
+                                                    usersAPI.follow(user.id).then(data => {
+                                                        data.resultCode === 0 && props.follow(user.id)
+                                                        props.toggleFollowingInProgress(false)
+
+                                                    })
+                                                }}
+                                                className='button_blue'>Подписаться</button>
                                         }
                                     </div>
                                 </div>
