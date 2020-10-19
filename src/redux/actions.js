@@ -19,12 +19,12 @@ export const changeMessageText = data => ({
     data
 })
 
-export const follow = data => ({
+export const followSuccess = data => ({
     type: FOLLOW,
     userId: data
 })
 
-export const unfollow = data => ({
+export const unfollowSuccess = data => ({
     type: UNFOLLOW,
     userId: data
 })
@@ -59,7 +59,8 @@ export const setAuthUserData = (userId, email, login, profile) => ({
     data: {userId, email, login, profile}
 })
 
-export const toggleFollowingInProgress = (data) => ({
+export const toggleFollowingInProgress = (data, userId) => ({
     type: TOGGLE_IS_FOLLOWING_PROGRESS,
-    isFetching: data
+    isFetching: data,
+    userId
 })

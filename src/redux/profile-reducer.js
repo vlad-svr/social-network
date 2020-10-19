@@ -2,6 +2,8 @@ import {
     ADD_POST, SET_USER_PROFILE,
     UPDATE_NEW_POST_CHANGE
 } from './types';
+import {profileAPI} from '../api/api';
+import {setUserProfile} from './actions';
 
 const initialState = {
     posts: [
@@ -36,6 +38,15 @@ function profileReducer(state = initialState, action) {
 
         default:
             return state
+    }
+}
+
+
+export function setUserProfileThunk(userId) {
+    return dispatch => {
+        profileAPI.getProfile(userId).then(data => {
+            dispatch(setUserProfile(data))
+        })
     }
 }
 

@@ -4,7 +4,6 @@ import userPhoto from '../../assets/images/no-avatar.png';
 import Filters from './Filters/Filters';
 import Preloader from '../common/Preloader/Preloader';
 import {NavLink} from 'react-router-dom';
-import {usersAPI} from '../../api/api';
 
 
 const Users = props => {
@@ -28,6 +27,19 @@ const Users = props => {
         </div>
     )
 
+    function getButton(user) {
+        return user.followed
+            ? <button
+                disabled={props.followingInProgress.some(id => id === user.id)}
+                onClick={() => props.unfollow(user.id)}
+                className='button_blue'>Отписаться</button>
+
+            : <button
+                disabled={props.followingInProgress.some(id => id === user.id)}
+                onClick={() => props.follow(user.id)}
+                className='button_blue'>Подписаться</button>
+    }
+
     return (
         <div className={s.users}>
             <div className={'card ' + s.user_card}>
@@ -45,7 +57,9 @@ const Users = props => {
                             ? <Preloader />
                             : props.users.map(user => (
                                 <div key={user.id} className={s.users_card}>
-                                    <NavLink to={'/profile/' + user.id}><img className='mini_avatar_80' src={user.photos.small ? user.photos.small : userPhoto} alt="avatar"/></NavLink>
+                                    <NavLink to={'/profile/' + user.id}>
+                                        <img className='mini_avatar_80' src={user.photos.small ? user.photos.small : userPhoto} alt="avatar"/>
+                                    </NavLink>
                                     <div className={s.users_info}>
                                         <div className={s.label}>
                                             <NavLink to={'/profile/' + user.id} className={"link_normalize " + s.name}>{user.name}</NavLink>
@@ -53,30 +67,9 @@ const Users = props => {
                                         <span className={s.label}>{`${"user.location.city"}, ${"user.location.country"}`}</span>
                                         <span className={s.label}>{user.status}</span>
                                     </div>
-                                    <div className={s.users_control}>
-                                        {user.followed
-                                            ? <button
-                                                disabled={props.followingInProgress}
-                                                onClick={() => {
-                                                    props.toggleFollowingInProgress(true)
-                                                    usersAPI.unfollow(user.id).then(data => {
-                                                        data.resultCode === 0 && props.unfollow(user.id)
-                                                        props.toggleFollowingInProgress(false)
-                                                    })
-                                                }}
-                                                className='button_blue'>Отписаться</button>
-
-                                            : <button
-                                                disabled={props.followingInProgress}
-                                                onClick={() => {
-                                                    props.toggleFollowingInProgress(true)
-                                                    usersAPI.follow(user.id).then(data => {
-                                                        data.resultCode === 0 && props.follow(user.id)
-                                                        props.toggleFollowingInProgress(false)
-
-                                                    })
-                                                }}
-                                                className='button_blue'>Подписаться</button>
+                                    <div>
+                                        {
+                                            getButton(user)
                                         }
                                     </div>
                                 </div>

@@ -1,4 +1,6 @@
 import {SET_AUTH_USER_DATA} from './types';
+import {authAPI, profileAPI} from '../api/api';
+import {setAuthUserData} from './actions';
 
 
 const initialState = {
@@ -20,6 +22,19 @@ function authReducer(state = initialState, action) {
 
         default:
             return state
+    }
+}
+
+export function isAuthThunk() {
+    return dispatch => {
+        authAPI.isAuth().then(data => {
+            if (data.resultCode === 0) {
+                const {id, email, login} = data.data
+                profileAPI.getProfile(id).then(profile => {
+                    dispatch(setAuthUserData(id, email, login, profile))
+                })
+            }
+        })
     }
 }
 
