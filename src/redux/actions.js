@@ -1,7 +1,7 @@
 import {
     ADD_POST, CURRENT_PAGE, FOLLOW,
-    SEND_MESSAGE, SET_USER_PROFILE,
-    SET_USERS, TOGGLE_IS_FETCHING,
+    SEND_MESSAGE, SET_AUTH_USER_DATA, SET_USER_PROFILE,
+    SET_USERS, TOGGLE_IS_FETCHING, TOGGLE_IS_FOLLOWING_PROGRESS,
     TOTAL_USERS, UNFOLLOW,
     UPDATE_NEW_MESSAGE_CHANGE,
     UPDATE_NEW_POST_CHANGE,
@@ -19,12 +19,12 @@ export const changeMessageText = data => ({
     data
 })
 
-export const follow = data => ({
+export const followSuccess = data => ({
     type: FOLLOW,
     userId: data
 })
 
-export const unfollow = data => ({
+export const unfollowSuccess = data => ({
     type: UNFOLLOW,
     userId: data
 })
@@ -52,4 +52,15 @@ export const toggleIsFetching = data => ({
 export const setUserProfile = data => ({
     type: SET_USER_PROFILE,
     profile: data
+})
+
+export const setAuthUserData = (userId, email, login, profile) => ({
+    type: SET_AUTH_USER_DATA,
+    data: {userId, email, login, profile}
+})
+
+export const toggleFollowingInProgress = (data, userId) => ({
+    type: TOGGLE_IS_FOLLOWING_PROGRESS,
+    isFetching: data,
+    userId
 })

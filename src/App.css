@@ -58,8 +58,12 @@ body {
     outline: none;
 }
 
+.button_blue:disabled {
+    background-color: var(--buttonDisabled);
+}
+
 .button_blue:hover, .button_gray:hover {
-    opacity: .88;
+    background-color: var(--buttonDisabled);
 }
 
 .button_gray {

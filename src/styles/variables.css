@@ -11,6 +11,9 @@
   --buttonGray: #e5ebf1;
   --gray_400: #939393;
   --gray_600: #656565;
+  --blue_980_alpha12: rgba(0,20,51, .12);
+  --buttonDisabled: rgba(81, 129, 184, .8);
+
 
   --heightHeader: 42px;
 }
