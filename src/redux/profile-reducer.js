@@ -42,7 +42,7 @@ function profileReducer(state = initialState, action) {
 }
 
 
-export function setUserProfileThunk(userId) {
+export function getUserProfile(userId) {
     return dispatch => {
         profileAPI.getProfile(userId).then(data => {
             dispatch(setUserProfile(data))

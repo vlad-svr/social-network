@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from './Header';
 import {connect} from 'react-redux';
-import {isAuthThunk} from '../../redux/auth-reducer';
+import {getAuthUserData} from '../../redux/auth-reducer';
 
 class HeaderContainer extends React.Component{
-    componentDidMount = () => this.props.isAuthThunk()
+    componentDidMount = () => this.props.getAuthUserData()
 
     render = () => <Header {...this.props} />
 }
@@ -16,4 +16,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, {isAuthThunk}) (HeaderContainer)
+export default connect(mapStateToProps, {getAuthUserData}) (HeaderContainer)
