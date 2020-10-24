@@ -13,7 +13,6 @@ import {
   UPDATE_NEW_MESSAGE_CHANGE,
   UPDATE_NEW_POST_CHANGE,
   SET_STATUS,
-  UPDATE_STATUS,
 } from './types'
 
 export const addPost = () => ({ type: ADD_POST })
@@ -76,10 +75,5 @@ export const toggleFollowingInProgress = (data, userId) => ({
 
 export const setStatus = (status) => ({
   type: SET_STATUS,
-  status,
-})
-
-export const updateStatus = (status) => ({
-  type: UPDATE_STATUS,
   status,
 })

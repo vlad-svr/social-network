@@ -7,6 +7,13 @@ class ProfileStatus extends React.Component {
     status: this.props.status,
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log('componentDidUpdate')
+    // this.setState({
+    //   status: this.props.status,
+    // })
+  }
+
   onClickOutside = (e) => {
     // this.onDeactivateEditMode()
   }
@@ -15,35 +22,45 @@ class ProfileStatus extends React.Component {
     this.setState({
       editMode: true,
     })
-    this.props.updateStatus()
   }
 
   onDeactivateEditMode = () => {
     this.setState({
       editMode: false,
     })
+    this.props.updateStatus(this.state.status)
+  }
+
+  onStatusChange = (e) => {
+    this.setState({
+      status: e.currentTarget.value,
+    })
   }
 
   render() {
     const myStatus = (
       <span onClick={this.onActivateEditMode} className={s.status + ' ' + s.my}>
-        {this.state.status}
+        {this.props.status}
       </span>
     )
 
-    // const myNoStatus = (
-    //   <span className={s.status + ' ' + s.my + ' ' + s.no_status}>
-    //     изменить статус
-    //   </span>
-    // )
+    const myNoStatus = (
+      <span
+        onClick={this.onActivateEditMode}
+        className={s.status + ' ' + s.my + ' ' + s.no_status}
+      >
+        изменить статус
+      </span>
+    )
 
     // const status = (
-    //   <span className={s.status}>{this.state.status}</span>
+    //   <span className={s.status}>{this.props.status}</span>
     // )
 
     const statusInput = (
       <div className={s.editor_container}>
         <input
+          onChange={this.onStatusChange}
           autoFocus={true}
           defaultValue={this.state.status}
           className={'input ' + s.input_status}
@@ -56,7 +73,7 @@ class ProfileStatus extends React.Component {
 
     return (
       <div>
-        {myStatus}
+        {this.props.status ? myStatus : myNoStatus}
         {this.state.editMode ? statusInput : ''}
       </div>
     )

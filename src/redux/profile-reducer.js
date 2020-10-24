@@ -57,17 +57,17 @@ export function getUserProfile(userId) {
 
 export function getStatus(userId) {
   return (dispatch) => {
-    profileAPI.getStatus(userId).then((data) => {
+    profileAPI.getUserStatus(userId).then((data) => {
       dispatch(setStatus(data))
     })
   }
 }
 
-export function updateStatus(userId) {
+export function updateStatus(status) {
   return (dispatch) => {
-    profileAPI.updateStatus(userId).then((data) => {
+    profileAPI.updateStatus(status).then((data) => {
       if (data.resultCode === 0) {
-        dispatch(updateStatus(data))
+        dispatch(setStatus(status))
       }
     })
   }
