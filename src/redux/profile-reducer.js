@@ -1,9 +1,4 @@
-import {
-  ADD_POST,
-  SET_STATUS,
-  SET_USER_PROFILE,
-  UPDATE_NEW_POST_CHANGE,
-} from './types'
+import { ADD_POST, SET_STATUS, SET_USER_PROFILE } from './types'
 import { profileAPI } from '../api/api'
 import { setStatus, setUserProfile } from './actions'
 
@@ -13,7 +8,6 @@ const initialState = {
     { id: 2, message: "Hi, i'm good!", likesCount: 27 },
     { id: 3, message: 'Чем занимаешься?', likesCount: 2 },
   ],
-  newPostText: '',
   profile: null,
   status: '',
 }
@@ -23,18 +17,14 @@ function profileReducer(state = initialState, action) {
     case ADD_POST:
       const newPost = {
         id: state.posts.length + 1,
-        message: state.newPostText,
+        message: action.newPost,
         likesCount: 0,
       }
 
       return {
         ...state,
         posts: [...state.posts, newPost],
-        newPostText: '',
       }
-
-    case UPDATE_NEW_POST_CHANGE:
-      return { ...state, newPostText: action.data }
 
     case SET_USER_PROFILE:
       return { ...state, profile: action.profile }

@@ -132,3 +132,9 @@ h1 {
   outline: 0;
   color: var(--black);
 }
+
+input[type='checkbox'] {
+  cursor: pointer;
+  position: relative;
+  top: 1.5px;
+}

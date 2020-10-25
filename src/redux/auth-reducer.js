@@ -37,4 +37,13 @@ export function getAuthUserData() {
   }
 }
 
+export function authLogin(formData) {
+  return (dispatch) => {
+    authAPI.login(formData).then((data) => {
+      if (data.resultCode === 0) {
+      }
+    })
+  }
+}
+
 export default authReducer

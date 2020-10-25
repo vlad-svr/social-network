@@ -1,19 +1,13 @@
-.nav {
-  grid-area: nav;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.item {
-    padding: 5px;
+.card_login {
+  padding: 25px;
 }
 
-.link {
-    color: var(--colorText);
-    text-decoration: none;
-    display: block;
-    white-space: nowrap;
-}
-
-.link:hover {
-  background: #dce1e6;
-  border-radius: 2px;
+.title {
+  margin-bottom: 20px;
 }

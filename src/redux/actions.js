@@ -10,21 +10,18 @@ import {
   TOGGLE_IS_FOLLOWING_PROGRESS,
   TOTAL_USERS,
   UNFOLLOW,
-  UPDATE_NEW_MESSAGE_CHANGE,
-  UPDATE_NEW_POST_CHANGE,
   SET_STATUS,
+  LOGIN,
 } from './types'
 
-export const addPost = () => ({ type: ADD_POST })
-export const updateNewPostText = (data) => ({
-  type: UPDATE_NEW_POST_CHANGE,
-  data,
+export const addPost = (newPost) => ({
+  type: ADD_POST,
+  newPost,
 })
 
-export const sendMessage = () => ({ type: SEND_MESSAGE })
-export const changeMessageText = (data) => ({
-  type: UPDATE_NEW_MESSAGE_CHANGE,
-  data,
+export const sendMessage = (newMessage) => ({
+  type: SEND_MESSAGE,
+  newMessage,
 })
 
 export const followSuccess = (data) => ({
@@ -76,4 +73,9 @@ export const toggleFollowingInProgress = (data, userId) => ({
 export const setStatus = (status) => ({
   type: SET_STATUS,
   status,
+})
+
+export const login = (data) => ({
+  type: LOGIN,
+  data,
 })

@@ -8,10 +8,11 @@ class ProfileStatus extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('componentDidUpdate')
-    // this.setState({
-    //   status: this.props.status,
-    // })
+    if (prevState.status !== this.props.status) {
+      this.setState({
+        status: this.props.status,
+      })
+    }
   }
 
   onClickOutside = (e) => {
@@ -33,7 +34,7 @@ class ProfileStatus extends React.Component {
 
   onStatusChange = (e) => {
     this.setState({
-      status: e.currentTarget.value,
+      status: e.currentTarget.value.trim(),
     })
   }
 
