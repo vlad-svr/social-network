@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card_login {
+  padding: 25px;
+}
+
+.title {
+  margin-bottom: 20px;
+}

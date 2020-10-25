@@ -1,4 +1,6 @@
 :root {
+  --white: #ffffff;
+  --black: #000000;
   --mainColor: #4a76a8;
   --colorText: #2a5885;
   --backgroundBody: #edeef0;
@@ -11,9 +13,11 @@
   --buttonGray: #e5ebf1;
   --gray_400: #939393;
   --gray_600: #656565;
-  --blue_980_alpha12: rgba(0,20,51, .12);
-  --buttonDisabled: rgba(81, 129, 184, .8);
-
+  --blue_980_alpha12: rgba(0, 20, 51, 0.12);
+  --buttonDisabled: rgba(81, 129, 184, 0.8);
+  --gray_400: #939393;
+  --steel_gray_40: #f0f2f5;
+  --black_alpha12: rgba(0, 0, 0, 0.12);
 
   --heightHeader: 42px;
 }

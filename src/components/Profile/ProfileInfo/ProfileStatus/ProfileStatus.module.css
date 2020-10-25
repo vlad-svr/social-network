@@ -1,0 +1,40 @@
+.status {
+  line-height: 16px;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: -2px -6px 0px;
+  padding: 4px 6px 4px;
+  color: var(--black);
+}
+
+.my {
+  cursor: pointer;
+}
+
+.my:hover {
+  background-color: var(--steel_gray_40);
+}
+
+.no_status {
+  color: var(--gray_400);
+}
+
+.editor_container {
+  position: absolute;
+  z-index: 50;
+  left: -20px;
+  right: -20px;
+  top: 10px;
+  text-align: left;
+  border: 1px solid var(--steel_gray_120);
+  border-radius: 2px;
+  background-color: var(--steel_gray_10);
+  box-shadow: 0 1px 3px var(--black_alpha12);
+  padding: 15px;
+}
+
+.input_status {
+  margin-bottom: 10px;
+}

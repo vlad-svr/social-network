@@ -1,0 +1,24 @@
+.item {
+  margin-bottom: 15px;
+}
+
+.control {
+  margin-bottom: 0;
+}
+
+.submit {
+  width: 100px;
+  height: 35px;
+  margin-right: 25px;
+}
+
+.input_login {
+  width: 360px;
+  padding: 6px 12px 8px;
+  font-size: 1rem;
+}
+
+.remember_me {
+  cursor: pointer;
+  color: var(--black);
+}
