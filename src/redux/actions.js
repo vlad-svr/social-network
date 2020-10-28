@@ -12,6 +12,8 @@ import {
   UNFOLLOW,
   SET_STATUS,
   LOGIN,
+  TOGGLE_PROFILE_MENU,
+  SET_CAPTCHA,
 } from './types'
 
 export const addPost = (newPost) => ({
@@ -59,9 +61,9 @@ export const setUserProfile = (data) => ({
   profile: data,
 })
 
-export const setAuthUserData = (userId, email, login, profile) => ({
+export const setAuthUserData = (userId, email, login, profile, isAuth) => ({
   type: SET_AUTH_USER_DATA,
-  data: { userId, email, login, profile },
+  payload: { userId, email, login, profile, isAuth },
 })
 
 export const toggleFollowingInProgress = (data, userId) => ({
@@ -78,4 +80,14 @@ export const setStatus = (status) => ({
 export const login = (data) => ({
   type: LOGIN,
   data,
+})
+
+export const toggleProfileMenu = (data) => ({
+  type: TOGGLE_PROFILE_MENU,
+  data,
+})
+
+export const setCaptcha = (captcha) => ({
+  type: SET_CAPTCHA,
+  captcha,
 })

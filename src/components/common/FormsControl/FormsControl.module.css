@@ -1,0 +1,22 @@
+.form_control {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.span {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  padding: 5px 10px;
+  display: block;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  width: 100%;
+  margin-top: 3px;
+}
+
+.form_control.error input,
+.form_control.error textarea {
+  border: 1px solid red;
+}

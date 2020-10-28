@@ -1,18 +1,17 @@
-.textarea {
+.form {
+  display: flex;
+  align-items: center;
   width: 100%;
-  margin-right: 20px;
-  height: 50px;
-  border-radius: 6px;
-  padding: 9px 13px 10px 13px;
-  margin-bottom: 0;
-  min-height: 36px;
+}
+
+.textarea {
+  height: 60px;
+  min-height: 50px;
   max-height: 200px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  line-height: 17px;
-  font-size: 1rem;
-  box-sizing: border-box;
   resize: none;
-  outline: 0;
   border: 1px solid var(--steel_gray_120);
+}
+
+.button {
+  margin-left: 20px;
 }

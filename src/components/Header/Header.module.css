@@ -22,18 +22,25 @@
 
 .profile {
   display: flex;
+  position: relative;
+  padding: 0 10px;
   text-decoration: none;
   height: 100%;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 .login {
   color: var(--white);
-  padding: 0 10px;
+  margin-right: 10px;
   font-weight: bold;
 }
 
 .profile:hover {
+  background: var(--blue_980_alpha12);
+}
+
+.active {
   background: var(--blue_980_alpha12);
 }

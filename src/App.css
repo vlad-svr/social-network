@@ -1,5 +1,9 @@
 @import './styles/variables.css';
 
+* {
+  box-sizing: border-box;
+}
+
 .scroll-fix {
   margin-left: calc(100vw - 100%);
   margin-right: 0;
@@ -31,7 +35,6 @@ body {
 .container {
   margin-top: var(--heightHeader);
   padding-top: 15px;
-  box-sizing: border-box;
   display: grid;
   grid-template-areas: 'nav main main';
   grid-template-columns: 2fr 10fr;
@@ -96,6 +99,12 @@ h1 {
   border-radius: 50%;
 }
 
+.mini_avatar_34 {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+}
+
 .mini_avatar_80 {
   width: 80px;
   height: 80px;
@@ -114,7 +123,7 @@ h1 {
 }
 
 .line {
-  width: 100%;
+  width: auto;
   height: 1px;
   margin: 10px 5px;
   background: var(--steel_gray_120);
@@ -126,7 +135,6 @@ h1 {
   border: 1px solid var(--steel_gray_120);
   background: var(--white);
   width: 100%;
-  box-sizing: border-box;
   min-height: 28px;
   line-height: 14px;
   outline: 0;
@@ -137,4 +145,15 @@ input[type='checkbox'] {
   cursor: pointer;
   position: relative;
   top: 1.5px;
+}
+
+.textarea {
+  width: 100%;
+  border-radius: 6px;
+  padding: 9px 13px 10px 13px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  line-height: 17px;
+  font-size: 1rem;
+  outline: 0;
 }
