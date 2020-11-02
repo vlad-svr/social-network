@@ -4,7 +4,7 @@
   grid-template-rows: auto 1fr;
   padding: 10px 0 0 10px;
   grid-gap: 10px;
-  max-height: calc(100vh - 15vh);
+  max-height: calc(100vh - 10vh);
 }
 
 .title {
@@ -31,7 +31,6 @@
 }
 
 .form_message {
-  display: flex;
   padding: 12px 26px;
   background: var(--steel_gray_10);
   border-top: 1px solid var(--steel_gray_120);

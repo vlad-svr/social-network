@@ -6,7 +6,6 @@ import {
 import Users from './Users';
 import {follow, getUsers, unfollow} from '../../redux/users-reducer';
 import {compose} from 'redux';
-import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 
 
@@ -49,5 +48,4 @@ export default compose(
         {follow, unfollow,
     toggleFollowingInProgress, getUsers
     }),
-    withAuthRedirect
 ) (UsersContainer)

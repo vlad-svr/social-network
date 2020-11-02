@@ -22,3 +22,7 @@
   cursor: pointer;
   color: var(--black);
 }
+
+.span {
+  margin-top: 10px;
+}

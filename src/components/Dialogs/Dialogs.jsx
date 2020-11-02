@@ -3,9 +3,6 @@ import s from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
 import MessageForm from './MessageForm/MessageForm'
-import { reduxForm } from 'redux-form'
-
-const MessageReduxForm = reduxForm({ form: 'messageForm' })(MessageForm)
 
 const Dialogs = (props) => {
   const dialogsElements = props.dialogs.map((d) => (
@@ -29,7 +26,7 @@ const Dialogs = (props) => {
       <div className={s.messages_items}>
         <div className={s.messages}>{messagesElements}</div>
         <div className={s.form_message}>
-          <MessageReduxForm onSubmit={onSendMessage} />
+          <MessageForm onSubmit={onSendMessage} />
         </div>
       </div>
     </div>

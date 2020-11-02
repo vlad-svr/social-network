@@ -1,24 +1,23 @@
 import React from 'react'
 import s from './Login.module.css'
 import LoginForm from './LoginForm/LoginForm'
-import { reduxForm } from 'redux-form'
 import { compose } from 'redux'
-import { authLogin } from '../../redux/auth-reducer'
+import { login } from '../../redux/auth-reducer'
 import { connect } from 'react-redux'
-
-const LoginReduxForm = reduxForm({ form: 'login' })(LoginForm)
+import { Redirect } from 'react-router-dom'
 
 const Login = (props) => {
   function onSubmit(formData) {
-    console.log(formData)
-    props.authLogin(formData)
+    const { email, password, rememberMe, captcha } = formData
+    return props.login(email, password, rememberMe, JSON.stringify(captcha))
   }
 
+  if (props.isAuth) return <Redirect to="/profile" />
   return (
     <div className={s.container}>
       <div className={'card ' + s.card_login}>
         <h1 className={s.title}>Login</h1>
-        <LoginReduxForm onSubmit={onSubmit} />
+        <LoginForm captcha={props.captcha} onSubmit={onSubmit} />
       </div>
     </div>
   )
@@ -27,7 +26,8 @@ const Login = (props) => {
 function mapStateToProps(state) {
   return {
     isAuth: state.auth.isAuth,
+    captcha: state.auth.captcha,
   }
 }
 
-export default compose(connect(mapStateToProps, { authLogin }))(Login)
+export default compose(connect(mapStateToProps, { login }))(Login)
