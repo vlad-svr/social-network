@@ -32,7 +32,7 @@ function authReducer(state = initialState, action) {
 
 export function getAuthUserData() {
   return (dispatch) => {
-    authAPI.isAuth().then((data) => {
+    return authAPI.isAuth().then((data) => {
       if (data.resultCode === 0) {
         const { id, email, login } = data.data
         profileAPI.getProfile(id).then((profile) => {

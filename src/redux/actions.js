@@ -13,7 +13,7 @@ import {
   SET_STATUS,
   LOGIN,
   TOGGLE_PROFILE_MENU,
-  SET_CAPTCHA,
+  SET_CAPTCHA, INITIALIZED_SUCCESS,
 } from './types'
 
 export const addPost = (newPost) => ({
@@ -91,3 +91,5 @@ export const setCaptcha = (captcha) => ({
   type: SET_CAPTCHA,
   captcha,
 })
+
+export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS})

@@ -5,6 +5,7 @@ import usersReducer from './users-reducer'
 import authReducer from './auth-reducer'
 import thunkMiddleware from 'redux-thunk'
 import headerReducer from './header-reducer'
+import appReducer from './app-reducer';
 
 const reducers = combineReducers({
   headerPage: headerReducer,
@@ -12,6 +13,7 @@ const reducers = combineReducers({
   dialogsPage: dialogsReducer,
   usersPage: usersReducer,
   auth: authReducer,
+  app: appReducer
 })
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware))

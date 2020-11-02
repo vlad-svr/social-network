@@ -9,7 +9,6 @@ import { Textarea } from '../../common/FormsControl/FormsControl'
 import s from './MessageForm.module.css'
 
 const MessageForm = (props) => {
-  console.log(props)
   return (
     <Form
       onSubmit={props.onSubmit}
