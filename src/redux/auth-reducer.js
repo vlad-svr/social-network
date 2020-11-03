@@ -35,7 +35,7 @@ export function getAuthUserData() {
     return authAPI.isAuth().then((data) => {
       if (data.resultCode === 0) {
         const { id, email, login } = data.data
-        profileAPI.getProfile(id).then((profile) => {
+        return profileAPI.getProfile(id).then((profile) => {
           dispatch(setAuthUserData(id, email, login, profile, true))
         })
       }

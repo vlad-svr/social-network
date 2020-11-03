@@ -12,17 +12,20 @@ import { compose } from 'redux'
 class ProfileContainer extends React.Component {
   componentDidMount() {
     const userId = this.props.match.params.userId || this.props.authorizedUserId
-    if (!userId) return this.props.history.push('/login')
+    if (!userId) {
+      return this.props.history.push('/login')
+    }
 
     this.props.getUserProfile(userId)
     this.props.getStatus(userId)
   }
 
-  componentDidUpdate() {
-    const userId = this.props.match.params.userId || this.props.authorizedUserId
-    this.props.getUserProfile(userId)
-    this.props.getStatus(userId)
-  }
+  // componentDidUpdate() {
+  //   debugger
+  //   const userId = this.props.match.params.userId || this.props.authorizedUserId
+  //   this.props.getUserProfile(userId)
+  //   this.props.getStatus(userId)
+  // }
 
   render() {
     return <Profile {...this.props} />
