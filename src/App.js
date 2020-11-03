@@ -28,6 +28,7 @@ class App extends React.Component {
                 <div className="wrapper">
                     <div className="container">
                         <Navbar />
+                        {/*<Route path="/profile" render={() => <ProfileContainer />} />*/}
                         <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
                         <Route exact path="/dialogs" render={() => <DialogsContainer />} />
                         <Route path="/users" render={() => <UsersContainer />} />

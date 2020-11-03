@@ -15,6 +15,7 @@ const Dialogs = (props) => {
 
   function onSendMessage(data) {
     props.sendMessage(data.newMessageBody)
+    return Promise.resolve()
   }
 
   return (

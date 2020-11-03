@@ -12,8 +12,14 @@ const MessageForm = (props) => {
   return (
     <Form
       onSubmit={props.onSubmit}
-      render={({ handleSubmit }) => (
-        <form className={s.form} onSubmit={handleSubmit}>
+      render={({ handleSubmit, form }) => (
+        <form className={s.form} onSubmit={(e) => {
+            const promise = handleSubmit(e);
+            promise.then(() => {
+                form.reset();
+            })
+            return promise;
+        }}>
           <Field
             name="newMessageBody"
             component={Textarea}

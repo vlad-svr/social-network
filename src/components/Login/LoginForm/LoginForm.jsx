@@ -14,7 +14,7 @@ const LoginForm = (props) => {
   return (
     <Form
       onSubmit={props.onSubmit}
-      render={({ submitError, handleSubmit, form, submitting }) => {
+      render={({ submitError, handleSubmit, hasValidationErrors, submitting }) => {
         return (
           <form onSubmit={handleSubmit}>
             <div className={s.item}>
@@ -56,7 +56,7 @@ const LoginForm = (props) => {
             )}
             <div className={s.item + ' ' + s.control}>
               <button
-                disabled={submitting}
+                disabled={submitting || hasValidationErrors}
                 className={'button_blue ' + s.submit}
                 type="submit"
               >
