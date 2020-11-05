@@ -1,4 +1,4 @@
-import { ADD_POST, SET_STATUS, SET_USER_PROFILE } from './types'
+import {ADD_POST, DELETE_POST, SET_STATUS, SET_USER_PROFILE} from './types'
 import { profileAPI } from '../api/api'
 import { setStatus, setUserProfile } from './actions'
 
@@ -24,6 +24,12 @@ function profileReducer(state = initialState, action) {
       return {
         ...state,
         posts: [...state.posts, newPost],
+      }
+
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter(p => p.id !== action.id)
       }
 
     case SET_USER_PROFILE:

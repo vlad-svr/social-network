@@ -13,12 +13,17 @@ import {
   SET_STATUS,
   LOGIN,
   TOGGLE_PROFILE_MENU,
-  SET_CAPTCHA, INITIALIZED_SUCCESS,
+  SET_CAPTCHA, INITIALIZED_SUCCESS, DELETE_POST,
 } from './types'
 
 export const addPost = (newPost) => ({
   type: ADD_POST,
   newPost,
+})
+
+export const deletePost = (idPost) => ({
+  type: DELETE_POST,
+  id: idPost
 })
 
 export const sendMessage = (newMessage) => ({
