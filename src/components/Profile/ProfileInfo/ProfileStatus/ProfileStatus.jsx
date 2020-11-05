@@ -1,84 +1,69 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import s from './ProfileStatus.module.css'
 
-class ProfileStatus extends React.Component {
-  state = {
-    editMode: false,
-    status: this.props.status,
-  }
+const ProfileStatus = (props) => {
+    const [editMode, setEditMode] = useState(false)
+    const [status, setStatus] = useState(props.status)
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.status !== this.props.status) {
-      this.setState({
-        status: this.props.status,
-      })
+    useEffect(() => {
+        setStatus(props.status)
+    }, [props.status])
+
+    const onActivateEditMode = () => {
+        setEditMode(true)
     }
-  }
 
-  onClickOutside = (e) => {
-    // this.onDeactivateEditMode()
-  }
+    const onDeactivateEditMode = () => {
+        setEditMode(false)
+        props.updateStatus(status)
+    }
 
-  onActivateEditMode = () => {
-    this.setState({
-      editMode: true,
-    })
-  }
+    const onClickEnter = e => e.key !== 'Enter' || onDeactivateEditMode()
 
-  onDeactivateEditMode = () => {
-    this.setState({
-      editMode: false,
-    })
-    this.props.updateStatus(this.state.status)
-  }
+    const onStatusChange = (e) => {
+        setStatus(e.currentTarget.value.trim())
+    }
 
-  onStatusChange = (e) => {
-    this.setState({
-      status: e.currentTarget.value.trim(),
-    })
-  }
-
-  render() {
     const myStatus = (
-      <span onClick={this.onActivateEditMode} className={s.status + ' ' + s.my}>
-        {this.props.status}
-      </span>
+        <span onClick={onActivateEditMode} className={s.status + ' ' + s.my}>
+            {props.status}
+        </span>
     )
 
-    const myNoStatus = (
-      <span
-        onClick={this.onActivateEditMode}
-        className={s.status + ' ' + s.my + ' ' + s.no_status}
-      >
-        изменить статус
-      </span>
+    const noMyStatus = (
+        <span
+            onClick={onActivateEditMode}
+            className={s.status + ' ' + s.my + ' ' + s.no_status}
+        >
+            изменить статус
+        </span>
     )
 
     // const status = (
-    //   <span className={s.status}>{this.props.status}</span>
+    //   <span className={s.status}>{props.status}</span>
     // )
 
     const statusInput = (
-      <div className={s.editor_container}>
-        <input
-          onChange={this.onStatusChange}
-          autoFocus={true}
-          defaultValue={this.state.status}
-          className={'input ' + s.input_status}
-        />
-        <button onClick={this.onDeactivateEditMode} className="button_blue">
-          Сохранить
-        </button>
-      </div>
+        <div className={s.editor_container}>
+            <input
+                onChange={onStatusChange}
+                onKeyPress={onClickEnter}
+                defaultValue={status}
+                autoFocus={true}
+                className={'input ' + s.input_status}
+            />
+            <button onClick={onDeactivateEditMode} className="button_blue">
+                Сохранить
+            </button>
+        </div>
     )
 
     return (
-      <div>
-        {this.props.status ? myStatus : myNoStatus}
-        {this.state.editMode ? statusInput : ''}
-      </div>
+        <div>
+            {props.status ? myStatus : noMyStatus}
+            {editMode ? statusInput : ''}
+        </div>
     )
-  }
 }
 
 export default ProfileStatus

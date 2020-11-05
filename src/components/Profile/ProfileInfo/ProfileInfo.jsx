@@ -1,6 +1,6 @@
 import React from 'react'
 import s from './ProfileInfo.module.css'
-import ProfileStatus from './ProfileStatus/ProfileStatus'
+import ProfileStatus from './ProfileStatus/ProfileStatus';
 
 const ProfileInfo = (props) => {
   return (
