@@ -47,7 +47,7 @@ const ProfileStatus = (props) => {
         <div className={s.editor_container}>
             <input
                 onChange={onStatusChange}
-                onKeyDown={onClickEnter}
+                onKeyPress={onClickEnter}
                 defaultValue={status}
                 autoFocus={true}
                 className={'input ' + s.input_status}

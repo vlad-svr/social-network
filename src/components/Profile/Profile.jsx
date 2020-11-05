@@ -13,6 +13,7 @@ const Profile = (props) => {
   if (!props.profile) {
     return <Preloader />
   }
+
   return (
     <div className={s.main}>
       <div className={'card ' + s.avatar}>

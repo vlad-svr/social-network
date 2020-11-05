@@ -13,8 +13,14 @@ const PostForm = (props) => {
   return (
     <Form
       onSubmit={props.onSubmit}
-      render={({ handleSubmit }) => (
-        <form className={s.form} onSubmit={handleSubmit}>
+      render={({ handleSubmit, form, submitting}) => (
+        <form className={s.form} onSubmit={(e) => {
+            const promise = handleSubmit(e);
+            promise && promise.then(() => {
+                form.reset();
+            })
+            return promise;
+        }}>
           <Field
             component={Textarea}
             name="newPost"
@@ -22,7 +28,7 @@ const PostForm = (props) => {
             validate={composeValidators(required, minLength(5), maxLength(30))}
             placeholder="Что у Вас нового..."
           />
-          <button type="submit" className={'button_blue ' + s.button}>
+          <button disabled={submitting} type="submit" className={'button_blue ' + s.button}>
             Опубликовать
           </button>
         </form>

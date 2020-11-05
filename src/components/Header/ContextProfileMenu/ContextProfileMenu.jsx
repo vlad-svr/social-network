@@ -15,7 +15,7 @@ const ContextProfileMenu = (props) => {
         />
         <span>{props.login}</span>
       </NavLink>
-      <div className={'line ' + s.menu_line}></div>
+      <div className={'line ' + s.menu_line}/>
       <nav className={s.nav}>
         <NavLink to="/" className={s.link}>
           <span className={s.link_item}>Настройки</span>
@@ -23,8 +23,8 @@ const ContextProfileMenu = (props) => {
         <NavLink to="/" className={s.link}>
           <span className={s.link_item}>Помощь</span>
         </NavLink>
-        <div className={'line ' + s.menu_line}></div>
-        <div onClick={props.logout} to="/logout" className={s.link}>
+        <div className={'line ' + s.menu_line}/>
+        <div onClick={props.logout} className={s.link}>
           <span className={s.link_item}>Выйти</span>
         </div>
       </nav>

@@ -15,7 +15,7 @@ const MessageForm = (props) => {
       render={({ handleSubmit, form }) => (
         <form className={s.form} onSubmit={(e) => {
             const promise = handleSubmit(e);
-            promise.then(() => {
+            promise && promise.then(() => {
                 form.reset();
             })
             return promise;

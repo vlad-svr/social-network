@@ -2,6 +2,7 @@
   position: absolute;
   visibility: visible;
   opacity: 0;
+  display: none;
   top: calc(var(--heightHeader) + 6px);
   right: 9px;
   padding: 5px 0;
@@ -13,6 +14,7 @@
 }
 
 .active {
+  display: block;
   opacity: 1;
 }
 
