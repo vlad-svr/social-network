@@ -1,6 +1,11 @@
-import {ADD_POST, DELETE_POST, SET_STATUS, SET_USER_PROFILE} from './types'
 import { profileAPI } from '../api/api'
-import { setStatus, setUserProfile } from './actions'
+
+
+const ADD_POST = 'social-network/profile/ADD_POST'
+const DELETE_POST = 'social-network/profile/DELETE_POST'
+const SET_USER_PROFILE = 'social-network/profile/SET_USER_PROFILE'
+const SET_STATUS = 'social-network/profile/SET_STATUS'
+
 
 const initialState = {
   posts: [
@@ -21,10 +26,7 @@ function profileReducer(state = initialState, action) {
         likesCount: 0,
       }
 
-      return {
-        ...state,
-        posts: [...state.posts, newPost],
-      }
+      return {...state, posts: [...state.posts, newPost]}
 
     case DELETE_POST:
       return {
@@ -43,29 +45,54 @@ function profileReducer(state = initialState, action) {
   }
 }
 
+
+export const setStatus = (status) => ({type: SET_STATUS, status})
+
+export const setUserProfile = (data) => ({
+  type: SET_USER_PROFILE,
+  profile: data,
+})
+
+export const addPost = (newPost) => ({type: ADD_POST, newPost})
+
+export const deletePost = (idPost) => ({
+  type: DELETE_POST,
+  id: idPost
+})
+
+
 export function getUserProfile(userId) {
-  return (dispatch) => {
-    profileAPI.getProfile(userId).then((data) => {
+  return async (dispatch) => {
+    try {
+      const data = await profileAPI.getProfile(userId)
       dispatch(setUserProfile(data))
-    })
+    } catch (e) {
+      throw Error(e)
+    }
   }
 }
 
 export function getStatus(userId) {
-  return (dispatch) => {
-    profileAPI.getUserStatus(userId).then((data) => {
+  return async (dispatch) => {
+    try {
+      const data = await profileAPI.getUserStatus(userId)
       dispatch(setStatus(data))
-    })
+    } catch (e) {
+      throw Error(e)
+    }
   }
 }
 
 export function updateStatus(status) {
-  return (dispatch) => {
-    profileAPI.updateStatus(status).then((data) => {
+  return async (dispatch) => {
+    try {
+      const data = await profileAPI.updateStatus(status)
       if (data.resultCode === 0) {
         dispatch(setStatus(status))
       }
-    })
+    } catch (e) {
+      throw Error(e)
+    }
   }
 }
 

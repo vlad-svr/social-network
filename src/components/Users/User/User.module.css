@@ -1,0 +1,34 @@
+.users_card {
+    padding: 15px 0;
+    font-size: 0.82em;
+    text-align: left;
+    border-top: 1px solid var(--steel_gray_80);
+    display: flex;
+    justify-content: space-between;
+}
+
+.users_card:first-child {
+    border-top: none;
+}
+
+.users_info {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto 0 20px;
+}
+
+.label {
+    margin-bottom: 6px;
+    color: var(--gray_600);
+}
+
+.name {
+    color: var(--colorText);
+    font-weight: 700;
+}
+
+.name:hover {
+    text-decoration: underline;
+}
+
+

@@ -1,5 +1,5 @@
-import profileReducer from './profile-reducer';
-import {addPost, deletePost} from './actions';
+import profileReducer, {addPost, deletePost} from './profile-reducer';
+
 
 const state = {
   posts: [
@@ -10,7 +10,6 @@ const state = {
 }
 
 describe('Profile-reducer:', () => {
-
   let action = addPost('Testing...')
   let newState = profileReducer(state, action)
 
@@ -44,6 +43,3 @@ describe('Profile-reducer:', () => {
     expect(newState.posts).toHaveLength(3)
   })
 })
-
-
-

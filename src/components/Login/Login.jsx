@@ -6,18 +6,19 @@ import { login } from '../../redux/auth-reducer'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
-const Login = (props) => {
+
+const Login = ({login, isAuth, captcha}) => {
   function onSubmit(formData) {
     const { email, password, rememberMe, captcha } = formData
-    return props.login(email, password, rememberMe, JSON.stringify(captcha))
+    return login(email, password, rememberMe, JSON.stringify(captcha))
   }
 
-  if (props.isAuth) return <Redirect to="/profile" />
+  if (isAuth) return <Redirect to="/profile" />
   return (
     <div className={s.container}>
       <div className={'card ' + s.card_login}>
         <h1 className={s.title}>Login</h1>
-        <LoginForm captcha={props.captcha} onSubmit={onSubmit} />
+        <LoginForm captcha={captcha} onSubmit={onSubmit} />
       </div>
     </div>
   )

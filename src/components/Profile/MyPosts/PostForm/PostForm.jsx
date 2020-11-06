@@ -16,9 +16,7 @@ const PostForm = (props) => {
       render={({ handleSubmit, form, submitting}) => (
         <form className={s.form} onSubmit={(e) => {
             const promise = handleSubmit(e);
-            promise && promise.then(() => {
-                form.reset();
-            })
+            promise && promise.then(() => form.reset())
             return promise;
         }}>
           <Field

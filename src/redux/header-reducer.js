@@ -1,4 +1,5 @@
-import { TOGGLE_PROFILE_MENU } from './types'
+const TOGGLE_PROFILE_MENU = 'social-network/header/TOGGLE_MENU'
+
 
 const initialState = {
   profileMenu: false,
@@ -16,5 +17,9 @@ function headerReducer(state = initialState, action) {
       return state
   }
 }
+
+
+export const toggleProfileMenu = (data) => ({type: TOGGLE_PROFILE_MENU, data})
+
 
 export default headerReducer

@@ -1,10 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {
-    toggleFollowingInProgress
-} from '../../redux/actions';
 import Users from './Users';
-import {follow, requestUsers, unfollow} from '../../redux/users-reducer';
+import {requestUsers, toggleFollow, toggleFollowingInProgress} from '../../redux/users-reducer';
 import {compose} from 'redux';
 import {
     getCurrentPage,
@@ -14,7 +11,6 @@ import {
     getTotalUsersCount,
     getUsers
 } from '../../redux/users-selectors';
-
 
 
 class UsersContainer extends React.Component {
@@ -30,8 +26,7 @@ class UsersContainer extends React.Component {
                 currentPage={this.props.currentPage}
                 onPageChanged={this.onPageChanged}
                 users={this.props.users}
-                unfollow={this.props.unfollow}
-                follow={this.props.follow}
+                toggleFollow={this.props.toggleFollow}
                 isFetching={this.props.isFetching}
                 followingInProgress={this.props.followingInProgress}
             />
@@ -50,10 +45,9 @@ function mapStateToProps(state) {
     }
 }
 
-
 export default compose(
     connect(mapStateToProps,
-        {follow, unfollow,
+        {toggleFollow,
     toggleFollowingInProgress, requestUsers
     }),
 ) (UsersContainer)

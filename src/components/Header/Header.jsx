@@ -11,7 +11,6 @@ const Header = (props) => {
         <div
           onClick={props.toggleProfileMenu}
           className={s.profile + ' ' + (props.isMenuActive && s.active)}
-          to="/"
         >
           <span className={s.login}>{props.login}</span>
           <img
@@ -28,6 +27,7 @@ const Header = (props) => {
         </div>
       )
     }
+
     return (
       <NavLink className={s.profile} to="/login">
         <span className={s.login}>Войти</span>

@@ -14,21 +14,17 @@ import {initializeApp} from './redux/app-reducer';
 import Preloader from './components/common/Preloader/Preloader';
 
 class App extends React.Component {
-    componentDidMount = () => {
-        this.props.initializeApp()
-    }
+    componentDidMount = () => this.props.initializeApp()
 
     render() {
-        if (!this.props.initialized) {
-            return <Preloader />
-        }
+        if (!this.props.initialized) return <Preloader />
+
         return (
             <div>
                 <HeaderContainer />
                 <div className="wrapper">
                     <div className="container">
                         <Navbar />
-                        {/*<Route path="/profile" render={() => <ProfileContainer />} />*/}
                         <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
                         <Route exact path="/dialogs" render={() => <DialogsContainer />} />
                         <Route path="/users" render={() => <UsersContainer />} />

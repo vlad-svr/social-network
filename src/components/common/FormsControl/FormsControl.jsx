@@ -1,22 +1,21 @@
 import React from 'react'
 import s from './FormsControl.module.css'
 
-const FormControl = ({ input, meta, children, ...props }) => {
-  const error = (meta.error || meta.submitError) && meta.touched && input.value
+const FormControl = ({ input, meta: {error, submitError, touched}, children }) => {
+  const hasError = (error || submitError) && touched && input.value
   return (
-    <div className={s.form_control + ' ' + (error ? s.error : '')}>
+    <div className={s.form_control + ' ' + (hasError ? s.error : '')}>
       {children}
-      {error ? (
-        <span className={s.span}>{meta.error || meta.submitError}</span>
-      ) : (
-        ''
-      )}
+      {hasError
+        ? <span className={s.span}>{error || submitError}</span>
+        : ''}
     </div>
   )
 }
 
 export const Textarea = (props) => {
   const { input, meta, children, ...restProps } = props
+
   return (
     <FormControl {...props}>
       <textarea {...input} {...restProps} />
