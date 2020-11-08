@@ -1,20 +1,31 @@
-import React from 'react'
-import './App.css'
-import Navbar from './components/Navbar/Navbar'
-import Audio from './components/Audio/Audio'
-import News from './components/News/News'
+import React, {Suspense} from 'react'
 import { Route } from 'react-router-dom'
-import DialogsContainer from './components/Dialogs/DialogsContainer'
-import UsersContainer from './components/Users/UsersContainer'
-import ProfileContainer from './components/Profile/ProfileContainer'
-import HeaderContainer from './components/Header/HeaderContainer'
-import Login from './components/Login/Login'
-import {connect} from 'react-redux';
-import {initializeApp} from './redux/app-reducer';
-import Preloader from './components/common/Preloader/Preloader';
-import store from './redux/redux-store';
+import './App.css'
 import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
+import {connect} from 'react-redux';
+import store from './redux/redux-store';
+import {initializeApp} from './redux/app-reducer';
+import HeaderContainer from './components/Header/HeaderContainer'
+import Navbar from './components/Navbar/Navbar'
+// import Audio from './components/Audio/Audio'
+// import News from './components/News/News'
+// import DialogsContainer from './components/Dialogs/DialogsContainer'
+// import UsersContainer from './components/Users/UsersContainer'
+// import ProfileContainer from './components/Profile/ProfileContainer'
+// import Login from './components/Login/Login'
+import Preloader from './components/common/Preloader/Preloader';
+
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const Login = React.lazy(() => import('./components/Login/Login'));
+const News = React.lazy(() => import('./components/News/News'));
+const Audio = React.lazy(() => import('./components/Audio/Audio'));
+const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
+
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+
+
+
 
 class App extends React.Component {
     componentDidMount = () => this.props.initializeApp()
@@ -28,12 +39,14 @@ class App extends React.Component {
                 <div className="wrapper">
                     <div className="container">
                         <Navbar />
-                        <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-                        <Route exact path="/dialogs" render={() => <DialogsContainer />} />
-                        <Route path="/users" render={() => <UsersContainer />} />
-                        <Route path="/news" component={News} />
-                        <Route path="/audio" component={Audio} />
-                        <Route path="/login" render={() => <Login />} />
+                        <Suspense fallback={<Preloader />}>
+                            <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+                            <Route exact path="/dialogs" render={() => <DialogsContainer />} />
+                            <Route path="/users" render={() => <UsersContainer />} />
+                            <Route path="/news" component={News} />
+                            <Route path="/audio" component={Audio} />
+                            <Route path="/login" render={() => <Login />} />
+                        </Suspense>
                     </div>
                 </div>
             </div>

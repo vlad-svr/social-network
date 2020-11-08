@@ -21,7 +21,7 @@ const Users = (props) => {
                 <div className={s.search}>
                     Search
                 </div>
-                <div className={s.search + ' ' + s.pagination}>
+                <div className={s.search}>
                     <Paginator
                         currentPage={props.currentPage}
                         onPageChanged={props.onPageChanged}

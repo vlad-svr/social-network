@@ -25,19 +25,13 @@
 
 .search {
     display: flex;
+    justify-content: center;
     align-items: center;
     height: 45px;
     padding: 0 20px;
-    line-height: 54px;
     font-size: 1rem;
     color: black;
     border-bottom: 1px solid var(--steel_gray_80);
-}
-
-.pagination {
-    overflow-x: auto;
-    overflow-y: hidden;
-    height: 71px;
 }
 
 .users_list {
