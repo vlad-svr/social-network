@@ -10,10 +10,10 @@ import {
   required,
 } from '../../../utils/validators'
 
-const LoginForm = (props) => {
+const LoginForm = ({onSubmit, captcha}) => {
   return (
     <Form
-      onSubmit={props.onSubmit}
+      onSubmit={onSubmit}
       render={({ submitError, handleSubmit, hasValidationErrors, submitting }) => {
         return (
           <form onSubmit={handleSubmit}>
@@ -41,9 +41,9 @@ const LoginForm = (props) => {
                 component={Input}
               />
             </div>
-            {props.captcha && (
+            {captcha && (
               <div className={s.item}>
-                <img className={s.captcha} src={props.captcha} alt="Captcha" />
+                <img className={s.captcha} src={captcha} alt="Captcha" />
                 <Field
                   name="captcha"
                   className={'input ' + s.input_login}

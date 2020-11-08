@@ -8,16 +8,14 @@ import {
 import { Textarea } from '../../common/FormsControl/FormsControl'
 import s from './MessageForm.module.css'
 
-const MessageForm = (props) => {
+const MessageForm = ({onSubmit}) => {
   return (
     <Form
-      onSubmit={props.onSubmit}
+      onSubmit={onSubmit}
       render={({ handleSubmit, form }) => (
         <form className={s.form} onSubmit={(e) => {
             const promise = handleSubmit(e);
-            promise && promise.then(() => {
-                form.reset();
-            })
+            promise && promise.then(() => form.reset())
             return promise;
         }}>
           <Field

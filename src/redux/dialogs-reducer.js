@@ -1,4 +1,5 @@
-import { SEND_MESSAGE } from './types'
+const SEND_MESSAGE = 'social-network/dialogs/SEND_MESSAGE'
+
 
 const initialState = {
   messages: [
@@ -40,5 +41,10 @@ function dialogsReducer(state = initialState, action) {
       return state
   }
 }
+
+export const sendMessage = (newMessage) => ({
+  type: SEND_MESSAGE,
+  newMessage,
+})
 
 export default dialogsReducer

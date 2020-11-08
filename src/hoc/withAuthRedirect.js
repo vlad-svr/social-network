@@ -8,13 +8,13 @@ function mapStateToPropsForRedirect(state) {
     }
 }
 
-export function withAuthRedirect(WrappedComponent, props) {
+export function withAuthRedirect(WrappedComponent) {
     class RedirectComponent extends React.Component {
         render() {
             if (!this.props.isAuth) return <Redirect to="/login" />
             return <WrappedComponent {...this.props} />;
         }
-    };
+    }
 
     return connect(mapStateToPropsForRedirect)(RedirectComponent)
 }

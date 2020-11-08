@@ -5,13 +5,9 @@ const ProfileStatus = (props) => {
     const [editMode, setEditMode] = useState(false)
     const [status, setStatus] = useState(props.status)
 
-    useEffect(() => {
-        setStatus(props.status)
-    }, [props.status])
+    useEffect(() => setStatus(props.status), [props.status])
 
-    const onActivateEditMode = () => {
-        setEditMode(true)
-    }
+    const onActivateEditMode = () => setEditMode(true)
 
     const onDeactivateEditMode = () => {
         setEditMode(false)
@@ -20,9 +16,7 @@ const ProfileStatus = (props) => {
 
     const onClickEnter = e => e.key !== 'Enter' || onDeactivateEditMode()
 
-    const onStatusChange = (e) => {
-        setStatus(e.currentTarget.value.trim())
-    }
+    const onStatusChange = (e) => setStatus(e.currentTarget.value.trim())
 
     const myStatus = (
         <span onClick={onActivateEditMode} className={s.status + ' ' + s.my}>
@@ -34,9 +28,7 @@ const ProfileStatus = (props) => {
         <span
             onClick={onActivateEditMode}
             className={s.status + ' ' + s.my + ' ' + s.no_status}
-        >
-            изменить статус
-        </span>
+        >изменить статус</span>
     )
 
     // const status = (

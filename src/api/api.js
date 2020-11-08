@@ -20,6 +20,10 @@ export const usersAPI = {
       .then(getData)
   },
 
+  checkFollower(id) {
+    return instance.get(`/follow/${id}`).then(getData)
+  },
+
   follow(id) {
     return instance.post(`/follow/${id}`).then(getData)
   },
