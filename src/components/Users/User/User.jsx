@@ -2,6 +2,7 @@ import React from 'react';
 import s from './User.module.css';
 import userPhoto from '../../../assets/images/no-avatar.png';
 import {NavLink} from 'react-router-dom';
+import {userNameToUpperCase} from '../../../utils/core';
 
 
 const User = ({user: u, followingInProgress, toggleFollow}) => {
@@ -12,7 +13,9 @@ const User = ({user: u, followingInProgress, toggleFollow}) => {
             </NavLink>
             <div className={s.users_info}>
                 <div className={s.label}>
-                    <NavLink to={'/profile/' + u.id} className={"link_normalize " + s.name}>{u.name}</NavLink>
+                    <NavLink to={'/profile/' + u.id} className={"link_normalize " + s.name}>
+                        {userNameToUpperCase(u.name)}
+                    </NavLink>
                 </div>
                 <span className={s.label}>{`user.location.city, user.location.country`}</span>
                 <span className={s.label}>{u.status}</span>

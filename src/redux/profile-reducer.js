@@ -1,10 +1,17 @@
 import { profileAPI } from '../api/api'
+import {FORM_ERROR} from 'final-form';
 
 
 const ADD_POST = 'social-network/profile/ADD_POST'
 const DELETE_POST = 'social-network/profile/DELETE_POST'
 const SET_USER_PROFILE = 'social-network/profile/SET_USER_PROFILE'
 const SET_STATUS = 'social-network/profile/SET_STATUS'
+const SAVE_PHOTO_SUCCESS = 'social-network/profile/SAVE_PHOTO_SUCCESS'
+const TOGGLE_IS_FETCHING = 'social-network/users/TOGGLE_IS_FETCHING'
+const EDIT_MODE_PROFILE = 'social-network/users/EDIT_MODE_PROFILE'
+
+
+
 
 
 const initialState = {
@@ -15,6 +22,8 @@ const initialState = {
   ],
   profile: null,
   status: '',
+  isFetching: false,
+  editModeProfile: false
 }
 
 function profileReducer(state = initialState, action) {
@@ -40,6 +49,18 @@ function profileReducer(state = initialState, action) {
     case SET_STATUS:
       return { ...state, status: action.status }
 
+    case SAVE_PHOTO_SUCCESS:
+      return {
+        ...state,
+        profile: {...state.profile, photos: action.photos}
+      }
+
+    case TOGGLE_IS_FETCHING:
+      return {...state, isFetching: action.isFetching}
+
+    case EDIT_MODE_PROFILE:
+      return {...state, editModeProfile: action.editModeProfile}
+
     default:
       return state
   }
@@ -59,6 +80,13 @@ export const deletePost = (idPost) => ({
   type: DELETE_POST,
   id: idPost
 })
+
+const savePhotoSuccess = (photos) => ({type: SAVE_PHOTO_SUCCESS, photos})
+
+const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
+
+export const editModeProfile = (editModeProfile) => ({type: EDIT_MODE_PROFILE, editModeProfile})
+
 
 
 export function getUserProfile(userId) {
@@ -95,5 +123,38 @@ export function updateStatus(status) {
     }
   }
 }
+
+export function savePhoto(photo) {
+  return async (dispatch) => {
+    try {
+      dispatch(toggleIsFetching(true))
+      const data = await profileAPI.savePhoto(photo)
+      if (data.resultCode === 0) {
+        dispatch(savePhotoSuccess(data.data.photos))
+        dispatch(toggleIsFetching(false))
+      }
+    } catch (e) {
+      throw Error(e)
+    }
+  }
+}
+
+export function saveProfile(profile) {
+  return async (dispatch, getState) => {
+    try {
+      const data = await profileAPI.saveProfile(profile)
+      if (data.resultCode === 0) {
+        dispatch(getUserProfile(getState().auth.userId))
+        dispatch(editModeProfile(false))
+      } else if (data.resultCode === 1) {
+        return { [FORM_ERROR]: data.messages[0] }
+      }
+    } catch (e) {
+      throw Error(e)
+    }
+  }
+}
+
+
 
 export default profileReducer

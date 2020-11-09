@@ -1,15 +1,17 @@
 import React from 'react'
+import cn from 'classnames'
 import s from './ProfileInfo.module.css'
 import ProfileStatus from './ProfileStatus/ProfileStatus';
+import {userNameToUpperCase} from '../../../utils/core';
 
-const ContactItem = ({item, hasContact}) => {
+const ContactItem = ({contactTitle, contactValue}) => {
     return (
-        <div className={s.row}>
+        <div className={s.contact}>
             <div className={s.label}>
-                {item[0].toUpperCase() + item.slice(1)}
+                {contactTitle[0].toUpperCase() + contactTitle.slice(1)}
             </div>
             <div className={s.labeled}>
-                {hasContact || 'Не указано'}
+                {contactValue || 'Не указано'}
             </div>
         </div>
     )
@@ -20,33 +22,31 @@ const ProfileInfo = (props) => {
     <div className={s.main_profile_info}>
       <div className={s.item}>
         <div>
-          <h1 className="h1">{props.fullName}</h1>
+          <h1 className="h1">{userNameToUpperCase(props.fullName)}</h1>
         </div>
-        <ProfileStatus
-          status={props.status}
-          updateStatus={props.updateStatus}
-        />
+        <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
       </div>
       <div className={s.item}>
-        {Object.keys(props.contacts).map((item, ind) => {
-          const hasContact = props.contacts[item] || false
-          // if (!hasContact) return false
-          return <ContactItem key={ind} item={item} hasContact={hasContact}/>
-        })}
-        {props.lookingForAJob
-            ? <div className={s.row}>
-                <div className={s.label}>Ищу работу:</div>
-                <div className={s.labeled}>
-                  {props.lookingForAJobDescription || ''}
-                </div>
+          {<div className={s.row}>
+              <div className={s.label}>Ищу работу:</div>
+              <div className={s.labeled}>
+                  {props.lookingForAJob ? 'Да' : 'Нет'}
               </div>
-            : ''}
-        {props.aboutMe
-            ? <div className={s.row}>
-                <div className={s.label}>Обо мне:</div>
-                <div className={s.labeled}>{props.aboutMe}</div>
-              </div>
-            : ''}
+          </div>}
+          <div className={s.row}>
+            <div className={s.label}>Мои профессиональные скиллы:</div>
+            <div className={s.labeled}>
+                {props.lookingForAJobDescription || 'Не указано'}
+            </div>
+          </div>
+          <div className={s.row}>
+            <div className={s.label}>Обо мне:</div>
+            <div className={s.labeled}>{props.aboutMe || 'Не указано'}</div>
+          </div>
+          <div className={cn(s.label, s.contact_title)}>Контакты:</div>
+          {Object.keys(props.contacts).map((item, ind) => {
+              return <ContactItem key={ind} contactTitle={item} contactValue={props.contacts[item]}/>
+          })}
       </div>
     </div>
   )

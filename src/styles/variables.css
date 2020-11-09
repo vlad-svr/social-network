@@ -3,11 +3,13 @@
   --black: #000000;
   --mainColor: #4a76a8;
   --colorText: #2a5885;
+  --colorTextModal: #000000;
   --backgroundBody: #edeef0;
   --backgroundComponent: #fff;
   --steel_gray_140: #c5d0db;
   --steel_gray_120: #d3d9de;
   --steel_gray_80: #e7e8ec;
+  --steel_gray_40: #f0f2f5;
   --steel_gray_10: #fafbfc;
   --textGray: #828282;
   --buttonBg: #5181b8;
@@ -17,7 +19,6 @@
   --black_alpha8: rgba(0, 0, 0, 0.08);
   --blue_980_alpha12: rgba(0, 20, 51, 0.12);
   --buttonDisabled: rgba(81, 129, 184, 0.8);
-  --steel_gray_40: #f0f2f5;
   --black_alpha12: rgba(0, 0, 0, 0.12);
   --light_blue_40: #e5ebf1;
 

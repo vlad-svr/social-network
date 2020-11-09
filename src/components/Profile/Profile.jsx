@@ -8,28 +8,44 @@ import ProfileInfo from './ProfileInfo/ProfileInfo'
 import Photos from './Photos/Photos'
 import MyPostsContainer from './MyPosts/MyPostsContainer'
 import Preloader from '../common/Preloader/Preloader'
+import ProfileEditForm from './ProfileInfo/ProfileEdit/ProfileEditForm';
+
 
 const Profile = (props) => {
   if (!props.profile) return <Preloader />
 
+
   return (
     <div className={s.main}>
       <div className={'card ' + s.avatar}>
-        <Avatar avatar={props.profile.photos.large} />
+        <Avatar
+            savePhoto={props.savePhoto}
+            isOwner={props.isOwner}
+            avatar={props.profile.photos.large}
+            isFetching={props.isFetching}
+            userId={props.profile.userId}
+            editModeProfile={props.editModeProfile}
+        />
       </div>
       <div className={'card ' + s.friends}>
         <Friends />
       </div>
       <div className={'card ' + s.profile_info}>
-        <ProfileInfo
-          fullName={props.profile.fullName}
-          contacts={props.profile.contacts}
-          aboutMe={props.profile.aboutMe}
-          lookingForAJob={props.profile.lookingForAJob}
-          lookingForAJobDescription={props.profile.lookingForAJobDescription}
-          status={props.status}
-          updateStatus={props.updateStatus}
-        />
+          {!props.isEditModeProfile
+              ? <ProfileInfo
+                      fullName={props.profile.fullName}
+                      contacts={props.profile.contacts}
+                      aboutMe={props.profile.aboutMe}
+                      lookingForAJob={props.profile.lookingForAJob}
+                      lookingForAJobDescription={props.profile.lookingForAJobDescription}
+                      status={props.status}
+                      updateStatus={props.updateStatus}
+                  />
+              : <ProfileEditForm
+                  profile={props.profile}
+                  saveProfile={props.saveProfile}
+                  editModeProfile={props.editModeProfile}
+              />}
       </div>
       <div className={'card ' + s.photos}>
         <Photos photos={props.profile.photos} />

@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+h3 {
+  margin: 0;
+  padding: 0;
+}
+
 .scroll-fix {
   margin-left: calc(100vw - 100%);
   margin-right: 0;
@@ -72,6 +77,7 @@ body {
 .button_blue:hover,
 .button_gray:hover {
   background-color: var(--buttonDisabled);
+  color: var(--white);
 }
 
 .button_gray {
@@ -148,6 +154,10 @@ h1 {
 }
 
 input[type='checkbox'] {
+  cursor: pointer;
+}
+
+input[type='radio'] {
   cursor: pointer;
   position: relative;
   top: 1.5px;

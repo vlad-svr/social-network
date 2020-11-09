@@ -1,0 +1,79 @@
+.edit_profile {
+  color: var(--gray_600)
+}
+
+.title {
+  margin-bottom: 20px;
+  background: var(--steel_gray_10);
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--steel_gray_80);
+  border-radius: 4px 4px 0 0;
+  color: var(--gray_600);
+}
+
+.span {
+  margin: 10px 20px;
+  width: auto;
+}
+
+.checkbox_row {
+  display: flex;
+  width: auto;
+}
+
+.title_field {
+  display: block;
+  white-space: nowrap;
+  margin-right: 10px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 0 15px;
+}
+
+.textarea {
+  border: 1px solid var(--steel_gray_120);
+}
+
+.column {
+  flex-direction: column;
+}
+
+.title_column_field {
+  display: block;
+  white-space: nowrap;
+  margin-bottom: 10px;
+}
+
+.contact_title {
+  background: var(--steel_gray_10);
+  border-top: 1px solid var(--steel_gray_80);
+  border-bottom: 1px solid var(--steel_gray_80);
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
+
+.label {
+  display: flex;
+  cursor: pointer;
+}
+
+.label:first-child {
+  margin: 0 10px;
+}
+
+.control {
+  margin: 0 20px;
+  display: flex;
+  padding: 15px;
+  justify-content: center;
+  border-top: 1px solid var(--steel_gray_80);
+}
+
+.submit {
+  margin-right: 10px;
+}
+

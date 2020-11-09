@@ -12,8 +12,18 @@
   padding-top: 0;
 }
 
-.row {
+.row, .contact {
   display: flex;
+}
+
+.contact {
+  padding-left: 10px;
+}
+
+.contact_title {
+  border-top: 1px solid var(--steel_gray_80);
+  margin-top: 10px;
+  padding-top: 5px;
 }
 
 .label {
