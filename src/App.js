@@ -8,20 +8,12 @@ import store from './redux/redux-store';
 import {initializeApp} from './redux/app-reducer';
 import HeaderContainer from './components/Header/HeaderContainer'
 import Navbar from './components/Navbar/Navbar'
-// import Audio from './components/Audio/Audio'
-// import News from './components/News/News'
-// import DialogsContainer from './components/Dialogs/DialogsContainer'
-// import UsersContainer from './components/Users/UsersContainer'
-// import ProfileContainer from './components/Profile/ProfileContainer'
-// import Login from './components/Login/Login'
 import Preloader from './components/common/Preloader/Preloader';
-
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const Login = React.lazy(() => import('./components/Login/Login'));
 const News = React.lazy(() => import('./components/News/News'));
 const Audio = React.lazy(() => import('./components/Audio/Audio'));
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
-
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 
 
@@ -64,7 +56,7 @@ const AppContainer = connect(mapStateToProps, {initializeApp}) (App)
 
 const MainApp = () => {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Provider store={store}>
                 <AppContainer />
             </Provider>
