@@ -2,7 +2,7 @@ import React from 'react'
 import cn from 'classnames'
 import s from './ProfileInfo.module.css'
 import ProfileStatus from './ProfileStatus/ProfileStatus';
-import {userNameToUpperCase} from '../../../utils/core';
+import {stringsToUpperCase} from '../../../utils/core';
 
 const ContactItem = ({contactTitle, contactValue}) => {
     return (
@@ -21,8 +21,8 @@ const ProfileInfo = (props) => {
   return (
     <div className={s.main_profile_info}>
       <div className={s.item}>
-        <div>
-          <h1 className="h1">{userNameToUpperCase(props.fullName)}</h1>
+        <div className={s.fullname}>
+          <h1 className="h1">{stringsToUpperCase(props.fullName)}</h1>
         </div>
         <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
       </div>
@@ -34,7 +34,7 @@ const ProfileInfo = (props) => {
               </div>
           </div>}
           <div className={s.row}>
-            <div className={s.label}>Мои профессиональные скиллы:</div>
+            <div className={s.label}>Проф. скиллы:</div>
             <div className={s.labeled}>
                 {props.lookingForAJobDescription || 'Не указано'}
             </div>

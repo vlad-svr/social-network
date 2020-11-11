@@ -24,12 +24,12 @@
 .title_field {
   display: block;
   white-space: nowrap;
-  margin-right: 10px;
+  width: 120px;
 }
 
 .item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 15px;
   padding: 0 15px;
 }

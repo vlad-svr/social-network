@@ -1,5 +1,7 @@
 import { profileAPI } from '../api/api'
 import {FORM_ERROR} from 'final-form';
+import {firstLetterToLowerCase} from '../utils/core';
+import React from 'react';
 
 
 const ADD_POST = 'social-network/profile/ADD_POST'
@@ -147,7 +149,15 @@ export function saveProfile(profile) {
         dispatch(getUserProfile(getState().auth.userId))
         dispatch(editModeProfile(false))
       } else if (data.resultCode === 1) {
-        return { [FORM_ERROR]: data.messages[0] }
+        const messages = data.messages.map((msg, ind) => <span key={ind}>{msg}</span>)
+        const fieldsErrors = data.messages.reduce((acc, msg) => {
+          const index = msg.indexOf('->') + 2
+          const contact = firstLetterToLowerCase(msg.slice(index, -1))
+          acc[contact] = true
+          return acc
+        }, {})
+        debugger
+        return { [FORM_ERROR]: messages, contacts: fieldsErrors }
       }
     } catch (e) {
       throw Error(e)
