@@ -15,7 +15,6 @@ const EDIT_MODE_PROFILE = 'social-network/users/EDIT_MODE_PROFILE'
 
 
 
-
 const initialState = {
   posts: [
     { id: 1, message: 'Hi, how  are you?', likesCount: 123 },
@@ -30,6 +29,12 @@ const initialState = {
 
 function profileReducer(state = initialState, action) {
   switch (action.type) {
+    case SET_USER_PROFILE:
+    case SET_STATUS:
+    case TOGGLE_IS_FETCHING:
+    case EDIT_MODE_PROFILE:
+      return { ...state, ...action.payload }
+
     case ADD_POST:
       const newPost = {
         id: state.posts.length + 1,
@@ -45,23 +50,11 @@ function profileReducer(state = initialState, action) {
         posts: state.posts.filter(p => p.id !== action.id)
       }
 
-    case SET_USER_PROFILE:
-      return { ...state, profile: action.profile }
-
-    case SET_STATUS:
-      return { ...state, status: action.status }
-
     case SAVE_PHOTO_SUCCESS:
       return {
         ...state,
         profile: {...state.profile, photos: action.photos}
       }
-
-    case TOGGLE_IS_FETCHING:
-      return {...state, isFetching: action.isFetching}
-
-    case EDIT_MODE_PROFILE:
-      return {...state, editModeProfile: action.editModeProfile}
 
     default:
       return state
@@ -69,25 +62,19 @@ function profileReducer(state = initialState, action) {
 }
 
 
-export const setStatus = (status) => ({type: SET_STATUS, status})
+export const setStatus = (status) => ({type: SET_STATUS, payload: {status}})
 
-export const setUserProfile = (data) => ({
-  type: SET_USER_PROFILE,
-  profile: data,
-})
+export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, payload: {profile}})
 
 export const addPost = (newPost) => ({type: ADD_POST, newPost})
 
-export const deletePost = (idPost) => ({
-  type: DELETE_POST,
-  id: idPost
-})
+export const deletePost = (id) => ({type: DELETE_POST, id: id})
 
 const savePhotoSuccess = (photos) => ({type: SAVE_PHOTO_SUCCESS, photos})
 
-const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
+const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, payload: {isFetching}})
 
-export const editModeProfile = (editModeProfile) => ({type: EDIT_MODE_PROFILE, editModeProfile})
+export const editModeProfile = (editModeProfile) => ({type: EDIT_MODE_PROFILE, payload: {editModeProfile}})
 
 
 
@@ -156,7 +143,6 @@ export function saveProfile(profile) {
           acc[contact] = true
           return acc
         }, {})
-        debugger
         return { [FORM_ERROR]: messages, contacts: fieldsErrors }
       }
     } catch (e) {

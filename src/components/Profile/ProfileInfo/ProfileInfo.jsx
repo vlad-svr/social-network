@@ -24,7 +24,11 @@ const ProfileInfo = (props) => {
         <div className={s.fullname}>
           <h1 className="h1">{stringsToUpperCase(props.fullName)}</h1>
         </div>
-        <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+        <ProfileStatus
+            isOwner={props.isOwner}
+            status={props.status}
+            updateStatus={props.updateStatus}
+        />
       </div>
       <div className={s.item}>
           {<div className={s.row}>

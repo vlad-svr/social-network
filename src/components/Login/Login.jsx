@@ -7,10 +7,10 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 
-const Login = ({login, isAuth, captcha}) => {
+const Login = ({login, isAuth, captchaUrl}) => {
   function onSubmit(formData) {
     const { email, password, rememberMe, captcha } = formData
-    return login(email, password, rememberMe, JSON.stringify(captcha))
+    return login(email, password, rememberMe, captcha)
   }
 
   if (isAuth) return <Redirect to="/profile" />
@@ -18,7 +18,7 @@ const Login = ({login, isAuth, captcha}) => {
     <div className={s.container}>
       <div className={'card ' + s.card_login}>
         <h1 className={s.title}>Login</h1>
-        <LoginForm captcha={captcha} onSubmit={onSubmit} />
+        <LoginForm captchaUrl={captchaUrl} onSubmit={onSubmit} />
       </div>
     </div>
   )
@@ -27,7 +27,7 @@ const Login = ({login, isAuth, captcha}) => {
 function mapStateToProps(state) {
   return {
     isAuth: state.auth.isAuth,
-    captcha: state.auth.captcha,
+    captchaUrl: state.auth.captchaUrl,
   }
 }
 

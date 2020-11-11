@@ -18,22 +18,22 @@ const ProfileStatus = (props) => {
 
     const onStatusChange = (e) => setStatus(e.currentTarget.value.trim())
 
-    const myStatus = (
+    const myStatusNotEmpty = (
         <span onClick={onActivateEditMode} className={s.status + ' ' + s.my}>
             {props.status}
         </span>
     )
 
-    const noMyStatus = (
+    const myStatusEmpty = (
         <span
             onClick={onActivateEditMode}
             className={s.status + ' ' + s.my + ' ' + s.no_status}
         >изменить статус</span>
     )
 
-    // const status = (
-    //   <span className={s.status}>{props.status}</span>
-    // )
+    const notMyStatus = (
+      <span className={s.status}>{props.status}</span>
+    )
 
     const statusInput = (
         <div className={s.editor_container}>
@@ -50,9 +50,10 @@ const ProfileStatus = (props) => {
         </div>
     )
 
+    if (!props.isOwner) return props.status && notMyStatus
     return (
         <div>
-            {props.status ? myStatus : noMyStatus}
+            {props.status ? myStatusNotEmpty : myStatusEmpty}
             {editMode ? statusInput : ''}
         </div>
     )

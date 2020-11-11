@@ -40,6 +40,7 @@ const Profile = (props) => {
                       lookingForAJobDescription={props.profile.lookingForAJobDescription}
                       status={props.status}
                       updateStatus={props.updateStatus}
+                      isOwner={props.isOwner}
                   />
               : <ProfileEditForm
                   profile={props.profile}

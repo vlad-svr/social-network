@@ -1,5 +1,6 @@
 import React from 'react'
 import styleFormControl from '../../common/FormsControl/FormsControl.module.css'
+import cn from 'classnames'
 import s from './LoginForm.module.css'
 import { Form, Field } from 'react-final-form'
 import { Input } from '../../common/FormsControl/FormsControl'
@@ -10,17 +11,21 @@ import {
   required,
 } from '../../../utils/validators'
 
-const LoginForm = ({onSubmit, captcha}) => {
+const LoginForm = ({onSubmit, captchaUrl}) => {
   return (
     <Form
       onSubmit={onSubmit}
-      render={({ submitError, handleSubmit, hasValidationErrors, submitting }) => {
+      render={({ submitError, form, handleSubmit, hasValidationErrors, submitting }) => {
         return (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={(e) => {
+              const promise = handleSubmit(e);
+              promise && promise.then(() => form.change('captcha', undefined))
+              return promise;
+          }}>
             <div className={s.item}>
               <Field
                 name="email"
-                className={'input ' + s.input_login}
+                className={cn('input', s.input_login)}
                 type="text"
                 placeholder="Login"
                 validate={composeValidators(
@@ -34,19 +39,19 @@ const LoginForm = ({onSubmit, captcha}) => {
             <div className={s.item}>
               <Field
                 name="password"
-                className={'input ' + s.input_login}
+                className={cn('input', s.input_login)}
                 type="password"
                 validate={composeValidators(required, minLength(4))}
                 placeholder="Password"
                 component={Input}
               />
             </div>
-            {captcha && (
+            {captchaUrl && (
               <div className={s.item}>
-                <img className={s.captcha} src={captcha} alt="Captcha" />
+                <img className={s.captcha} src={captchaUrl} alt="Captcha" />
                 <Field
                   name="captcha"
-                  className={'input ' + s.input_login}
+                  className={cn('input', s.input_login)}
                   type="text"
                   validate={required}
                   placeholder="Введите что написано на картинке"
@@ -54,10 +59,10 @@ const LoginForm = ({onSubmit, captcha}) => {
                 />
               </div>
             )}
-            <div className={s.item + ' ' + s.control}>
+            <div className={cn(s.item, s.control)}>
               <button
                 disabled={submitting || hasValidationErrors}
-                className={'button_blue ' + s.submit}
+                className={cn('button_blue', s.submit)}
                 type="submit"
               >
                 Войти
@@ -74,7 +79,7 @@ const LoginForm = ({onSubmit, captcha}) => {
             </div>
             {submitError && (
               <div>
-                <span className={styleFormControl.span + ' ' + s.span}>{submitError}</span>
+                <span className={cn(styleFormControl.span, s.span)}>{submitError}</span>
               </div>
             )}
           </form>

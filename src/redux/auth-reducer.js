@@ -1,4 +1,4 @@
-import { authAPI, profileAPI } from '../api/api'
+import {authAPI, profileAPI, securityAPI} from '../api/api'
 import { FORM_ERROR } from 'final-form'
 
 
@@ -11,17 +11,15 @@ const initialState = {
   email: null,
   login: null,
   profile: {},
-  captcha: false,
+  captchaUrl: false,
   isAuth: false,
 }
 
 function authReducer(state = initialState, action) {
   switch (action.type) {
     case SET_AUTH_USER_DATA:
-      return {...state, ...action.payload}
-
     case SET_CAPTCHA:
-      return {...state, captcha: action.captcha}
+      return {...state, ...action.payload}
 
     default:
       return state
@@ -34,7 +32,7 @@ export const setAuthUserData = (userId, email, login, profile, isAuth) => ({
   payload: { userId, email, login, profile, isAuth },
 })
 
-export const setCaptcha = (captcha) => ({type: SET_CAPTCHA, captcha})
+export const setCaptcha = (captchaUrl) => ({type: SET_CAPTCHA, payload: {captchaUrl}})
 
 
 export function getAuthUserData() {
@@ -52,15 +50,22 @@ export function getAuthUserData() {
   }
 }
 
+export function getCaptchaUrl() {
+  return async function (dispatch) {
+    const captcha = await securityAPI.getCaptchaUrl()
+    dispatch(setCaptcha(captcha.url))
+  }
+}
+
 export function login(email, password, rememberMe, captcha) {
   return async (dispatch) => {
     try {
       const data = await authAPI.login(email, password, rememberMe, captcha)
       if (data.resultCode === 0) {
         dispatch(getAuthUserData())
+        dispatch(setCaptcha(null))
       } else if (data.resultCode === 10) {
-        const captcha = await authAPI.captcha()
-        dispatch(setCaptcha(captcha.url))
+        dispatch(getCaptchaUrl())
         return { [FORM_ERROR]: data.messages[0] }
       } else {
         const message =

@@ -7,12 +7,12 @@ import styleFormControl from '../../../common/FormsControl/FormsControl.module.c
 import {stringsToUpperCase} from '../../../../utils/core'
 
 
-const ProfileEditForm = (props) => {
-    const onChangeCancel = () => props.editModeProfile(false)
+const ProfileEditForm = ({profile, editModeProfile, saveProfile}) => {
+    const onChangeCancel = () => editModeProfile(false)
 
     return (
-      <Form initialValues={props.profile}
-            onSubmit={props.saveProfile}
+      <Form initialValues={profile}
+            onSubmit={saveProfile}
             render={({ submitError, handleSubmit, hasValidationErrors, submitting }) => {
       return (
           <form onSubmit={handleSubmit} className={s.edit_profile}>
@@ -74,7 +74,7 @@ const ProfileEditForm = (props) => {
                   />
               </div>
               <div className={cn(s.label, s.contact_title)}><h3>Контакты:</h3></div>
-              {Object.keys(props.profile.contacts).map((key, ind) => {
+              {Object.keys(profile.contacts).map((key, ind) => {
                   return (
                       <div key={ind} className={s.item}>
                           <span className={s.title_field}>{stringsToUpperCase(key)}:</span>
