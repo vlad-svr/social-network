@@ -20,6 +20,11 @@ const initialState = {
 
 function usersReducer(state = initialState, action) {
     switch (action.type) {
+        case CURRENT_PAGE:
+        case TOTAL_USERS:
+        case TOGGLE_IS_FETCHING:
+            return {...state, ...action.payload}
+
         case TOGGLE_FOLLOW:
             return {
                 ...state,
@@ -33,15 +38,6 @@ function usersReducer(state = initialState, action) {
 
         case SET_USERS:
             return {...state, users: [...action.users]}
-
-        case CURRENT_PAGE:
-            return {...state, currentPage: action.page}
-
-        case TOTAL_USERS:
-            return {...state, totalUsersCount: action.totalCount}
-
-        case TOGGLE_IS_FETCHING:
-            return {...state, isFetching: action.isFetching}
 
         case TOGGLE_IS_FOLLOWING_PROGRESS:
             return {
@@ -57,30 +53,15 @@ function usersReducer(state = initialState, action) {
 }
 
 
-const toggleFollowSuccess = (data) => ({
-    type: TOGGLE_FOLLOW,
-    userId: data,
-})
+const toggleFollowSuccess = (userId) => ({type: TOGGLE_FOLLOW, userId})
 
-export const setUsers = (data) => ({
-    type: SET_USERS,
-    users: data,
-})
+export const setUsers = (users) => ({type: SET_USERS, users})
 
-export const setCurrentPage = (data) => ({
-    type: CURRENT_PAGE,
-    page: data,
-})
+export const setCurrentPage = (currentPage) => ({type: CURRENT_PAGE, payload: {currentPage}})
 
-export const setTotalUsersCount = (data) => ({
-    type: TOTAL_USERS,
-    totalCount: data,
-})
+export const setTotalUsersCount = (totalUsersCount) => ({type: TOTAL_USERS, payload: {totalUsersCount}})
 
-const toggleIsFetching = (data) => ({
-    type: TOGGLE_IS_FETCHING,
-    isFetching: data,
-})
+const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, payload: {isFetching}})
 
 export const toggleFollowingInProgress = (data, userId) => ({
     type: TOGGLE_IS_FOLLOWING_PROGRESS,
@@ -99,7 +80,7 @@ export function requestUsers(page, pageSize) {
             dispatch(setUsers(data.items))
             dispatch(setTotalUsersCount(data.totalCount))
         } catch (e) {
-            throw Error(e)
+            throw e
         }
     }
 }
@@ -117,7 +98,7 @@ export function toggleFollow(userId) {
             dispatch(toggleFollowingInProgress(false, userId))
         } catch (e) {
             dispatch(toggleFollowingInProgress(false, userId))
-            console.error(e)
+            throw e
         }
     }
 }

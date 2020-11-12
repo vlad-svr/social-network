@@ -1,4 +1,5 @@
 import React from 'react'
+import cn from 'classnames'
 import s from './Login.module.css'
 import LoginForm from './LoginForm/LoginForm'
 import { compose } from 'redux'
@@ -7,18 +8,18 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 
-const Login = ({login, isAuth, captcha}) => {
+const Login = ({login, isAuth, captchaUrl}) => {
   function onSubmit(formData) {
     const { email, password, rememberMe, captcha } = formData
-    return login(email, password, rememberMe, JSON.stringify(captcha))
+    return login(email, password, rememberMe, captcha)
   }
 
   if (isAuth) return <Redirect to="/profile" />
   return (
     <div className={s.container}>
-      <div className={'card ' + s.card_login}>
+      <div className={cn('card', s.card_login)}>
         <h1 className={s.title}>Login</h1>
-        <LoginForm captcha={captcha} onSubmit={onSubmit} />
+        <LoginForm captchaUrl={captchaUrl} onSubmit={onSubmit} />
       </div>
     </div>
   )
@@ -27,7 +28,7 @@ const Login = ({login, isAuth, captcha}) => {
 function mapStateToProps(state) {
   return {
     isAuth: state.auth.isAuth,
-    captcha: state.auth.captcha,
+    captchaUrl: state.auth.captchaUrl,
   }
 }
 

@@ -1,9 +1,3 @@
-@import './styles/variables.css';
-
-* {
-  box-sizing: border-box;
-}
-
 .scroll-fix {
   margin-left: calc(100vw - 100%);
   margin-right: 0;
@@ -14,15 +8,8 @@
   text-decoration: none;
 }
 
-html {
-  margin-left: calc(100vw - 100%);
-  margin-right: 0;
-}
-
-body {
-  font-size: 14px;
-  color: var(--colorText);
-  background: var(--backgroundBody);
+#root {
+  height: 100vh;
 }
 
 .wrapper {
@@ -66,6 +53,7 @@ body {
 .button_blue:hover,
 .button_gray:hover {
   background-color: var(--buttonDisabled);
+  color: var(--white);
 }
 
 .button_gray {
@@ -78,13 +66,6 @@ body {
   background-color: #e5ebf1;
   color: var(--colorText);
   outline: none;
-}
-
-h1 {
-  font-size: 1.5rem;
-  margin: 0;
-  font-weight: 400;
-  color: var(--black);
 }
 
 .mini_avatar {
@@ -139,12 +120,6 @@ h1 {
   line-height: 14px;
   outline: 0;
   color: var(--black);
-}
-
-input[type='checkbox'] {
-  cursor: pointer;
-  position: relative;
-  top: 1.5px;
 }
 
 .textarea {

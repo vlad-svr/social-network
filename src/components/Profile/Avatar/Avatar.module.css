@@ -4,10 +4,46 @@
 }
 
 .img {
-     max-width: 200px;
+    max-width: 200px;
+    object-fit: cover;
+    height: 100%;
 }
 
 .button {
      width: 100%;
      margin-top: 10px;
+}
+
+.avatar_content {
+    position: relative;
+    overflow: hidden;
+}
+
+.avatar_content:hover .avatar_menu {
+    bottom: 4px;
+    opacity: 1;
+}
+
+.avatar_menu {
+    position: absolute;
+    bottom: -100px;
+    opacity: 0;
+    left: 0;
+    width: 100%;
+    color: white;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 8px;
+    transition: all 600ms ease-out;
+}
+
+.avatar_menu_item {
+    display: block;
+    opacity: 0.8;
+    cursor: pointer;
+    padding: 2px;
+    transition: all 100ms ease-out;
+}
+
+.avatar_menu_item:hover {
+    opacity: 1;
 }

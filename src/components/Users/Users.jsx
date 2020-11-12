@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './Users.module.css';
+import cn from 'classnames'
 import Filters from './Filters/Filters';
 import Preloader from '../common/Preloader/Preloader';
 import Paginator from '../common/Paginator/Paginator';
@@ -13,7 +14,7 @@ const Users = (props) => {
 
     return (
         <div className={s.users}>
-            <div className={'card ' + s.user_card}>
+            <div className={cn('card', s.user_card)}>
                 <div className={s.header}>
                     Люди
                     <span className={s.count_people}>{props.totalUsersCount}</span>

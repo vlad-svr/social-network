@@ -2,24 +2,42 @@
   padding: 15px;
 }
 
+.fullname {
+  margin-bottom: 5px;
+}
+
 .item {
   padding: 10px 0;
   position: relative;
   border-bottom: 1px solid var(--steel_gray_80);
+  line-height: 160%;
+  font-size: 0.85rem
 }
 
 .item:first-child {
   padding-top: 0;
 }
 
-.row {
+.row, .contact {
   display: flex;
+}
+
+.contact {
+  padding-left: 10px;
 }
 
 .label {
   color: var(--textGray);
+  width: 145px;
 }
 
 .labeled {
-  margin-left: 10px;
+  color: black;
+}
+
+.contact_title {
+  border-top: 1px solid var(--steel_gray_80);
+  margin-top: 10px;
+  padding-top: 5px;
+  width: 100%;
 }
