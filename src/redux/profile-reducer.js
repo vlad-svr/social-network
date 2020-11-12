@@ -84,7 +84,7 @@ export function getUserProfile(userId) {
       const data = await profileAPI.getProfile(userId)
       dispatch(setUserProfile(data))
     } catch (e) {
-      throw Error(e)
+      throw e
     }
   }
 }
@@ -95,7 +95,7 @@ export function getStatus(userId) {
       const data = await profileAPI.getUserStatus(userId)
       dispatch(setStatus(data))
     } catch (e) {
-      throw Error(e)
+      throw e
     }
   }
 }
@@ -108,7 +108,7 @@ export function updateStatus(status) {
         dispatch(setStatus(status))
       }
     } catch (e) {
-      throw Error(e)
+      throw e
     }
   }
 }
@@ -123,7 +123,7 @@ export function savePhoto(photo) {
         dispatch(toggleIsFetching(false))
       }
     } catch (e) {
-      throw Error(e)
+      throw e
     }
   }
 }
@@ -146,7 +146,7 @@ export function saveProfile(profile) {
         return { [FORM_ERROR]: messages, contacts: fieldsErrors }
       }
     } catch (e) {
-      throw Error(e)
+      throw e
     }
   }
 }

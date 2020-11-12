@@ -1,4 +1,5 @@
 import React from 'react'
+import cn from 'classnames'
 import s from './Login.module.css'
 import LoginForm from './LoginForm/LoginForm'
 import { compose } from 'redux'
@@ -16,7 +17,7 @@ const Login = ({login, isAuth, captchaUrl}) => {
   if (isAuth) return <Redirect to="/profile" />
   return (
     <div className={s.container}>
-      <div className={'card ' + s.card_login}>
+      <div className={cn('card', s.card_login)}>
         <h1 className={s.title}>Login</h1>
         <LoginForm captchaUrl={captchaUrl} onSubmit={onSubmit} />
       </div>

@@ -1,10 +1,11 @@
 import React from 'react'
+import cn from 'classnames'
 import s from './FormsControl.module.css'
 
 const FormControl = ({ input, showSpan = true, meta: {error, submitError, touched}, children }) => {
   const hasError = (error || submitError) && touched && input.value
   return (
-    <div className={s.form_control + ' ' + (hasError ? s.error : '')}>
+    <div className={cn(s.form_control, {[s.error]: hasError})}>
       {children}
       {hasError && showSpan
         ? <p className={s.span}>{error || submitError}</p>

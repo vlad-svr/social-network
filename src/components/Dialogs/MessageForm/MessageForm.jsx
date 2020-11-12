@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Field } from 'react-final-form'
+import cn from 'classnames'
 import {
   composeValidators,
   maxLength,
@@ -23,9 +24,9 @@ const MessageForm = ({onSubmit}) => {
             component={Textarea}
             validate={composeValidators(required, maxLength(50))}
             placeholder="Напишите сообщение..."
-            className={'textarea ' + s.textarea}
+            className={cn('textarea', s.textarea)}
           />
-          <button type="submit" className={'button_blue ' + s.button}>
+          <button type="submit" className={cn('button_blue', s.button)}>
             Отправить
           </button>
         </form>

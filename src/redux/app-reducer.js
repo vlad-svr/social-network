@@ -27,7 +27,7 @@ export const initializeApp = () => async (dispatch) => {
         await Promise.all([promise])
         dispatch(initializedSuccess())
     } catch (e) {
-        throw Error(e)
+        throw e
     }
 }
 

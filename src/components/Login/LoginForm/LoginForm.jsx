@@ -24,10 +24,10 @@ const LoginForm = ({onSubmit, captchaUrl}) => {
           }}>
             <div className={s.item}>
               <Field
-                name="email"
+                name='email'
                 className={cn('input', s.input_login)}
-                type="text"
-                placeholder="Login"
+                type='text'
+                placeholder='Login'
                 validate={composeValidators(
                   required,
                   minLength(5),
@@ -38,23 +38,23 @@ const LoginForm = ({onSubmit, captchaUrl}) => {
             </div>
             <div className={s.item}>
               <Field
-                name="password"
+                name='password'
                 className={cn('input', s.input_login)}
-                type="password"
+                type='password'
                 validate={composeValidators(required, minLength(4))}
-                placeholder="Password"
+                placeholder='Password'
                 component={Input}
               />
             </div>
             {captchaUrl && (
               <div className={s.item}>
-                <img className={s.captcha} src={captchaUrl} alt="Captcha" />
+                <img className={s.captcha} src={captchaUrl} alt='Captcha' />
                 <Field
-                  name="captcha"
+                  name='captcha'
                   className={cn('input', s.input_login)}
-                  type="text"
+                  type='text'
                   validate={required}
-                  placeholder="Введите что написано на картинке"
+                  placeholder='Введите что написано на картинке'
                   component={Input}
                 />
               </div>

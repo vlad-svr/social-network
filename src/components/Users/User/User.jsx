@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './User.module.css';
+import cn from 'classnames'
 import userPhoto from '../../../assets/images/no-avatar.png';
 import {NavLink} from 'react-router-dom';
 import {stringsToUpperCase} from '../../../utils/core';
@@ -13,7 +14,7 @@ const User = ({user: u, followingInProgress, toggleFollow}) => {
             </NavLink>
             <div className={s.users_info}>
                 <div className={s.label}>
-                    <NavLink to={'/profile/' + u.id} className={"link_normalize " + s.name}>
+                    <NavLink to={'/profile/' + u.id} className={cn("link_normalize", s.name)}>
                         {stringsToUpperCase(u.name)}
                     </NavLink>
                 </div>

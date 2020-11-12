@@ -1,4 +1,5 @@
 import React from 'react'
+import cn from 'classnames'
 import s from './Header.module.css'
 import defaultPhoto from '../../assets/images/no-avatar.png'
 import { NavLink } from 'react-router-dom'
@@ -10,7 +11,7 @@ const Header = (props) => {
       return (
         <div
           onClick={props.toggleProfileMenu}
-          className={s.profile + ' ' + (props.isMenuActive && s.active)}
+          className={cn(s.profile, {[s.active]: props.isMenuActive})}
         >
           <span className={s.login}>{props.login}</span>
           <img

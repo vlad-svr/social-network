@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import s from './ProfileStatus.module.css'
+import cn from 'classnames'
 
 const ProfileStatus = (props) => {
     const [editMode, setEditMode] = useState(false)
@@ -18,22 +19,14 @@ const ProfileStatus = (props) => {
 
     const onStatusChange = (e) => setStatus(e.currentTarget.value.trim())
 
-    const myStatusNotEmpty = (
-        <span onClick={onActivateEditMode} className={s.status + ' ' + s.my}>
-            {props.status}
+    const myStatus = (
+        <span onClick={onActivateEditMode}
+            className={cn(s.status, s.my, {[s.no_status]: !props.status})}>
+            {props.status || 'изменить статус'}
         </span>
     )
 
-    const myStatusEmpty = (
-        <span
-            onClick={onActivateEditMode}
-            className={s.status + ' ' + s.my + ' ' + s.no_status}
-        >изменить статус</span>
-    )
-
-    const notMyStatus = (
-      <span className={s.status}>{props.status}</span>
-    )
+    const notMyStatus = <span className={s.status}>{props.status}</span>
 
     const statusInput = (
         <div className={s.editor_container}>
@@ -42,7 +35,7 @@ const ProfileStatus = (props) => {
                 onKeyPress={onClickEnter}
                 defaultValue={status}
                 autoFocus={true}
-                className={'input ' + s.input_status}
+                className={cn('input', s.input_status)}
             />
             <button onClick={onDeactivateEditMode} className="button_blue">
                 Сохранить
@@ -53,8 +46,8 @@ const ProfileStatus = (props) => {
     if (!props.isOwner) return props.status && notMyStatus
     return (
         <div>
-            {props.status ? myStatusNotEmpty : myStatusEmpty}
-            {editMode ? statusInput : ''}
+            {myStatus}
+            {editMode && statusInput}
         </div>
     )
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import s from './Profile.module.css'
+import cn from 'classnames'
 import Friends from './Friends/Friends'
 import Audio from './Audio/Audio'
 import Video from './Video/Video'
@@ -17,7 +18,7 @@ const Profile = (props) => {
 
   return (
     <div className={s.main}>
-      <div className={'card ' + s.avatar}>
+      <div className={cn('card', s.avatar)}>
         <Avatar
             savePhoto={props.savePhoto}
             isOwner={props.isOwner}
@@ -27,10 +28,10 @@ const Profile = (props) => {
             editModeProfile={props.editModeProfile}
         />
       </div>
-      <div className={'card ' + s.friends}>
+      <div className={cn('card', s.friends)}>
         <Friends />
       </div>
-      <div className={'card ' + s.profile_info}>
+      <div className={cn('card', s.profile_info)}>
           {!props.isEditModeProfile
               ? <ProfileInfo
                       fullName={props.profile.fullName}
@@ -48,16 +49,16 @@ const Profile = (props) => {
                   editModeProfile={props.editModeProfile}
               />}
       </div>
-      <div className={'card ' + s.photos}>
+      <div className={cn('card', s.photos)}>
         <Photos photos={props.profile.photos} />
       </div>
-      <div className={'card ' + s.posts}>
+      <div className={cn('card', s.posts)}>
         <MyPostsContainer />
       </div>
-      <div className={'card ' + s.video}>
+      <div className={cn('card', s.video)}>
         <Video />
       </div>
-      <div className={'card ' + s.audio}>
+      <div className={cn('card', s.audio)}>
         <Audio />
       </div>
     </div>

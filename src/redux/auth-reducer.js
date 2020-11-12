@@ -45,7 +45,7 @@ export function getAuthUserData() {
         dispatch(setAuthUserData(id, email, login, profile, true))
       }
     } catch (e) {
-      throw Error(e)
+      throw e
     }
   }
 }
@@ -73,7 +73,7 @@ export function login(email, password, rememberMe, captcha) {
         return { [FORM_ERROR]: message }
       }
     } catch (e) {
-      throw Error(e)
+      throw e
     }
   }
 }
@@ -86,7 +86,7 @@ export function logout() {
         dispatch(setAuthUserData(null, null, null, {}, false))
       }
     } catch (e) {
-      throw Error(e)
+      throw e
     }
   }
 }

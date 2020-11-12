@@ -5,7 +5,7 @@ import {create, act} from 'react-test-renderer';
 
 describe('ProfileStatus component:', () => {
     const mockCallback = jest.fn();
-    const component = create(<ProfileStatus status='testing' updateStatus={mockCallback} />)
+    const component = create(<ProfileStatus isOwner={true} status='testing' updateStatus={mockCallback} />)
     const instance = component.root;
     const span = instance.findByType('span')
 

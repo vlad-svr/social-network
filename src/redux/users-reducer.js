@@ -80,7 +80,7 @@ export function requestUsers(page, pageSize) {
             dispatch(setUsers(data.items))
             dispatch(setTotalUsersCount(data.totalCount))
         } catch (e) {
-            throw Error(e)
+            throw e
         }
     }
 }
@@ -98,7 +98,7 @@ export function toggleFollow(userId) {
             dispatch(toggleFollowingInProgress(false, userId))
         } catch (e) {
             dispatch(toggleFollowingInProgress(false, userId))
-            console.error(e)
+            throw e
         }
     }
 }

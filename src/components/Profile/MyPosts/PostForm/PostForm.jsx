@@ -7,6 +7,7 @@ import {
   required,
 } from '../../../../utils/validators'
 import { Textarea } from '../../../common/FormsControl/FormsControl'
+import cn from 'classnames'
 import s from './PostForm.module.css'
 
 const PostForm = (props) => {
@@ -22,11 +23,11 @@ const PostForm = (props) => {
           <Field
             component={Textarea}
             name="newPost"
-            className={'textarea ' + s.message}
+            className={cn('textarea', s.message)}
             validate={composeValidators(required, minLength(5), maxLength(30))}
             placeholder="Что у Вас нового..."
           />
-          <button disabled={submitting} type="submit" className={'button_blue ' + s.button}>
+          <button disabled={submitting} type="submit" className={cn('button_blue', s.button)}>
             Опубликовать
           </button>
         </form>

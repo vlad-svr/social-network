@@ -14,7 +14,10 @@ const ModalAvatar = ({isFetching, setActiveModal, savePhoto}) => {
 
     return (
         <div className={s.container}>
-            <div className={s.header}>Загрузка фотографии<span onClick={() => setActiveModal(false)} className={s.close}>X</span></div>
+            <div className={s.header}>
+                Загрузка фотографии
+                <span onClick={() => setActiveModal(false)} className={s.close}>X</span>
+            </div>
             <div className={s.content}>
                 { isFetching
                     ? <Preloader />

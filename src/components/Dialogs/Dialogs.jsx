@@ -1,4 +1,5 @@
 import React from 'react'
+import cn from 'classnames'
 import s from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
@@ -19,7 +20,7 @@ const Dialogs = (props) => {
   }
 
   return (
-    <div className={'card ' + s.dialogs}>
+    <div className={cn('card', s.dialogs)}>
       <div className={s.title}>
         <h1>Диалоги</h1>
       </div>
