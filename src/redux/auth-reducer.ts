@@ -1,21 +1,25 @@
 import {authAPI, profileAPI, securityAPI} from '../api/api'
 import { FORM_ERROR } from 'final-form'
+import {ProfileType} from "../types/types";
 
 
-const SET_AUTH_USER_DATA = 'social-network/auth/SET_AUTH_USER_DATA'
-const SET_CAPTCHA = 'social-network/auth/SET_CAPTCHA'
+const SET_AUTH_USER_DATA: string = 'social-network/auth/SET_AUTH_USER_DATA'
+const SET_CAPTCHA: string = 'social-network/auth/SET_CAPTCHA'
+
 
 
 const initialState = {
-  userId: null,
-  email: null,
-  login: null,
-  profile: {},
-  captchaUrl: false,
+  userId: null as number | null,
+  email: null as string | null,
+  login: null as string | null,
+  profile: null as ProfileType | null,
+  captchaUrl: null as string | null,
   isAuth: false,
 }
 
-function authReducer(state = initialState, action) {
+export type InitialStateType = typeof initialState
+
+function authReducer(state = initialState, action: any): InitialStateType {
   switch (action.type) {
     case SET_AUTH_USER_DATA:
     case SET_CAPTCHA:
@@ -27,16 +31,34 @@ function authReducer(state = initialState, action) {
 }
 
 
-export const setAuthUserData = (userId, email, login, profile, isAuth) => ({
+type SetAuthUserDataPayloadType = {
+  userId: number | null,
+  email: string | null,
+  login: string | null,
+  profile: ProfileType | null,
+  isAuth: boolean
+}
+type SetAuthUserDataType = {
+  type: typeof SET_AUTH_USER_DATA,
+  payload: SetAuthUserDataPayloadType,
+}
+
+const setAuthUserData =
+    (userId: number | null, email: string | null, login: string | null, profile: ProfileType | null, isAuth: boolean): SetAuthUserDataType => ({
   type: SET_AUTH_USER_DATA,
   payload: { userId, email, login, profile, isAuth },
 })
 
-export const setCaptcha = (captchaUrl) => ({type: SET_CAPTCHA, payload: {captchaUrl}})
+type SetCaptchaType = {
+  type: typeof SET_CAPTCHA,
+  payload: {captchaUrl: string | null}
+}
+
+export const setCaptcha = (captchaUrl: string | null): SetCaptchaType => ({type: SET_CAPTCHA, payload: {captchaUrl}})
 
 
 export function getAuthUserData() {
-  return async (dispatch) => {
+  return async (dispatch: any) => {
     try {
       const data = await authAPI.isAuth()
       if (data.resultCode === 0) {
@@ -51,14 +73,14 @@ export function getAuthUserData() {
 }
 
 export function getCaptchaUrl() {
-  return async function (dispatch) {
+  return async function (dispatch: any) {
     const captcha = await securityAPI.getCaptchaUrl()
     dispatch(setCaptcha(captcha.url))
   }
 }
 
-export function login(email, password, rememberMe, captcha) {
-  return async (dispatch) => {
+export function login(email: string, password: string, rememberMe: boolean, captcha: string | null) {
+  return async (dispatch: any) => {
     try {
       const data = await authAPI.login(email, password, rememberMe, captcha)
       if (data.resultCode === 0) {
@@ -79,11 +101,11 @@ export function login(email, password, rememberMe, captcha) {
 }
 
 export function logout() {
-  return async (dispatch) => {
+  return async (dispatch: any) => {
     try {
       const data = await authAPI.logout()
       if (data.resultCode === 0) {
-        dispatch(setAuthUserData(null, null, null, {}, false))
+        dispatch(setAuthUserData(null, null, null, null, false))
       }
     } catch (e) {
       throw e

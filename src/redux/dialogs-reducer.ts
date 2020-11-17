@@ -1,5 +1,16 @@
-const SEND_MESSAGE = 'social-network/dialogs/SEND_MESSAGE'
+const SEND_MESSAGE: string = 'social-network/dialogs/SEND_MESSAGE'
 
+
+type DialogType = {
+  id: number
+  name: string
+}
+
+type MessagesType = {
+  id: number
+  message: string
+  myMessage: boolean
+}
 
 const initialState = {
   messages: [
@@ -13,17 +24,19 @@ const initialState = {
     { id: 8, message: 'Чем занимаешься?', myMessage: false },
     { id: 9, message: 'Ура!', myMessage: true },
     { id: 10, message: 'Хорошо!', myMessage: false },
-  ],
+  ] as Array<MessagesType>,
   dialogs: [
     { id: 1, name: 'Nastya' },
     { id: 2, name: 'Vladislav' },
     { id: 3, name: 'Yana' },
     { id: 4, name: 'Ira' },
     { id: 5, name: 'Alena' },
-  ],
+  ] as Array<DialogType>
 }
 
-function dialogsReducer(state = initialState, action) {
+export type InitialStateType = typeof initialState
+
+function dialogsReducer(state = initialState, action: any): InitialStateType {
   switch (action.type) {
     case SEND_MESSAGE:
       const newMessage = {
@@ -42,7 +55,12 @@ function dialogsReducer(state = initialState, action) {
   }
 }
 
-export const sendMessage = (newMessage) => ({
+type sendMessageType = {
+  type: typeof SEND_MESSAGE
+  newMessage: string
+}
+
+export const sendMessage = (newMessage: string): sendMessageType => ({
   type: SEND_MESSAGE,
   newMessage,
 })
