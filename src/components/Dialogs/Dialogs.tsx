@@ -4,8 +4,15 @@ import s from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
 import MessageForm from './MessageForm/MessageForm'
+import {DialogType, MessagesType} from "../../types/types";
 
-const Dialogs = (props) => {
+
+type PropsType = {
+    messages: Array<MessagesType>
+    dialogs: Array<DialogType>
+    sendMessage: (newMessage: string) => void
+}
+const Dialogs: React.FC<PropsType> = (props) => {
   const dialogsElements = props.dialogs.map((d) => (
     <DialogItem key={d.id} name={d.name} id={d.id} />
   ))
@@ -14,7 +21,8 @@ const Dialogs = (props) => {
     <Message key={m.id} message={m.message} myMessage={m.myMessage} />
   ))
 
-  function onSendMessage(data) {
+  type DataType = { newMessageBody: string }
+  function onSendMessage(data: DataType):Promise<void> {
     props.sendMessage(data.newMessageBody)
     return Promise.resolve()
   }

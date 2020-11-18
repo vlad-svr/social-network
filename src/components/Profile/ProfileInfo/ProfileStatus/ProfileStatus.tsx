@@ -1,10 +1,17 @@
-import React, {useEffect, useState} from 'react'
+import React, {ChangeEvent, useEffect, useState} from 'react'
 import s from './ProfileStatus.module.css'
 import cn from 'classnames'
 
-const ProfileStatus = (props) => {
+
+type PropsType = {
+    isOwner: boolean
+    status: string
+    updateStatus: (status: string) => void
+}
+
+const ProfileStatus: React.FC<PropsType> = (props) => {
     const [editMode, setEditMode] = useState(false)
-    const [status, setStatus] = useState(props.status)
+    const [status, setStatus] = useState<string>(props.status)
 
     useEffect(() => setStatus(props.status), [props.status])
 
@@ -15,9 +22,9 @@ const ProfileStatus = (props) => {
         props.updateStatus(status)
     }
 
-    const onClickEnter = e => e.key !== 'Enter' || onDeactivateEditMode()
+    const onClickEnter = (e: React.KeyboardEvent<HTMLDivElement>) => e.key !== 'Enter' || onDeactivateEditMode()
 
-    const onStatusChange = (e) => setStatus(e.currentTarget.value.trim())
+    const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => setStatus(e.currentTarget.value.trim())
 
     const myStatus = (
         <span onClick={onActivateEditMode}
@@ -43,7 +50,7 @@ const ProfileStatus = (props) => {
         </div>
     )
 
-    if (!props.isOwner) return props.status && notMyStatus
+    if (!props.isOwner) return props.status ? notMyStatus : <></>
     return (
         <div>
             {myStatus}

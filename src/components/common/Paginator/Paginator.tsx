@@ -5,8 +5,15 @@ import rightArrowImage from '../../../assets/images/nextPage.png'
 import leftArrowImage from '../../../assets/images/prevPage.png'
 
 
+type PropsType = {
+    currentPage: number
+    onPageChanged: (pageNumber: number) => void
+    totalValueCount: number
+    pageSize: number
+    portionSize?: number
+}
 
-const Paginator = ({currentPage, onPageChanged, totalValueCount, pageSize, portionSize = 10}) => {
+const Paginator: React.FC<PropsType> = ({currentPage, onPageChanged, totalValueCount, pageSize, portionSize = 10}) => {
     const pagesCount = Math.ceil(totalValueCount / pageSize)
 
     const pages = new Array(pagesCount)
@@ -26,7 +33,7 @@ const Paginator = ({currentPage, onPageChanged, totalValueCount, pageSize, porti
         <div className={s.pagination}>
             { portionNumber > 1 &&
             <span className={s.button} onClick={onPrevPortionPage}>
-                <img className={s.arrow} src={leftArrowImage} alt="leftArrow"/>
+                <img className={s.arrow} src={leftArrowImage} alt='leftArrow'/>
             </span>}
             <ul className={s.page_list}>
                 {pages
@@ -40,7 +47,7 @@ const Paginator = ({currentPage, onPageChanged, totalValueCount, pageSize, porti
             </ul>
             { portionNumber < portionCount &&
             <span className={s.button} onClick={onNextPortionPage}>
-                <img className={s.arrow} src={rightArrowImage} alt="rightArrow"/>
+                <img className={s.arrow} src={rightArrowImage} alt='rightArrow'/>
             </span>}
         </div>
     )

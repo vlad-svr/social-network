@@ -5,9 +5,21 @@ import Filters from './Filters/Filters';
 import Preloader from '../common/Preloader/Preloader';
 import Paginator from '../common/Paginator/Paginator';
 import User from './User/User';
+import {UserType} from "../../types/types";
 
 
-const Users = (props) => {
+type PropsType = {
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    users: Array<UserType>
+    isFetching: boolean
+    followingInProgress: Array<number>
+    onPageChanged: (pageNumber: number) => void
+    toggleFollow: (userId: number) => void
+}
+
+const Users: React.FC<PropsType> = (props) => {
     const users = props.users.map(user => (
         <User key={user.id} user={user} followingInProgress={props.followingInProgress} toggleFollow={props.toggleFollow} />
     ))

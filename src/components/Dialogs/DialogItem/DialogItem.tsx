@@ -2,8 +2,10 @@ import React from 'react';
 import s from './DialogItem.module.css'
 import cn from 'classnames'
 import {NavLink} from 'react-router-dom';
+import {DialogType} from "../../../types/types";
 
-const DialogItem = ({id, name}) => {
+
+const DialogItem: React.FC<DialogType> = ({id, name}) => {
     return (
         <NavLink className='link_normalize' to={"/dialogs/" + id}>
             <div className={s.dialog}>

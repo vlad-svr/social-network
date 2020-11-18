@@ -2,7 +2,19 @@ import React from 'react'
 import cn from 'classnames'
 import s from './FormsControl.module.css'
 
-const FormControl = ({ input, showSpan = true, meta: {error, submitError, touched}, children }) => {
+
+type FormsControlPropsType = {
+  input: any
+  showSpan: boolean
+  meta: {
+    error: string
+    submitError: any
+    touched: any
+    children: React.FC
+  }
+}
+
+const FormControl: React.FC<FormsControlPropsType> = ({ input, showSpan = true, meta: {error, submitError, touched}, children }) => {
   const hasError = (error || submitError) && touched && input.value
   return (
     <div className={cn(s.form_control, {[s.error]: hasError})}>
@@ -14,7 +26,13 @@ const FormControl = ({ input, showSpan = true, meta: {error, submitError, touche
   )
 }
 
-export const Textarea = (props) => {
+type TextareaPropsType = {
+  input: any
+  meta: any
+  showSpan: boolean
+  children: any
+}
+export const Textarea: React.FC<TextareaPropsType> = (props) => {
   const { input, meta, showSpan, children, ...restProps } = props
   return (
     <FormControl {...props}>
@@ -23,7 +41,13 @@ export const Textarea = (props) => {
   )
 }
 
-export const Input = (props) => {
+type InputPropsType = {
+  input: any
+  meta: any
+  showSpan: boolean
+  children: any
+}
+export const Input: React.FC<InputPropsType> = (props) => {
   const { input, meta, showSpan, children, ...restProps } = props
 
   return (

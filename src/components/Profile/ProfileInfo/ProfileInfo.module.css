@@ -28,7 +28,7 @@
 
 .label {
   color: var(--textGray);
-  width: 145px;
+  min-width: 145px;
 }
 
 .labeled {

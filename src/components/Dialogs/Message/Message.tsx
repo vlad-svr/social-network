@@ -4,7 +4,11 @@ import cn from 'classnames'
 import s from './Message.module.css'
 
 
-const Message = ({myMessage, message}) => {
+type PropsType = {
+    myMessage: boolean
+    message: string
+}
+const Message: React.FC<PropsType> = ({myMessage, message}) => {
     const isMyMessage = myMessage ? s.message + ' ' + s.my_message : s.message
     return (
         <div className={isMyMessage}>

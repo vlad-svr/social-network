@@ -1,4 +1,4 @@
-const TOGGLE_PROFILE_MENU: string = 'social-network/header/TOGGLE_MENU'
+const TOGGLE_PROFILE_MENU = 'social-network/header/TOGGLE_MENU'
 
 
 const initialState = {
@@ -6,7 +6,8 @@ const initialState = {
 }
 type InitialStateType = typeof initialState
 
-function headerReducer(state = initialState, action: any): InitialStateType {
+
+function headerReducer(state = initialState, action: ActionsTypes): InitialStateType {
   switch (action.type) {
     case TOGGLE_PROFILE_MENU:
       return {
@@ -19,6 +20,8 @@ function headerReducer(state = initialState, action: any): InitialStateType {
   }
 }
 
+
+type ActionsTypes = ToggleProfileMenuType
 
 type ToggleProfileMenuType = {
   type: typeof TOGGLE_PROFILE_MENU

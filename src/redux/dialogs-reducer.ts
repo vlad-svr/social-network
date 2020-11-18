@@ -1,16 +1,8 @@
-const SEND_MESSAGE: string = 'social-network/dialogs/SEND_MESSAGE'
+import {DialogType, MessagesType } from "../types/types"
+
+const SEND_MESSAGE = 'social-network/dialogs/SEND_MESSAGE'
 
 
-type DialogType = {
-  id: number
-  name: string
-}
-
-type MessagesType = {
-  id: number
-  message: string
-  myMessage: boolean
-}
 
 const initialState = {
   messages: [
@@ -36,7 +28,7 @@ const initialState = {
 
 export type InitialStateType = typeof initialState
 
-function dialogsReducer(state = initialState, action: any): InitialStateType {
+function dialogsReducer(state = initialState, action: ActionsTypes): InitialStateType {
   switch (action.type) {
     case SEND_MESSAGE:
       const newMessage = {
@@ -54,6 +46,8 @@ function dialogsReducer(state = initialState, action: any): InitialStateType {
       return state
   }
 }
+
+type ActionsTypes = sendMessageType
 
 type sendMessageType = {
   type: typeof SEND_MESSAGE
