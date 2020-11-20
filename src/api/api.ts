@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from 'axios'
-import {ProfileType} from "../types/types";
+import {ProfileType, UserType} from "../types/types";
 
 const API_URL = 'https://social-network.samuraijs.com/api/1.0'
 const API_KEY = '7a7d1094-bcd3-422b-83b0-47a00337a368'
@@ -19,10 +19,10 @@ export enum ResultCodesEnum {
   Success = 0,
   Error = 1,
 }
-
 export enum ResultCodeForCaptchaEnum{
   CaptchaIsRequired = 10
 }
+
 
 type IsAuthType = {
   resultCode: ResultCodesEnum
@@ -40,12 +40,17 @@ type LoginType = {
     userId: number
   }
 }
+type getUsersType = {
+  items: Array<UserType>
+  totalCount: number
+  error: string | null
+}
 
 export const usersAPI = {
   getUsers(currentPage = 1, pageSize = 10) {
     return instance
       .get(`/users?page=${currentPage}&count=${pageSize}`)
-      .then(getData)
+      .then<getUsersType>(getData)
   },
 
   checkFollower(id: number) {

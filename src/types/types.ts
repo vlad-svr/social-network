@@ -47,3 +47,10 @@ export type MessagesType = {
 export type ErrorType = {
     [key: string]: string
 }
+
+export type LoginFormValuesType = {
+    email: string;
+    password: string;
+    captcha?: string | null;
+    rememberMe?: boolean;
+}

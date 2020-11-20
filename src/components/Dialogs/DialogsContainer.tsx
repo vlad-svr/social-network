@@ -11,7 +11,9 @@ type MapStatePropsType = {
   messages: Array<MessagesType>
   dialogs: Array<DialogType>
 }
-
+type MapDispatchPropsType = {
+  sendMessage: (newMessage: string) => void
+}
 function mapStateToProps(state: AppStateType): MapStatePropsType {
   return {
     messages: state.dialogsPage.messages,
@@ -19,7 +21,7 @@ function mapStateToProps(state: AppStateType): MapStatePropsType {
   }
 }
 
-export default compose(
+export default compose<MapStatePropsType & MapDispatchPropsType>(
   connect(mapStateToProps, { sendMessage }),
   withAuthRedirect
 )(Dialogs)

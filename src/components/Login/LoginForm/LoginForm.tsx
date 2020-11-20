@@ -10,8 +10,14 @@ import {
   minLength,
   required,
 } from '../../../utils/validators'
+import {LoginFormValuesType} from "../../../types/types";
 
-const LoginForm = ({onSubmit, captchaUrl}) => {
+
+type PropsType = {
+  onSubmit: (formData: LoginFormValuesType) => void
+  captchaUrl: string | null
+}
+const LoginForm: React.FC<PropsType> = ({onSubmit, captchaUrl}) => {
   return (
     <Form
       onSubmit={onSubmit}
@@ -23,7 +29,7 @@ const LoginForm = ({onSubmit, captchaUrl}) => {
               return promise;
           }}>
             <div className={s.item}>
-              <Field
+              <Field<string>
                 name='email'
                 className={cn('input', s.input_login)}
                 type='text'
@@ -33,11 +39,11 @@ const LoginForm = ({onSubmit, captchaUrl}) => {
                   minLength(5),
                   maxLength(40)
                 )}
-                component={Input}
+                component ={Input}
               />
             </div>
             <div className={s.item}>
-              <Field
+              <Field<string>
                 name='password'
                 className={cn('input', s.input_login)}
                 type='password'
@@ -49,7 +55,7 @@ const LoginForm = ({onSubmit, captchaUrl}) => {
             {captchaUrl && (
               <div className={s.item}>
                 <img className={s.captcha} src={captchaUrl} alt='Captcha' />
-                <Field
+                <Field<string>
                   name='captcha'
                   className={cn('input', s.input_login)}
                   type='text'
@@ -68,8 +74,9 @@ const LoginForm = ({onSubmit, captchaUrl}) => {
                 Войти
               </button>
               <label className={s.remember_me} htmlFor="remember_me">
-                <Field
+                <Field<boolean>
                   name="rememberMe"
+                  defaultValue={false}
                   id="remember_me"
                   type="checkbox"
                   component="input"

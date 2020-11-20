@@ -1,20 +1,13 @@
 import React from 'react'
 import cn from 'classnames'
 import s from './FormsControl.module.css'
+import { FieldRenderProps } from "react-final-form";
 
 
-type FormsControlPropsType = {
-  input: any
-  showSpan: boolean
-  meta: {
-    error: string
-    submitError: any
-    touched: any
-    children: React.FC
-  }
-}
+type InputPropsType = FieldRenderProps<string>
 
-const FormControl: React.FC<FormsControlPropsType> = ({ input, showSpan = true, meta: {error, submitError, touched}, children }) => {
+
+const FormControl: React.FC<InputPropsType> = ({ input, showSpan = true, meta: {error, submitError, touched}, children }) => {
   const hasError = (error || submitError) && touched && input.value
   return (
     <div className={cn(s.form_control, {[s.error]: hasError})}>
@@ -26,13 +19,8 @@ const FormControl: React.FC<FormsControlPropsType> = ({ input, showSpan = true, 
   )
 }
 
-type TextareaPropsType = {
-  input: any
-  meta: any
-  showSpan: boolean
-  children: any
-}
-export const Textarea: React.FC<TextareaPropsType> = (props) => {
+
+export const Textarea: React.FC<InputPropsType> = (props) => {
   const { input, meta, showSpan, children, ...restProps } = props
   return (
     <FormControl {...props}>
@@ -41,13 +29,8 @@ export const Textarea: React.FC<TextareaPropsType> = (props) => {
   )
 }
 
-type InputPropsType = {
-  input: any
-  meta: any
-  showSpan: boolean
-  children: any
-}
-export const Input: React.FC<InputPropsType> = (props) => {
+
+export const Input: React.FC<InputPropsType> = (props: InputPropsType) => {
   const { input, meta, showSpan, children, ...restProps } = props
 
   return (

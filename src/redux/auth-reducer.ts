@@ -84,7 +84,7 @@ export function getCaptchaUrl(): ThunkType {
   }
 }
 
-export function login(email: string, password: string, rememberMe: boolean, captcha: string | null): ThunkType<Promise<void | ErrorType>> {
+export function login(email: string, password: string, rememberMe?: boolean, captcha?: string | null): ThunkType<Promise<void | ErrorType>> {
   return async (dispatch) => {
     try {
       const data = await authAPI.login(email, password, rememberMe, captcha)

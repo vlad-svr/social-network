@@ -3,8 +3,16 @@ import cn from 'classnames'
 import s from './ProfileInfo.module.css'
 import ProfileStatus from './ProfileStatus/ProfileStatus';
 import {stringsToUpperCase} from '../../../utils/core';
+import {ContactsType} from "../../../types/types";
 
-const ContactItem = ({contactTitle, contactValue}) => {
+
+
+
+type ContactItemType = {
+    contactTitle: string
+    contactValue?: string | null
+}
+const ContactItem: React.FC<ContactItemType> = ({contactTitle, contactValue}) => {
     return (
         <div className={s.contact}>
             <div className={s.label}>
@@ -17,7 +25,17 @@ const ContactItem = ({contactTitle, contactValue}) => {
     )
 }
 
-const ProfileInfo = (props) => {
+type ProfileInfoType = {
+    fullName: string
+    contacts: ContactsType
+    aboutMe: string | null
+    lookingForAJob: boolean
+    lookingForAJobDescription: string | null
+    status: string
+    updateStatus: (status: string) => void
+    isOwner: boolean
+}
+const ProfileInfo: React.FC<ProfileInfoType> = (props) => {
   return (
     <div className={s.main_profile_info}>
       <div className={s.item}>
@@ -49,6 +67,7 @@ const ProfileInfo = (props) => {
           </div>
           <div className={cn(s.label, s.contact_title)}>Контакты:</div>
           {Object.keys(props.contacts).map((item, ind) => {
+              // @ts-ignore
               return <ContactItem key={ind} contactTitle={item} contactValue={props.contacts[item]}/>
           })}
       </div>

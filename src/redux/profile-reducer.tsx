@@ -4,7 +4,7 @@ import React from "react";
 import {firstLetterToLowerCase} from '../utils/core';
 import {ErrorType, PhotosType, PostsType, ProfileType } from '../types/types';
 import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./redux-store";
+import {AppStateType, InfernActionsTypes} from "./redux-store";
 
 const ADD_POST = 'social-network/profile/ADD_POST'
 const DELETE_POST = 'social-network/profile/DELETE_POST'
@@ -29,6 +29,7 @@ const initialState = {
   editModeProfile: false
 }
 export type InitialStateType = typeof initialState
+
 
 
 function profileReducer(state = initialState, action: ActionsTypes): InitialStateType {
@@ -66,45 +67,19 @@ function profileReducer(state = initialState, action: ActionsTypes): InitialStat
 }
 
 
-type ActionsTypes = SetStatusType | SetUserProfileType | AddPostType | DeletePostType | SavePhotoSuccessType | ToggleIsFetchingType | EditModeProfileType
-
-type SetStatusType = {
-  type: typeof SET_STATUS
-  payload: {status: string}
-}
-type SetUserProfileType = {
-  type: typeof SET_USER_PROFILE
-  payload: {profile: ProfileType | null}
-}
-type AddPostType = {
-  type: typeof ADD_POST
-  newPostMessage: string
-}
-type DeletePostType = {
-  type: typeof DELETE_POST
-  id: number
-}
-type SavePhotoSuccessType = {
-  type: typeof SAVE_PHOTO_SUCCESS
-  photos: PhotosType
-}
-type ToggleIsFetchingType = {
-  type: typeof TOGGLE_IS_FETCHING
-  payload: {isFetching: boolean}
-}
-type EditModeProfileType = {
-  type: typeof EDIT_MODE_PROFILE
-  payload: {editModeProfile: boolean}
-}
+type ActionsTypes = InfernActionsTypes<typeof actions>
 
 
-export const setStatus = (status: string): SetStatusType => ({type: SET_STATUS, payload: {status}})
-export const setUserProfile = (profile: ProfileType | null): SetUserProfileType => ({type: SET_USER_PROFILE, payload: {profile}})
-export const addPost = (newPostMessage: string): AddPostType => ({type: ADD_POST, newPostMessage})
-export const deletePost = (id: number): DeletePostType => ({type: DELETE_POST, id: id})
-const savePhotoSuccess = (photos: PhotosType): SavePhotoSuccessType => ({type: SAVE_PHOTO_SUCCESS, photos})
-const toggleIsFetching = (isFetching: boolean):ToggleIsFetchingType  => ({type: TOGGLE_IS_FETCHING, payload: {isFetching}})
-export const editModeProfile = (editModeProfile: boolean): EditModeProfileType => ({type: EDIT_MODE_PROFILE, payload: {editModeProfile}})
+export const actions = {
+  setStatus: (status: string) => ({type: SET_STATUS, payload: {status}} as const),
+  setUserProfile: (profile: ProfileType | null) => ({type: SET_USER_PROFILE, payload: {profile}} as const),
+  addPost: (newPostMessage: string) => ({type: ADD_POST, newPostMessage} as const),
+  deletePost: (id: number) => ({type: DELETE_POST, id: id} as const),
+  savePhotoSuccess: (photos: PhotosType) => ({type: SAVE_PHOTO_SUCCESS, photos} as const),
+  toggleIsFetching: (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, payload: {isFetching}} as const),
+  editModeProfile: (editModeProfile: boolean) => ({type: EDIT_MODE_PROFILE, payload: {editModeProfile}} as const)
+}
+
 
 
 type ThunkType<ReturnType = Promise<void>> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes>
@@ -113,7 +88,7 @@ export function getUserProfile(userId: number): ThunkType {
   return async (dispatch: any) => {
     try {
       const data = await profileAPI.getProfile(userId)
-      dispatch(setUserProfile(data))
+      dispatch(actions.setUserProfile(data))
     } catch (e) {
       throw e
     }
@@ -124,7 +99,7 @@ export function getStatus(userId: number): ThunkType {
   return async (dispatch: any) => {
     try {
       const data = await profileAPI.getUserStatus(userId)
-      dispatch(setStatus(data))
+      dispatch(actions.setStatus(data))
     } catch (e) {
       throw e
     }
@@ -136,7 +111,7 @@ export function updateStatus(status: string): ThunkType {
     try {
       const data = await profileAPI.updateStatus(status)
       if (data.resultCode === ResultCodesEnum.Success) {
-        dispatch(setStatus(status))
+        dispatch(actions.setStatus(status))
       }
     } catch (e) {
       throw e
@@ -147,11 +122,11 @@ export function updateStatus(status: string): ThunkType {
 export function savePhoto(photo: Blob): ThunkType {
   return async (dispatch: any) => {
     try {
-      dispatch(toggleIsFetching(true))
+      dispatch(actions.toggleIsFetching(true))
       const data = await profileAPI.savePhoto(photo)
       if (data.resultCode === ResultCodesEnum.Success) {
-        dispatch(savePhotoSuccess(data.data.photos))
-        dispatch(toggleIsFetching(false))
+        dispatch(actions.savePhotoSuccess(data.data.photos))
+        dispatch(actions.toggleIsFetching(false))
       }
     } catch (e) {
       throw e
@@ -166,7 +141,7 @@ export function saveProfile(profile: ProfileType): ThunkType<Promise<void | Erro
 
       if (data.resultCode === ResultCodesEnum.Success) {
         dispatch(getUserProfile(getState().auth.userId))
-        dispatch(editModeProfile(false))
+        dispatch(actions.editModeProfile(false))
       } else if (data.resultCode === ResultCodesEnum.Error) {
         const messages = data.messages.map((msg: any, ind: any) => <span key={ind}>{msg}</span>)
         const fieldsErrors = data.messages.reduce((acc: any, msg: any) => {

@@ -5,9 +5,15 @@ import s from './ProfileEditForm.module.css'
 import {Input, Textarea} from '../../../common/FormsControl/FormsControl';
 import styleFormControl from '../../../common/FormsControl/FormsControl.module.css';
 import {stringsToUpperCase} from '../../../../utils/core'
+import {ErrorType, ProfileType} from "../../../../types/types";
 
 
-const ProfileEditForm = ({profile, editModeProfile, saveProfile}) => {
+type PropsType = {
+    profile: ProfileType
+    editModeProfile: (editModeProfile: boolean) => void
+    saveProfile: (profile: ProfileType) => Promise<void | ErrorType>
+}
+const ProfileEditForm: React.FC<PropsType> = ({profile, editModeProfile, saveProfile}) => {
     const onChangeCancel = () => editModeProfile(false)
 
     return (
@@ -21,7 +27,7 @@ const ProfileEditForm = ({profile, editModeProfile, saveProfile}) => {
               </div>
               <div className={s.item}>
                   <span className={s.title_field}>Ваше имя:</span>
-                  <Field
+                  <Field<string>
                       name='fullName'
                       className='input'
                       type="text"
@@ -33,7 +39,7 @@ const ProfileEditForm = ({profile, editModeProfile, saveProfile}) => {
                   <span className={s.title_field}>В поиске работы?</span>
                   <div className={s.checkbox_row}>
                       <label className={s.label} htmlFor="lookingForAJobTrue">Да
-                      <Field
+                      <Field<string>
                           name="lookingForAJob"
                           id='lookingForAJobTrue'
                           format={value => String(value)}
@@ -43,11 +49,10 @@ const ProfileEditForm = ({profile, editModeProfile, saveProfile}) => {
                       />
                       </label>
                       <label className={s.label} htmlFor="lookingForAJobFalse">Нет
-                      <Field
+                      <Field<string>
                           name="lookingForAJob"
                           id='lookingForAJobFalse'
                           format={value => String(value)}
-
                           type="radio"
                           value='false'
                           component={Input}
@@ -57,7 +62,7 @@ const ProfileEditForm = ({profile, editModeProfile, saveProfile}) => {
               </div>
               <div className={cn(s.item, s.column)}>
                   <span className={s.title_column_field}>Ваши профессиональные скиллы:</span>
-                  <Field
+                  <Field<string>
                       name='lookingForAJobDescription'
                       className={cn('textarea', s.textarea)}
                       component={Textarea}
@@ -66,7 +71,7 @@ const ProfileEditForm = ({profile, editModeProfile, saveProfile}) => {
               </div>
               <div className={cn(s.item, s.column)}>
                   <span className={s.title_column_field}>Обо мне:</span>
-                  <Field
+                  <Field<string>
                       name='aboutMe'
                       className={cn('textarea', s.textarea)}
                       component={Textarea}
@@ -78,7 +83,7 @@ const ProfileEditForm = ({profile, editModeProfile, saveProfile}) => {
                   return (
                       <div key={ind} className={s.item}>
                           <span className={s.title_field}>{stringsToUpperCase(key)}:</span>
-                          <Field
+                          <Field<string>
                               showSpan={false}
                               name={`contacts.${key}`}
                               className='input'
