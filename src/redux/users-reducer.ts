@@ -3,12 +3,12 @@ import { UserType } from '../types/types';
 import {BaseThunkType, InfernActionsTypes} from "./redux-store";
 import {usersAPI} from "../api/users-api";
 
-const TOGGLE_FOLLOW = 'social-network/users/TOGGLE_FOLLOW'
-const SET_USERS = 'social-network/users/SET_USERS'
-const CURRENT_PAGE = 'social-network/users/CURRENT_PAGE'
-const TOTAL_USERS = 'social-network/users/TOTAL_USERS'
-const TOGGLE_IS_FETCHING = 'social-network/users/TOGGLE_IS_FETCHING'
-const TOGGLE_IS_FOLLOWING_PROGRESS = 'social-network/users/TOGGLE_IS_FOLLOWING_PROGRESS'
+const TOGGLE_FOLLOW = 'SN/USERS/TOGGLE_FOLLOW'
+const SET_USERS = 'SN/USERS/SET_USERS'
+const CURRENT_PAGE = 'SN/USERS/CURRENT_PAGE'
+const TOTAL_USERS = 'SN/USERS/TOTAL_USERS'
+const TOGGLE_IS_FETCHING = 'SN/USERS/TOGGLE_IS_FETCHING'
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'SN/USERS/TOGGLE_IS_FOLLOWING_PROGRESS'
 
 
 const initialState = {

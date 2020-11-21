@@ -7,13 +7,13 @@ import {PhotosType, PostsType, ProfileType } from '../types/types';
 import {BaseThunkType, InfernActionsTypes} from "./redux-store";
 import {profileAPI} from "../api/profile-api";
 
-const ADD_POST = 'social-network/profile/ADD_POST'
-const DELETE_POST = 'social-network/profile/DELETE_POST'
-const SET_USER_PROFILE = 'social-network/profile/SET_USER_PROFILE'
-const SET_STATUS = 'social-network/profile/SET_STATUS'
-const SAVE_PHOTO_SUCCESS = 'social-network/profile/SAVE_PHOTO_SUCCESS'
-const TOGGLE_IS_FETCHING = 'social-network/users/TOGGLE_IS_FETCHING'
-const EDIT_MODE_PROFILE = 'social-network/users/EDIT_MODE_PROFILE'
+const ADD_POST = 'SN/PROFILE/ADD_POST'
+const DELETE_POST = 'SN/PROFILE/DELETE_POST'
+const SET_USER_PROFILE = 'SN/PROFILE/SET_USER_PROFILE'
+const SET_STATUS = 'SN/PROFILE/SET_STATUS'
+const SAVE_PHOTO_SUCCESS = 'SN/PROFILE/SAVE_PHOTO_SUCCESS'
+const TOGGLE_IS_FETCHING = 'SN/PROFILE/TOGGLE_IS_FETCHING'
+const EDIT_MODE_PROFILE = 'SN/PROFILE/EDIT_MODE_PROFILE'
 
 
 
@@ -113,7 +113,7 @@ export function updateStatus(status: string): ThunkType {
   }
 }
 
-export function savePhoto(photo: Blob): ThunkType {
+export function savePhoto(photo: File): ThunkType {
   return async (dispatch) => {
     try {
       dispatch(actions.toggleIsFetching(true))
@@ -130,11 +130,14 @@ export function savePhoto(photo: Blob): ThunkType {
 
 
 export function saveProfile(profile: ProfileType): ThunkType<Promise<void | ErrorProfileType>> {
-  return async (dispatch, getState: any) => {
+  return async (dispatch, getState) => {
     try {
       const data = await profileAPI.saveProfile(profile)
       if (data.resultCode === ResultCodesEnum.Success) {
-        dispatch(getUserProfile(getState().auth.userId))
+        const userId = getState().auth.userId
+        if (userId) {
+          dispatch(getUserProfile(userId))
+        }
         dispatch(actions.editModeProfile(false))
       } else if (data.resultCode === ResultCodesEnum.Error) {
         const messages = data.messages.map((msg, ind) => <span key={ind}>{msg}</span>)

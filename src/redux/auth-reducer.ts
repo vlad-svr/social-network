@@ -7,8 +7,8 @@ import {authAPI} from "../api/auth-api";
 import {securityAPI} from "../api/security-api";
 
 
-const SET_AUTH_USER_DATA = 'social-network/auth/SET_AUTH_USER_DATA'
-const SET_CAPTCHA = 'social-network/auth/SET_CAPTCHA'
+const SET_AUTH_USER_DATA = 'SN/AUTH/SET_AUTH_USER_DATA'
+const SET_CAPTCHA = 'SN/AUTH/SET_CAPTCHA'
 
 
 

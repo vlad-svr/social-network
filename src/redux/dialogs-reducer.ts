@@ -1,7 +1,7 @@
 import {DialogType, MessagesType } from "../types/types"
 import {InfernActionsTypes} from "./redux-store";
 
-const SEND_MESSAGE = 'social-network/dialogs/SEND_MESSAGE'
+const SEND_MESSAGE = 'SN/DIALOGS/SEND_MESSAGE'
 
 
 

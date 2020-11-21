@@ -1,4 +1,4 @@
-import profileReducer, {addPost, deletePost} from './profile-reducer';
+import profileReducer, {actions} from './profile-reducer';
 
 
 const state = {
@@ -7,10 +7,14 @@ const state = {
     { id: 2, message: "Hi, i'm good!", likesCount: 27 },
     { id: 3, message: 'Чем занимаешься?', likesCount: 2 },
   ],
+  profile: null,
+  status: '',
+  isFetching: false,
+  editModeProfile: false
 }
 
 describe('Profile-reducer:', () => {
-  let action = addPost('Testing...')
+  let action = actions.addPost('Testing...')
   let newState = profileReducer(state, action)
 
   test('should return state object', () => {
@@ -32,13 +36,13 @@ describe('Profile-reducer:', () => {
   })
 
   test('after deleting length of messages should be decrement', () => {
-    action = deletePost(4)
+    let action = actions.deletePost(4)
     newState = profileReducer(state, action)
     expect(newState.posts).toHaveLength(3)
   })
 
   test("after deleting length shouldn't be decrement if id is incorrect", () => {
-    action = deletePost(1000)
+    let action = actions.deletePost(1000)
     newState = profileReducer(state, action)
     expect(newState.posts).toHaveLength(3)
   })

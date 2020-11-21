@@ -18,49 +18,53 @@ const Profile = (props) => {
 
   return (
     <div className={s.main}>
-      <div className={cn('card', s.avatar)}>
-        <Avatar
-            savePhoto={props.savePhoto}
-            isOwner={props.isOwner}
-            avatar={props.profile.photos.large}
-            isFetching={props.isFetching}
-            userId={props.profile.userId}
-            editModeProfile={props.editModeProfile}
-        />
-      </div>
-      <div className={cn('card', s.friends)}>
-        <Friends />
-      </div>
-      <div className={cn('card', s.profile_info)}>
-          {!props.isEditModeProfile
-              ? <ProfileInfo
-                      fullName={props.profile.fullName}
-                      contacts={props.profile.contacts}
-                      aboutMe={props.profile.aboutMe}
-                      lookingForAJob={props.profile.lookingForAJob}
-                      lookingForAJobDescription={props.profile.lookingForAJobDescription}
-                      status={props.status}
-                      updateStatus={props.updateStatus}
-                      isOwner={props.isOwner}
-                  />
-              : <ProfileEditForm
-                  profile={props.profile}
-                  saveProfile={props.saveProfile}
-                  editModeProfile={props.editModeProfile}
-              />}
-      </div>
-      <div className={cn('card', s.photos)}>
-        <Photos photos={props.profile.photos} />
-      </div>
-      <div className={cn('card', s.posts)}>
-        <MyPostsContainer />
-      </div>
-      <div className={cn('card', s.video)}>
-        <Video />
-      </div>
-      <div className={cn('card', s.audio)}>
-        <Audio />
-      </div>
+        <div className={s.column_first}>
+            <div className={cn('card', s.block)}>
+                <Avatar
+                    savePhoto={props.savePhoto}
+                    isOwner={props.isOwner}
+                    avatar={props.profile.photos.large}
+                    isFetching={props.isFetching}
+                    userId={props.profile.userId}
+                    editModeProfile={props.editModeProfile}
+                />
+            </div>
+            <div className={cn('card', s.block)}>
+                <Friends />
+            </div>
+            <div className={cn('card', s.block)}>
+                <Video />
+            </div>
+            <div className={cn('card', s.block)}>
+                <Audio />
+            </div>
+        </div>
+        <div className={s.column_second}>
+            <div className={cn('card', s.block)}>
+                {!props.isEditModeProfile
+                    ? <ProfileInfo
+                        fullName={props.profile.fullName}
+                        contacts={props.profile.contacts}
+                        aboutMe={props.profile.aboutMe}
+                        lookingForAJob={props.profile.lookingForAJob}
+                        lookingForAJobDescription={props.profile.lookingForAJobDescription}
+                        status={props.status}
+                        updateStatus={props.updateStatus}
+                        isOwner={props.isOwner}
+                    />
+                    : <ProfileEditForm
+                        profile={props.profile}
+                        saveProfile={props.saveProfile}
+                        editModeProfile={props.editModeProfile}
+                    />}
+            </div>
+            <div className={cn('card', s.block)}>
+                <Photos photos={props.profile.photos} />
+            </div>
+            <div className={cn('card', s.block)}>
+                <MyPostsContainer />
+            </div>
+        </div>
     </div>
   )
 }

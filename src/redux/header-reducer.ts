@@ -1,6 +1,6 @@
 import {InfernActionsTypes} from "./redux-store";
 
-const TOGGLE_PROFILE_MENU = 'social-network/header/TOGGLE_MENU'
+const TOGGLE_PROFILE_MENU = 'SN/HEADER/TOGGLE_MENU'
 
 
 const initialState = {
