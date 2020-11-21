@@ -1,8 +1,10 @@
-import {authAPI, profileAPI, ResultCodeForCaptchaEnum, ResultCodesEnum, securityAPI} from '../api/api'
+import {ResultCodeForCaptchaEnum, ResultCodesEnum} from '../api/api'
 import {FORM_ERROR} from 'final-form'
 import {ErrorType, ProfileType} from "../types/types";
-import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./redux-store";
+import {BaseThunkType, InfernActionsTypes} from "./redux-store";
+import {profileAPI} from "../api/profile-api";
+import {authAPI} from "../api/auth-api";
+import {securityAPI} from "../api/security-api";
 
 
 const SET_AUTH_USER_DATA = 'social-network/auth/SET_AUTH_USER_DATA'
@@ -19,7 +21,6 @@ const initialState = {
   isAuth: false,
 }
 
-export type InitialStateType = typeof initialState
 
 function authReducer(state = initialState, action: ActionsTypes): InitialStateType {
   switch (action.type) {
@@ -33,34 +34,16 @@ function authReducer(state = initialState, action: ActionsTypes): InitialStateTy
 }
 
 
-type ActionsTypes = SetAuthUserDataType | SetCaptchaType
 
-type SetAuthUserDataPayloadType = {
-  userId: number | null,
-  email: string | null,
-  login: string | null,
-  profile: ProfileType | null,
-  isAuth: boolean
-}
-type SetAuthUserDataType = {
-  type: typeof SET_AUTH_USER_DATA,
-  payload: SetAuthUserDataPayloadType,
-}
-type SetCaptchaType = {
-  type: typeof SET_CAPTCHA,
-  payload: {captchaUrl: string | null}
+export const actions = {
+  setAuthUserData: (userId: number | null, email: string | null, login: string | null, profile: ProfileType | null, isAuth: boolean) => ({
+        type: SET_AUTH_USER_DATA,
+        payload: { userId, email, login, profile, isAuth },
+      } as const),
+  setCaptcha: (captchaUrl: string | null) => ({type: SET_CAPTCHA, payload: {captchaUrl}} as const)
 }
 
-const setAuthUserData =
-    (userId: number | null, email: string | null, login: string | null, profile: ProfileType | null, isAuth: boolean): SetAuthUserDataType => ({
-  type: SET_AUTH_USER_DATA,
-  payload: { userId, email, login, profile, isAuth },
-})
 
-export const setCaptcha = (captchaUrl: string | null): SetCaptchaType => ({type: SET_CAPTCHA, payload: {captchaUrl}})
-
-
-type ThunkType<ReturnType = Promise<void>> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes>
 
 export function getAuthUserData(): ThunkType {
   return async (dispatch) => {
@@ -69,7 +52,7 @@ export function getAuthUserData(): ThunkType {
       if (data.resultCode === ResultCodesEnum.Success) {
         const {id, email, login} = data.data
         const profile = await profileAPI.getProfile(id)
-        dispatch(setAuthUserData(id, email, login, profile, true))
+        dispatch(actions.setAuthUserData(id, email, login, profile, true))
       }
     } catch (e) {
       throw e
@@ -80,7 +63,7 @@ export function getAuthUserData(): ThunkType {
 export function getCaptchaUrl(): ThunkType {
   return async function (dispatch) {
     const captcha = await securityAPI.getCaptchaUrl()
-    dispatch(setCaptcha(captcha.url))
+    dispatch(actions.setCaptcha(captcha.url))
   }
 }
 
@@ -90,7 +73,7 @@ export function login(email: string, password: string, rememberMe?: boolean, cap
       const data = await authAPI.login(email, password, rememberMe, captcha)
       if (data.resultCode === ResultCodesEnum.Success) {
         dispatch(getAuthUserData())
-        dispatch(setCaptcha(null))
+        dispatch(actions.setCaptcha(null))
       } else if (data.resultCode === ResultCodeForCaptchaEnum.CaptchaIsRequired) {
         dispatch(getCaptchaUrl())
         return { [FORM_ERROR]: data.messages[0] }
@@ -110,7 +93,7 @@ export function logout(): ThunkType {
     try {
       const data = await authAPI.logout()
       if (data.resultCode === ResultCodesEnum.Success) {
-        dispatch(setAuthUserData(null, null, null, null, false))
+        dispatch(actions.setAuthUserData(null, null, null, null, false))
       }
     } catch (e) {
       throw e
@@ -119,3 +102,8 @@ export function logout(): ThunkType {
 }
 
 export default authReducer
+
+
+export type InitialStateType = typeof initialState
+type ActionsTypes = InfernActionsTypes<typeof actions>
+type ThunkType<R = Promise<void>> = BaseThunkType<ActionsTypes, R>

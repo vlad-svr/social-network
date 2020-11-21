@@ -1,4 +1,5 @@
 import {DialogType, MessagesType } from "../types/types"
+import {InfernActionsTypes} from "./redux-store";
 
 const SEND_MESSAGE = 'social-network/dialogs/SEND_MESSAGE'
 
@@ -26,7 +27,7 @@ const initialState = {
   ] as Array<DialogType>
 }
 
-export type InitialStateType = typeof initialState
+
 
 function dialogsReducer(state = initialState, action: ActionsTypes): InitialStateType {
   switch (action.type) {
@@ -47,16 +48,18 @@ function dialogsReducer(state = initialState, action: ActionsTypes): InitialStat
   }
 }
 
-type ActionsTypes = sendMessageType
 
-type sendMessageType = {
-  type: typeof SEND_MESSAGE
-  newMessage: string
+
+export const actions = {
+  sendMessage: (newMessage: string) => ({
+    type: SEND_MESSAGE,
+    newMessage,
+  } as const)
 }
 
-export const sendMessage = (newMessage: string): sendMessageType => ({
-  type: SEND_MESSAGE,
-  newMessage,
-})
 
 export default dialogsReducer
+
+
+export type InitialStateType = typeof initialState
+type ActionsTypes = InfernActionsTypes<typeof actions>

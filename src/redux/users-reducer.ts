@@ -1,8 +1,7 @@
-import {ResultCodesEnum, usersAPI} from '../api/api';
+import {ResultCodesEnum} from '../api/api';
 import { UserType } from '../types/types';
-import {ThunkAction} from "redux-thunk";
-import {AppStateType, InfernActionsTypes} from "./redux-store";
-
+import {BaseThunkType, InfernActionsTypes} from "./redux-store";
+import {usersAPI} from "../api/users-api";
 
 const TOGGLE_FOLLOW = 'social-network/users/TOGGLE_FOLLOW'
 const SET_USERS = 'social-network/users/SET_USERS'
@@ -10,7 +9,6 @@ const CURRENT_PAGE = 'social-network/users/CURRENT_PAGE'
 const TOTAL_USERS = 'social-network/users/TOTAL_USERS'
 const TOGGLE_IS_FETCHING = 'social-network/users/TOGGLE_IS_FETCHING'
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'social-network/users/TOGGLE_IS_FOLLOWING_PROGRESS'
-
 
 
 const initialState = {
@@ -21,7 +19,7 @@ const initialState = {
     isFetching: false,
     followingInProgress: [] as Array<number>,
 }
-export type InitialStateType = typeof initialState
+
 
 function usersReducer(state = initialState, action: ActionsTypes): InitialStateType {
     switch (action.type) {
@@ -58,8 +56,6 @@ function usersReducer(state = initialState, action: ActionsTypes): InitialStateT
 }
 
 
-type ActionsTypes = InfernActionsTypes<typeof actions>
-
 export const actions = {
     toggleFollowSuccess: (userId: number) => ({type: TOGGLE_FOLLOW, userId} as const),
     setUsers: (users: Array<UserType>) => ({type: SET_USERS, users} as const),
@@ -73,8 +69,6 @@ export const actions = {
     } as const),
 }
 
-
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 export function requestUsers(page: number, pageSize: number): ThunkType {
     return async (dispatch) => {
@@ -99,7 +93,6 @@ export function toggleFollow(userId: number): ThunkType {
             const data = isFollowed
                 ? await usersAPI.unfollow(userId)
                 : await usersAPI.follow(userId)
-
             data.resultCode === ResultCodesEnum.Success && dispatch(actions.toggleFollowSuccess(userId))
             dispatch(actions.toggleFollowingInProgress(false, userId))
         } catch (e) {
@@ -110,3 +103,11 @@ export function toggleFollow(userId: number): ThunkType {
 }
 
 export default usersReducer
+
+
+export type InitialStateType = typeof initialState
+type ActionsTypes = InfernActionsTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsTypes>
+
+
+

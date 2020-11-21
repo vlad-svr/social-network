@@ -1,10 +1,11 @@
-import {profileAPI, ResultCodesEnum} from '../api/api'
+import {ResultCodesEnum} from '../api/api'
 import {FORM_ERROR} from 'final-form';
 import React from "react";
 import {firstLetterToLowerCase} from '../utils/core';
-import {ErrorType, PhotosType, PostsType, ProfileType } from '../types/types';
-import {ThunkAction} from "redux-thunk";
-import {AppStateType, InfernActionsTypes} from "./redux-store";
+import {PhotosType, PostsType, ProfileType } from '../types/types';
+
+import {BaseThunkType, InfernActionsTypes} from "./redux-store";
+import {profileAPI} from "../api/profile-api";
 
 const ADD_POST = 'social-network/profile/ADD_POST'
 const DELETE_POST = 'social-network/profile/DELETE_POST'
@@ -28,8 +29,6 @@ const initialState = {
   isFetching: false,
   editModeProfile: false
 }
-export type InitialStateType = typeof initialState
-
 
 
 function profileReducer(state = initialState, action: ActionsTypes): InitialStateType {
@@ -67,9 +66,6 @@ function profileReducer(state = initialState, action: ActionsTypes): InitialStat
 }
 
 
-type ActionsTypes = InfernActionsTypes<typeof actions>
-
-
 export const actions = {
   setStatus: (status: string) => ({type: SET_STATUS, payload: {status}} as const),
   setUserProfile: (profile: ProfileType | null) => ({type: SET_USER_PROFILE, payload: {profile}} as const),
@@ -82,10 +78,8 @@ export const actions = {
 
 
 
-type ThunkType<ReturnType = Promise<void>> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes>
-
 export function getUserProfile(userId: number): ThunkType {
-  return async (dispatch: any) => {
+  return async (dispatch) => {
     try {
       const data = await profileAPI.getProfile(userId)
       dispatch(actions.setUserProfile(data))
@@ -96,7 +90,7 @@ export function getUserProfile(userId: number): ThunkType {
 }
 
 export function getStatus(userId: number): ThunkType {
-  return async (dispatch: any) => {
+  return async (dispatch) => {
     try {
       const data = await profileAPI.getUserStatus(userId)
       dispatch(actions.setStatus(data))
@@ -107,7 +101,7 @@ export function getStatus(userId: number): ThunkType {
 }
 
 export function updateStatus(status: string): ThunkType {
-  return async (dispatch: any) => {
+  return async (dispatch) => {
     try {
       const data = await profileAPI.updateStatus(status)
       if (data.resultCode === ResultCodesEnum.Success) {
@@ -120,7 +114,7 @@ export function updateStatus(status: string): ThunkType {
 }
 
 export function savePhoto(photo: Blob): ThunkType {
-  return async (dispatch: any) => {
+  return async (dispatch) => {
     try {
       dispatch(actions.toggleIsFetching(true))
       const data = await profileAPI.savePhoto(photo)
@@ -134,17 +128,17 @@ export function savePhoto(photo: Blob): ThunkType {
   }
 }
 
-export function saveProfile(profile: ProfileType): ThunkType<Promise<void | ErrorType>> {
-  return async (dispatch: any, getState: any) => {
+
+export function saveProfile(profile: ProfileType): ThunkType<Promise<void | ErrorProfileType>> {
+  return async (dispatch, getState: any) => {
     try {
       const data = await profileAPI.saveProfile(profile)
-
       if (data.resultCode === ResultCodesEnum.Success) {
         dispatch(getUserProfile(getState().auth.userId))
         dispatch(actions.editModeProfile(false))
       } else if (data.resultCode === ResultCodesEnum.Error) {
-        const messages = data.messages.map((msg: any, ind: any) => <span key={ind}>{msg}</span>)
-        const fieldsErrors = data.messages.reduce((acc: any, msg: any) => {
+        const messages = data.messages.map((msg, ind) => <span key={ind}>{msg}</span>)
+        const fieldsErrors = data.messages.reduce((acc: { [key: string]: boolean }, msg: string) => {
           const index = msg.indexOf('->') + 2
           const contact = firstLetterToLowerCase(msg.slice(index, -1))
           acc[contact] = true
@@ -159,5 +153,15 @@ export function saveProfile(profile: ProfileType): ThunkType<Promise<void | Erro
 }
 
 
-
 export default profileReducer
+
+
+export type InitialStateType = typeof initialState
+type ActionsTypes = InfernActionsTypes<typeof actions>
+type ThunkType<R = Promise<void>> = BaseThunkType<ActionsTypes, R>
+type ErrorProfileType = {
+  [key: string]: Array<JSX.Element> | { [key: string]: boolean }
+}
+
+
+
