@@ -58,7 +58,7 @@ function usersReducer(state = initialState, action: ActionsTypes): InitialStateT
 
 
 export const actions = {
-    toggleFollowSuccess: (userId: number) => ({type: TOGGLE_FOLLOW, userId} as const),
+    toggleFollowUnfollowSuccess: (userId: number) => ({type: TOGGLE_FOLLOW, userId} as const),
     setUsers: (users: Array<UserType>) => ({type: SET_USERS, users} as const),
     setCurrentPage: (currentPage: number) => ({type: CURRENT_PAGE, payload: {currentPage}} as const),
     setTotalUsersCount: (totalUsersCount: number) => ({type: TOTAL_USERS, payload: {totalUsersCount}} as const),
@@ -86,7 +86,7 @@ export function requestUsers(page: number, pageSize: number): ThunkType {
     }
 }
 
-export function toggleFollow(userId: number): ThunkType {
+export function toggleFollowUnfollow(userId: number): ThunkType {
     return async (dispatch) => {
         try {
             dispatch(actions.toggleFollowingInProgress(true, userId))
@@ -94,7 +94,7 @@ export function toggleFollow(userId: number): ThunkType {
             const data = isFollowed
                 ? await usersAPI.unfollow(userId)
                 : await usersAPI.follow(userId)
-            data.resultCode === ResultCodesEnum.Success && dispatch(actions.toggleFollowSuccess(userId))
+            data.resultCode === ResultCodesEnum.Success && dispatch(actions.toggleFollowUnfollowSuccess(userId))
             dispatch(actions.toggleFollowingInProgress(false, userId))
         } catch (e) {
             dispatch(actions.toggleFollowingInProgress(false, userId))
@@ -110,6 +110,3 @@ export default usersReducer
 export type InitialStateType = typeof initialState
 type ActionsTypes = InfernActionsTypes<typeof actions>
 type ThunkType = BaseThunkType<ActionsTypes>
-
-
-

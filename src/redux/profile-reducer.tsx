@@ -2,7 +2,7 @@ import {ResultCodesEnum} from '../api/api'
 import {FORM_ERROR} from 'final-form';
 import React from "react";
 import {firstLetterToLowerCase} from '../utils/core';
-import {ErrorProfileType, PhotosType, PostsType, ProfileType } from '../types/types';
+import {ErrorProfileType, PhotosType, PostsType, ProfileType} from '../types/types';
 import {BaseThunkType, InfernActionsTypes} from "./redux-store";
 import {profileAPI} from "../api/profile-api";
 
@@ -27,7 +27,8 @@ const initialState = {
   profile: null as ProfileType | null,
   status: '',
   isFetching: false,
-  editModeProfile: false
+  editModeProfile: false,
+  // friends: null as Array<UserType> | null
 }
 
 

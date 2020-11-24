@@ -16,13 +16,13 @@ type PropsType = {
     isFetching: boolean
     followingInProgress: Array<number>
     onPageChanged: (pageNumber: number) => void
-    toggleFollow: (userId: number) => void
+    toggleFollowUnfollow: (userId: number) => void
 }
 
 
 const Users: React.FC<PropsType> = (props) => {
     const users = props.users.map(user => (
-        <User key={user.id} user={user} followingInProgress={props.followingInProgress} toggleFollow={props.toggleFollow} />
+        <User key={user.id} user={user} followingInProgress={props.followingInProgress} toggleFollow={props.toggleFollowUnfollow} />
     ))
 
     return (

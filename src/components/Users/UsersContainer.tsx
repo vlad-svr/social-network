@@ -1,7 +1,7 @@
 import React, {ComponentType} from 'react';
 import {connect} from 'react-redux';
 import Users from './Users';
-import {requestUsers, toggleFollow} from '../../redux/users-reducer';
+import {requestUsers, toggleFollowUnfollow} from '../../redux/users-reducer';
 import {compose} from 'redux';
 import {
     getCurrentPage,
@@ -16,7 +16,7 @@ import {AppStateType} from "../../redux/redux-store";
 
 
 type MapDispatchPropsType = {
-    toggleFollow: (userId: number) => void
+    toggleFollowUnfollow: (userId: number) => void
     requestUsers: (page: number, pageSize: number) => void
 }
 type OwnPropsType = {}
@@ -44,7 +44,7 @@ class UsersContainer extends React.Component<PropsType> {
                 currentPage={this.props.currentPage}
                 onPageChanged={this.onPageChanged}
                 users={this.props.users}
-                toggleFollow={this.props.toggleFollow}
+                toggleFollowUnfollow={this.props.toggleFollowUnfollow}
                 isFetching={this.props.isFetching}
                 followingInProgress={this.props.followingInProgress}
             />
@@ -65,5 +65,5 @@ function mapStateToProps(state: AppStateType): MapStatePropsType {
 
 export default compose(
     connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps,
-        {toggleFollow, requestUsers}),
+        {toggleFollowUnfollow, requestUsers}),
 ) (UsersContainer) as ComponentType
