@@ -7,6 +7,7 @@ type PropsType = {
     isFetching: boolean
     setActiveModal: (activeModal: boolean) => void
     savePhoto: (photo: File) => void
+    onClick?: (e: MouseEvent) => void
 }
 
 

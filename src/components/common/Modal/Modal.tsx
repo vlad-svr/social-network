@@ -3,11 +3,14 @@ import cn from 'classnames'
 import s from './Modal.module.css'
 
 
-type PropsType = { children: React.ReactNode }
-const Modal: React.FC<PropsType> = (props) => {
+type PropsType = {
+    children: React.ReactNode
+    onClosed: () => void
+}
+const Modal: React.FC<PropsType> = ({children, onClosed}) => {
     return  (
-        <div className={s.background}>
-            <div className={cn('card', s.window)}>{props.children}</div>
+        <div onClick={onClosed} className={s.background}>
+            <div onClick={(e) => e.stopPropagation()} className={cn('card', s.window)}>{children}</div>
         </div>
     )
 }

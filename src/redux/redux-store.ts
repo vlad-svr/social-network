@@ -4,12 +4,10 @@ import dialogsReducer from './dialogs-reducer'
 import usersReducer from './users-reducer'
 import authReducer from './auth-reducer'
 import thunkMiddleware, {ThunkAction} from 'redux-thunk'
-import headerReducer from './header-reducer'
 import appReducer from './app-reducer'
 
 
 const rootReducer = combineReducers({
-  headerPage: headerReducer,
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
   usersPage: usersReducer,

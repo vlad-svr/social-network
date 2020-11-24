@@ -16,7 +16,9 @@ type PropsType = {
 }
 const Avatar: React.FC<PropsType> = ({avatar, savePhoto, isOwner, isFetching, userId, editModeProfile}) => {
     const [activeModal, setActiveModal] = useState(false)
+
     const onEditModeProfile = () => editModeProfile(true)
+    const clickOutside = () => setActiveModal(!activeModal)
 
     return (
         <div className={s.main_avatar}>
@@ -28,7 +30,7 @@ const Avatar: React.FC<PropsType> = ({avatar, savePhoto, isOwner, isFetching, us
                     </div>}
             </div>
             { activeModal &&
-                <Modal><ModalAvatar isFetching={isFetching} setActiveModal={setActiveModal} savePhoto={savePhoto}/></Modal>}
+                <Modal onClosed={clickOutside}><ModalAvatar isFetching={isFetching} setActiveModal={setActiveModal} savePhoto={savePhoto}/></Modal>}
             {isOwner &&
                 <button onClick={onEditModeProfile} className={cn('button_gray', s.button)}>Редактировать</button>}
             {!isOwner &&
