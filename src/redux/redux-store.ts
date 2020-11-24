@@ -7,6 +7,7 @@ import thunkMiddleware, {ThunkAction} from 'redux-thunk'
 import headerReducer from './header-reducer'
 import appReducer from './app-reducer'
 
+
 const rootReducer = combineReducers({
   headerPage: headerReducer,
   profilePage: profileReducer,
@@ -16,9 +17,9 @@ const rootReducer = combineReducers({
   app: appReducer
 })
 
+
 export type AppStateType = ReturnType<typeof rootReducer>
-type PropertiesTypes<T> = T extends {[key: string]: infer U} ? U : never
-export type InfernActionsTypes<T extends {[key: string]: (...args: any[]) => any}> = ReturnType<PropertiesTypes<T>>
+export type InfernActionsTypes<T> = T extends {[key: string]: (...args: any[]) => infer U} ? U : never
 export type BaseThunkType<AT extends Action, ReturnType = Promise<void>> = ThunkAction<ReturnType, AppStateType, unknown, AT>
 
 // @ts-ignore

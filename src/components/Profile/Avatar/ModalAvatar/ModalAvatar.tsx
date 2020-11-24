@@ -3,11 +3,18 @@ import s from './ModalAvatar.module.css'
 import Preloader from '../../../common/Preloader/Preloader';
 
 
-const ModalAvatar = ({isFetching, setActiveModal, savePhoto}) => {
-    const inputRef = useRef(null);
+type PropsType = {
+    isFetching: boolean
+    setActiveModal: (activeModal: boolean) => void
+    savePhoto: (photo: File) => void
+}
+
+
+const ModalAvatar: React.FC<PropsType> = ({isFetching, setActiveModal, savePhoto}) => {
+    const inputRef = useRef<HTMLInputElement>(null);
     const onSendPhoto = async () => {
-        if (inputRef.current.files.length) {
-            await savePhoto(inputRef.current.files[0])
+        if (inputRef.current?.files?.length) {
+            await savePhoto(inputRef.current!.files![0])
             setActiveModal(false)
         }
     }

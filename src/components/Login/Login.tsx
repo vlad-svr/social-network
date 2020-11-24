@@ -11,7 +11,6 @@ import {LoginFormValuesType} from "../../types/types";
 
 
 
-
 const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = ({login, isAuth, captchaUrl}) => {
   function onSubmit(formData: LoginFormValuesType) {
     const { email, password, rememberMe, captcha } = formData
@@ -37,6 +36,8 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
   login: (email: string, password: string, rememberMe?: boolean, captcha?: string | null) => void
 }
+
+
 function mapStateToProps(state: AppStateType): MapStatePropsType {
   return {
     isAuth: state.auth.isAuth,

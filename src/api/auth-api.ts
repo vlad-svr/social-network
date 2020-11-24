@@ -7,9 +7,7 @@ type IsAuthDataType = {
     email: string
     login: string
 }
-type LoginDataType = {
-    userId: number
-}
+type LoginDataType = { userId: number }
 
 
 export const authAPI = {

@@ -10,17 +10,22 @@ import { Textarea } from '../../../common/FormsControl/FormsControl'
 import cn from 'classnames'
 import s from './PostForm.module.css'
 
-const PostForm = (props) => {
+
+export type AddPostFormDataType = { newPost: string }
+type PropsType = { onSubmit: (data: AddPostFormDataType) => Promise<void> }
+
+
+const PostForm: React.FC<PropsType> = ({onSubmit}) => {
   return (
     <Form
-      onSubmit={props.onSubmit}
+      onSubmit={onSubmit}
       render={({ handleSubmit, form, submitting}) => (
         <form className={s.form} onSubmit={(e) => {
             const promise = handleSubmit(e);
             promise && promise.then(() => form.reset())
             return promise;
         }}>
-          <Field
+          <Field<string>
             component={Textarea}
             name="newPost"
             className={cn('textarea', s.message)}

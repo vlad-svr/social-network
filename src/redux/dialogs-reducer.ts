@@ -4,7 +4,6 @@ import {InfernActionsTypes} from "./redux-store";
 const SEND_MESSAGE = 'SN/DIALOGS/SEND_MESSAGE'
 
 
-
 const initialState = {
   messages: [
     { id: 1, message: 'Привет, хорошо', myMessage: false },
@@ -28,7 +27,6 @@ const initialState = {
 }
 
 
-
 function dialogsReducer(state = initialState, action: ActionsTypes): InitialStateType {
   switch (action.type) {
     case SEND_MESSAGE:
@@ -47,7 +45,6 @@ function dialogsReducer(state = initialState, action: ActionsTypes): InitialStat
       return state
   }
 }
-
 
 
 export const actions = {

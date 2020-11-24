@@ -5,25 +5,41 @@ import defaultPhoto from '../../assets/images/no-avatar.png'
 import { NavLink } from 'react-router-dom'
 import ContextProfileMenu from './ContextProfileMenu/ContextProfileMenu'
 
-const Header = (props) => {
+
+export type MapStatePropsType = {
+  isMenuActive: boolean
+  photo?: string | null
+  login: string | null
+  isAuth: boolean
+}
+export type MapDispatchPropsType = {
+  logout: () => void
+  toggleProfileMenu: (data: boolean) => void,
+}
+
+
+const Header: React.FC<MapStatePropsType & MapDispatchPropsType> =
+    ({isAuth, toggleProfileMenu, isMenuActive, login, logout, photo}) => {
   function authBlock() {
-    if (props.isAuth) {
+    const onToggleProfileMenu = () => toggleProfileMenu(!isMenuActive)
+
+    if (isAuth) {
       return (
         <div
-          onClick={props.toggleProfileMenu}
-          className={cn(s.profile, {[s.active]: props.isMenuActive})}
+          onClick={onToggleProfileMenu}
+          className={cn(s.profile, {[s.active]: isMenuActive})}
         >
-          <span className={s.login}>{props.login}</span>
+          <span className={s.login}>{login}</span>
           <img
             className="mini_avatar_02"
-            src={props.profile?.photos.small || defaultPhoto}
+            src={photo || defaultPhoto}
             alt="avatar"
           />
           <ContextProfileMenu
-            isMenuActive={props.isMenuActive}
-            login={props.login}
-            logout={props.logout}
-            photo={props.profile?.photos.small || defaultPhoto}
+            isMenuActive={isMenuActive}
+            login={login}
+            logout={logout}
+            photo={photo || defaultPhoto}
           />
         </div>
       )

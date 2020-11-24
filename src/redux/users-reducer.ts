@@ -3,6 +3,7 @@ import { UserType } from '../types/types';
 import {BaseThunkType, InfernActionsTypes} from "./redux-store";
 import {usersAPI} from "../api/users-api";
 
+
 const TOGGLE_FOLLOW = 'SN/USERS/TOGGLE_FOLLOW'
 const SET_USERS = 'SN/USERS/SET_USERS'
 const CURRENT_PAGE = 'SN/USERS/CURRENT_PAGE'
@@ -101,6 +102,7 @@ export function toggleFollow(userId: number): ThunkType {
         }
     }
 }
+
 
 export default usersReducer
 

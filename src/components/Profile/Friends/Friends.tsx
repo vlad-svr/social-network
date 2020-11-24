@@ -1,7 +1,8 @@
 import React from 'react';
 import s from './Friends.module.css'
 
-const Friends = () => {
+
+const Friends: React.FC = () => {
     return (
         <div className={s.main_friends}>
             <div className="card__title">Друзья <span>127</span></div>

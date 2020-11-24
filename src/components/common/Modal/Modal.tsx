@@ -3,9 +3,7 @@ import cn from 'classnames'
 import s from './Modal.module.css'
 
 
-type PropsType = {
-    children: React.FC
-}
+type PropsType = { children: React.ReactNode }
 const Modal: React.FC<PropsType> = (props) => {
     return  (
         <div className={s.background}>

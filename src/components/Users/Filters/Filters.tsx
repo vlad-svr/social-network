@@ -1,6 +1,7 @@
 import React from 'react';
 
-const Filters = () => {
+
+const Filters: React.FC = () => {
     return (
         <div>
             Filters

@@ -4,6 +4,7 @@ import {BaseThunkType, InfernActionsTypes} from './redux-store'
 
 export const INITIALIZED_SUCCESS = 'SN/APP/INITIALIZED_SUCCESS'
 
+
 const initialState = {
     initialized: false
 }

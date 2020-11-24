@@ -13,6 +13,8 @@ type PropsType = {
     editModeProfile: (editModeProfile: boolean) => void
     saveProfile: (profile: ProfileType) => Promise<void | ErrorType>
 }
+
+
 const ProfileEditForm: React.FC<PropsType> = ({profile, editModeProfile, saveProfile}) => {
     const onChangeCancel = () => editModeProfile(false)
 

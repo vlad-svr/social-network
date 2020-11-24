@@ -3,14 +3,15 @@ import cn from 'classnames'
 import s from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
-import MessageForm from './MessageForm/MessageForm'
+import MessageForm, { NewMessageFormType } from './MessageForm/MessageForm'
 import {DialogType, MessagesType} from "../../types/types";
+
 
 
 type PropsType = {
     messages: Array<MessagesType>
     dialogs: Array<DialogType>
-    sendMessage: (newMessage: string) => void
+    sendMessage: (newMessage: string) => Promise<void>
 }
 const Dialogs: React.FC<PropsType> = (props) => {
   const dialogsElements = props.dialogs.map((d) => (
@@ -21,8 +22,7 @@ const Dialogs: React.FC<PropsType> = (props) => {
     <Message key={m.id} message={m.message} myMessage={m.myMessage} />
   ))
 
-  type DataType = { newMessageBody: string }
-  function onSendMessage(data: DataType):Promise<void> {
+  function onSendMessage(data: NewMessageFormType):Promise<void> {
     props.sendMessage(data.newMessageBody)
     return Promise.resolve()
   }

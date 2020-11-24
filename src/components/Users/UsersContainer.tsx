@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {connect} from 'react-redux';
 import Users from './Users';
 import {requestUsers, toggleFollow} from '../../redux/users-reducer';
@@ -29,6 +29,7 @@ type MapStatePropsType = {
     followingInProgress: Array<number>
 }
 type PropsType = MapDispatchPropsType & MapStatePropsType
+
 
 class UsersContainer extends React.Component<PropsType> {
     componentDidMount = () => this.props.requestUsers(this.props.currentPage, this.props.pageSize)
@@ -65,4 +66,4 @@ function mapStateToProps(state: AppStateType): MapStatePropsType {
 export default compose(
     connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps,
         {toggleFollow, requestUsers}),
-) (UsersContainer)
+) (UsersContainer) as ComponentType

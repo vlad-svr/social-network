@@ -11,7 +11,6 @@ const SET_AUTH_USER_DATA = 'SN/AUTH/SET_AUTH_USER_DATA'
 const SET_CAPTCHA = 'SN/AUTH/SET_CAPTCHA'
 
 
-
 const initialState = {
   userId: null as number | null,
   email: null as string | null,
@@ -34,7 +33,6 @@ function authReducer(state = initialState, action: ActionsTypes): InitialStateTy
 }
 
 
-
 export const actions = {
   setAuthUserData: (userId: number | null, email: string | null, login: string | null, profile: ProfileType | null, isAuth: boolean) => ({
         type: SET_AUTH_USER_DATA,
@@ -42,7 +40,6 @@ export const actions = {
       } as const),
   setCaptcha: (captchaUrl: string | null) => ({type: SET_CAPTCHA, payload: {captchaUrl}} as const)
 }
-
 
 
 export function getAuthUserData(): ThunkType {

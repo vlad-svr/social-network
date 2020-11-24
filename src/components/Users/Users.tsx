@@ -19,6 +19,7 @@ type PropsType = {
     toggleFollow: (userId: number) => void
 }
 
+
 const Users: React.FC<PropsType> = (props) => {
     const users = props.users.map(user => (
         <User key={user.id} user={user} followingInProgress={props.followingInProgress} toggleFollow={props.toggleFollow} />

@@ -9,6 +9,7 @@ type getUsersType = {
     error: string | null
 }
 
+
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
         return instance

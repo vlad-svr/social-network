@@ -48,6 +48,10 @@ export type ErrorType = {
     [key: string]: string
 }
 
+export type ErrorProfileType = {
+    [key: string]: Array<JSX.Element> | { [key: string]: boolean }
+}
+
 export type LoginFormValuesType = {
     email: string;
     password: string;

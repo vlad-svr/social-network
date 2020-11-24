@@ -6,14 +6,17 @@ import leftArrowImage from '../../../assets/images/prevPage.png'
 
 
 type PropsType = {
-    currentPage: number
-    onPageChanged: (pageNumber: number) => void
+    currentPage?: number
+    onPageChanged?: (pageNumber: number) => void
     totalValueCount: number
     pageSize: number
     portionSize?: number
 }
 
-const Paginator: React.FC<PropsType> = ({currentPage, onPageChanged, totalValueCount, pageSize, portionSize = 10}) => {
+
+const Paginator: React.FC<PropsType> = ({currentPage = 1, onPageChanged = x => x,
+                                            totalValueCount, pageSize,
+                                            portionSize = 10}) => {
     const pagesCount = Math.ceil(totalValueCount / pageSize)
 
     const pages = new Array(pagesCount)

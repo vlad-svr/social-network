@@ -4,7 +4,7 @@ import c from './Navbar.module.css'
 import {NavLink} from 'react-router-dom';
 
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
     return (
         <nav className={c.nav}>
             <NavLink className={c.link} to="/profile">

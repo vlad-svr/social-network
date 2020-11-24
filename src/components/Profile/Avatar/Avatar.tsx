@@ -6,7 +6,15 @@ import Modal from '../../common/Modal/Modal';
 import ModalAvatar from './ModalAvatar/ModalAvatar';
 
 
-const Avatar = ({avatar, savePhoto, isOwner, isFetching, userId, editModeProfile}) => {
+type PropsType = {
+    avatar: string | null
+    savePhoto: (photo: File) => void
+    isOwner: boolean
+    isFetching: boolean
+    userId: number
+    editModeProfile: (editModeProfile: boolean) => void
+}
+const Avatar: React.FC<PropsType> = ({avatar, savePhoto, isOwner, isFetching, userId, editModeProfile}) => {
     const [activeModal, setActiveModal] = useState(false)
     const onEditModeProfile = () => editModeProfile(true)
 

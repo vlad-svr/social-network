@@ -1,8 +1,8 @@
 import {getDataResponse, instance} from "./api";
 
-type GetCaptchaUrlType = {
-    url: string
-}
+
+type GetCaptchaUrlType = { url: string }
+
 
 export const securityAPI = {
     getCaptchaUrl() {

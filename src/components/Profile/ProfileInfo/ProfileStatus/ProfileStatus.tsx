@@ -9,9 +9,10 @@ type PropsType = {
     updateStatus: (status: string) => void
 }
 
+
 const ProfileStatus: React.FC<PropsType> = (props) => {
     const [editMode, setEditMode] = useState(false)
-    const [status, setStatus] = useState<string>(props.status)
+    const [status, setStatus] = useState(props.status)
 
     useEffect(() => setStatus(props.status), [props.status])
 

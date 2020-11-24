@@ -4,9 +4,17 @@ import cn from 'classnames'
 import userPhoto from '../../../assets/images/no-avatar.png';
 import {NavLink} from 'react-router-dom';
 import {stringsToUpperCase} from '../../../utils/core';
+import {UserType} from "../../../types/types";
 
 
-const User = ({user: u, followingInProgress, toggleFollow}) => {
+type PropsType = {
+    user: UserType
+    followingInProgress: Array<number>
+    toggleFollow: (userId: number) => void
+}
+
+
+const User: React.FC<PropsType> = ({user: u, followingInProgress, toggleFollow}) => {
     return (
         <div className={s.users_card}>
             <NavLink to={'/profile/' + u.id}>

@@ -3,7 +3,16 @@ import cn from 'classnames'
 import s from './ContextProfileMenu.module.css'
 import { NavLink } from 'react-router-dom'
 
-const ContextProfileMenu = ({isMenuActive, photo, login, logout}) => {
+
+type PropsType = {
+    isMenuActive: boolean
+    photo: string
+    login: string | null
+    logout: () => void
+}
+
+
+const ContextProfileMenu: React.FC<PropsType> = ({isMenuActive, photo, login, logout}) => {
   return (
     <div className={cn(s.context_menu, 'card', {[s.active]: isMenuActive})}>
       <NavLink to="/" className={cn(s.link, s.item_title)}>

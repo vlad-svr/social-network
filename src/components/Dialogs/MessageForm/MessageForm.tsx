@@ -9,7 +9,12 @@ import {
 import { Textarea } from '../../common/FormsControl/FormsControl'
 import s from './MessageForm.module.css'
 
-const MessageForm = ({onSubmit}) => {
+
+export type NewMessageFormType = { newMessageBody: string }
+type PropsType = { onSubmit: (data: NewMessageFormType) => Promise<void> }
+
+
+const MessageForm: React.FC<PropsType> = ({onSubmit}) => {
   return (
     <Form
       onSubmit={onSubmit}
@@ -19,7 +24,7 @@ const MessageForm = ({onSubmit}) => {
             promise && promise.then(() => form.reset())
             return promise;
         }}>
-          <Field
+          <Field<string>
             name="newMessageBody"
             component={Textarea}
             validate={composeValidators(required, maxLength(50))}

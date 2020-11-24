@@ -6,26 +6,42 @@ import {
   getStatus,
   updateStatus, savePhoto, saveProfile, actions,
 } from '../../redux/profile-reducer'
-import {withRouter} from 'react-router-dom'
+import {RouteComponentProps, withRouter} from 'react-router-dom'
 import { compose } from 'redux'
+import {AppStateType} from "../../redux/redux-store";
+import {ErrorType, ProfileType} from "../../types/types";
 
-class ProfileContainer extends React.Component {
+
+type PathParamsType = { userId: string }
+type MapStatePropsType = ReturnType<typeof mapStateToProps>
+export type MapDispatchPropsType = {
+  getUserProfile: (userId: number) => void
+  getStatus: (userId: number) => void
+  updateStatus: (status: string) => void
+  savePhoto: (photo: File) => void
+  saveProfile: (profile: ProfileType) => Promise<void | ErrorType>
+  editModeProfile: (editModeProfile: boolean) => void
+}
+type PropsType = MapStatePropsType & MapDispatchPropsType & RouteComponentProps<PathParamsType>;
+
+
+class ProfileContainer extends React.Component<PropsType> {
   refreshProfile() {
-    if (+this.props.match.params.userId === +this.props.authorizedUserId) {
+    if (+this.props.match.params.userId === this.props.authorizedUserId) {
       return this.props.history.push('/profile')
     }
-    const userId = this.props.match.params.userId || this.props.authorizedUserId
+    const userId = +this.props.match.params.userId || this.props.authorizedUserId
     if (!userId) return this.props.history.push('/login')
 
-    this.props.getUserProfile(userId)
-    this.props.getStatus(userId)
+    this.props.getUserProfile(userId as number)
+    this.props.getStatus(userId as number)
   }
 
   componentDidMount() {
     this.refreshProfile()
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps: PropsType) {
     if (this.props.match.params.userId !== prevProps.match.params.userId) {
       this.refreshProfile()
     }
@@ -40,7 +56,8 @@ class ProfileContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+
+const mapStateToProps = (state: AppStateType) => ({
   profile: state.profilePage.profile,
   status: state.profilePage.status,
   authorizedUserId: state.auth.userId,
@@ -49,7 +66,7 @@ const mapStateToProps = (state) => ({
   isEditModeProfile: state.profilePage.editModeProfile
 })
 
-export default compose(
+export default compose<React.ComponentType>(
   connect(mapStateToProps,
       { getUserProfile, getStatus, updateStatus, savePhoto, saveProfile,
         editModeProfile: actions.editModeProfile}),

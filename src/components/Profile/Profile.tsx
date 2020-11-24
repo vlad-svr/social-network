@@ -10,11 +10,23 @@ import Photos from './Photos/Photos'
 import MyPostsContainer from './MyPosts/MyPostsContainer'
 import Preloader from '../common/Preloader/Preloader'
 import ProfileEditForm from './ProfileInfo/ProfileEdit/ProfileEditForm';
+import {ProfileType} from "../../types/types";
+import {MapDispatchPropsType} from "./ProfileContainer";
 
 
-const Profile = (props) => {
+type PropsType = {
+    isOwner: boolean
+    profile: ProfileType | null
+    status: string
+    authorizedUserId: number | null
+    isAuth: boolean
+    isFetching: boolean
+    isEditModeProfile: boolean
+}
+
+
+const Profile:React.FC<PropsType & MapDispatchPropsType> = (props) => {
   if (!props.profile) return <Preloader />
-
 
   return (
     <div className={s.main}>
@@ -43,11 +55,7 @@ const Profile = (props) => {
             <div className={cn('card', s.block)}>
                 {!props.isEditModeProfile
                     ? <ProfileInfo
-                        fullName={props.profile.fullName}
-                        contacts={props.profile.contacts}
-                        aboutMe={props.profile.aboutMe}
-                        lookingForAJob={props.profile.lookingForAJob}
-                        lookingForAJobDescription={props.profile.lookingForAJobDescription}
+                        profile={props.profile}
                         status={props.status}
                         updateStatus={props.updateStatus}
                         isOwner={props.isOwner}

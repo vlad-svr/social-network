@@ -32,7 +32,6 @@ export const Textarea: React.FC<InputPropsType> = (props) => {
 
 export const Input: React.FC<InputPropsType> = (props: InputPropsType) => {
   const { input, meta, showSpan, children, ...restProps } = props
-
   return (
     <FormControl {...props}>
       <input {...input} {...restProps} />

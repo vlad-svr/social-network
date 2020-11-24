@@ -3,7 +3,7 @@ import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
 import './App.css'
 import {Provider} from 'react-redux';
 import {connect} from 'react-redux';
-import store from './redux/redux-store';
+import store, {AppStateType} from './redux/redux-store';
 import {initializeApp} from './redux/app-reducer';
 import HeaderContainer from './components/Header/HeaderContainer'
 import Navbar from './components/Navbar/Navbar'
@@ -17,9 +17,12 @@ const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsCo
 
 
 
+type MapStatePropsType = ReturnType<typeof mapStateToProps>
+type MapDispatchPropsType = { initializeApp: () => void }
 
-class App extends React.Component {
-    catchAllUnhandledErrors = (promiseRejectionEvent) => {
+
+class App extends React.Component<MapStatePropsType & MapDispatchPropsType> {
+    catchAllUnhandledErrors = (promiseRejectionEvent: PromiseRejectionEvent) => {
         console.log(promiseRejectionEvent)
     }
 
@@ -59,7 +62,7 @@ class App extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: AppStateType) {
     return {
         initialized: state.app.initialized
     }
@@ -67,7 +70,7 @@ function mapStateToProps(state) {
 
 const AppContainer = connect(mapStateToProps, {initializeApp}) (App)
 
-const MainApp = () => {
+const MainApp: React.FC = () => {
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Provider store={store}>

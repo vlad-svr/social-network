@@ -2,10 +2,11 @@ import {ResultCodesEnum} from '../api/api'
 import {FORM_ERROR} from 'final-form';
 import React from "react";
 import {firstLetterToLowerCase} from '../utils/core';
-import {PhotosType, PostsType, ProfileType } from '../types/types';
-
+import {ErrorProfileType, PhotosType, PostsType, ProfileType } from '../types/types';
 import {BaseThunkType, InfernActionsTypes} from "./redux-store";
 import {profileAPI} from "../api/profile-api";
+
+
 
 const ADD_POST = 'SN/PROFILE/ADD_POST'
 const DELETE_POST = 'SN/PROFILE/DELETE_POST'
@@ -14,7 +15,6 @@ const SET_STATUS = 'SN/PROFILE/SET_STATUS'
 const SAVE_PHOTO_SUCCESS = 'SN/PROFILE/SAVE_PHOTO_SUCCESS'
 const TOGGLE_IS_FETCHING = 'SN/PROFILE/TOGGLE_IS_FETCHING'
 const EDIT_MODE_PROFILE = 'SN/PROFILE/EDIT_MODE_PROFILE'
-
 
 
 
@@ -77,7 +77,6 @@ export const actions = {
 }
 
 
-
 export function getUserProfile(userId: number): ThunkType {
   return async (dispatch) => {
     try {
@@ -128,7 +127,6 @@ export function savePhoto(photo: File): ThunkType {
   }
 }
 
-
 export function saveProfile(profile: ProfileType): ThunkType<Promise<void | ErrorProfileType>> {
   return async (dispatch, getState) => {
     try {
@@ -162,9 +160,3 @@ export default profileReducer
 export type InitialStateType = typeof initialState
 type ActionsTypes = InfernActionsTypes<typeof actions>
 type ThunkType<R = Promise<void>> = BaseThunkType<ActionsTypes, R>
-type ErrorProfileType = {
-  [key: string]: Array<JSX.Element> | { [key: string]: boolean }
-}
-
-
-

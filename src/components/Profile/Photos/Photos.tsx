@@ -1,8 +1,10 @@
 import React from 'react';
 import s from './Photos.module.css'
+import {PhotosType} from "../../../types/types";
 
 
-const Photos = props => {
+type PropsType = { photos: PhotosType }
+const Photos: React.FC<PropsType> = props => {
     const photos = [props.photos.small, props.photos.large]
     return (
         <div className={s.main_photos}>
@@ -10,7 +12,7 @@ const Photos = props => {
             <div className={s.list}>
                 {photos.map((url, ind) => {
                     if (!url) return false
-                    return  <div key={ind} className={s.item}>
+                    return  <div key={url + ind} className={s.item}>
                                 <img className={s.img}
                                 src={url} alt={'photo' + ind}/>
                             </div>
