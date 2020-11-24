@@ -1,43 +1,21 @@
 .main {
   display: grid;
   grid-area: main;
-  grid-template:
-          "avatar profile profile"
-          "avatar profile profile"
-          "avatar profile profile"
-          "avatar photos photos"
-          "friends photos photos"
-          "friends posts posts"
-          "friends posts posts"
-          "video posts posts"
-          "video posts posts"
-          "video posts posts"
-          "video posts posts"
-          "audio posts posts"
-          "audio posts posts";
   grid-template-columns: 230px 1fr;
-  grid-template-rows: repeat(13, auto);
-  grid-gap: 15px;
+  grid-column-gap: 15px;
 }
 
-.avatar {
-    grid-area: avatar;
+.column_first, .column_second {
+  display: flex;
+  flex-direction: column;
 }
-.friends {
-    grid-area: friends;
+
+.block {
+  margin-top: 15px;
 }
-.profile_info {
-    grid-area: profile;
+
+.block:first-child {
+  margin-top: 0;
 }
-.photos {
-    grid-area: photos;
-}
-.posts {
-    grid-area: posts;
-}
-.video {
-    grid-area: video;
-}
-.audio {
-    grid-area: audio;
-}
+
+
