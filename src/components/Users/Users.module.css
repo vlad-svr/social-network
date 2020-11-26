@@ -34,6 +34,17 @@
     border-bottom: 1px solid var(--steel_gray_80);
 }
 
+.paginator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+    padding: 0 20px;
+    font-size: 1rem;
+    color: black;
+    border-bottom: 1px solid var(--steel_gray_80);
+}
+
 .users_list {
     padding: 0 20px;
 }
@@ -43,6 +54,15 @@
     justify-content: center;
     padding: 15px;
     border-top: 1px solid var(--steel_gray_120);
+}
+
+.no_users {
+    height: 130px;
+    padding: 20px;
+    color: var(--gray_400);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 

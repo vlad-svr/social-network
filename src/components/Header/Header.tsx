@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import cn from 'classnames'
 import s from './Header.module.css'
 import defaultPhoto from '../../assets/images/no-avatar.png'
@@ -7,50 +7,34 @@ import ContextProfileMenu from './ContextProfileMenu/ContextProfileMenu'
 
 
 export type MapStatePropsType = {
-  isMenuActive: boolean
   photo?: string | null
   login: string | null
   isAuth: boolean
 }
 export type MapDispatchPropsType = {
   logout: () => void
-  toggleProfileMenu: (data: boolean) => void,
 }
 
 
 const Header: React.FC<MapStatePropsType & MapDispatchPropsType> =
-    ({isAuth, toggleProfileMenu, isMenuActive, login, logout, photo}) => {
-  function authBlock() {
-    const onToggleProfileMenu = () => toggleProfileMenu(!isMenuActive)
+    ({isAuth, login, logout, photo}) => {
+  const [openMenu, setOpenMenu] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
 
-    if (isAuth) {
-      return (
-        <div
-          onClick={onToggleProfileMenu}
-          className={cn(s.profile, {[s.active]: isMenuActive})}
-        >
-          <span className={s.login}>{login}</span>
-          <img
-            className="mini_avatar_02"
-            src={photo || defaultPhoto}
-            alt="avatar"
-          />
-          <ContextProfileMenu
-            isMenuActive={isMenuActive}
-            login={login}
-            logout={logout}
-            photo={photo || defaultPhoto}
-          />
-        </div>
-      )
-    }
-
-    return (
-      <NavLink className={s.profile} to="/login">
-        <span className={s.login}>Войти</span>
-      </NavLink>
-    )
+  const onToggleProfileMenu = () => setOpenMenu(!openMenu)
+  const clickOutside = (e: MouseEvent) => {
+      if (menuRef.current?.contains(e.target as Node)) return
+      setOpenMenu(false)
   }
+
+  useEffect(() => {
+    if (openMenu) {
+      document.addEventListener('click', clickOutside);
+    } else {
+      document.removeEventListener('click', clickOutside);
+    }
+    return () => document.removeEventListener('click', clickOutside);
+  }, [openMenu])
 
   return (
     <header className={s.header}>
@@ -62,7 +46,23 @@ const Header: React.FC<MapStatePropsType & MapDispatchPropsType> =
               src="https://cdn3.iconfinder.com/data/icons/social-media-black-white-1/1024/vk-256.png"
               alt="logo"
             />
-            {authBlock()}
+            {
+              isAuth ? <div ref={menuRef} onClick={onToggleProfileMenu}
+                  className={cn(s.profile, {[s.active]: openMenu})}
+                  >
+                  <span className={s.login}>{login}</span>
+                  <img className="mini_avatar_02" src={photo || defaultPhoto} alt="avatar"/>
+                  <ContextProfileMenu
+                      isMenuActive={openMenu}
+                      login={login}
+                      logout={logout}
+                      photo={photo || defaultPhoto}
+                  />
+                </div>
+                : <NavLink className={s.profile} to="/login">
+                    <span className={s.login}>Войти</span>
+                </NavLink>
+            }
           </div>
         </div>
       </div>

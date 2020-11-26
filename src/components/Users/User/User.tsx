@@ -14,7 +14,7 @@ type PropsType = {
 }
 
 
-const User: React.FC<PropsType> = ({user: u, followingInProgress, toggleFollow}) => {
+const User: React.FC<PropsType> = React.memo(({user: u, followingInProgress, toggleFollow}) => {
     return (
         <div className={s.users_card}>
             <NavLink to={'/profile/' + u.id}>
@@ -38,6 +38,6 @@ const User: React.FC<PropsType> = ({user: u, followingInProgress, toggleFollow})
             </div>
         </div>
     )
-}
+})
 
 export default User

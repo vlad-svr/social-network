@@ -6,6 +6,8 @@ import Preloader from '../common/Preloader/Preloader';
 import Paginator from '../common/Paginator/Paginator';
 import User from './User/User';
 import {UserType} from "../../types/types";
+import UsersSearch from './UsersSearch/UsersSearch';
+import {FilterUsersType} from "../../redux/users-reducer";
 
 
 type PropsType = {
@@ -14,16 +16,22 @@ type PropsType = {
     currentPage: number
     users: Array<UserType>
     isFetching: boolean
+    isModeSearch: boolean
     followingInProgress: Array<number>
     onPageChanged: (pageNumber: number) => void
-    toggleFollow: (userId: number) => void
+    onFilterChanged: (filter: FilterUsersType) => void
+    toggleFollowUnfollow: (userId: number) => void
 }
 
 
-const Users: React.FC<PropsType> = (props) => {
-    const users = props.users.map(user => (
-        <User key={user.id} user={user} followingInProgress={props.followingInProgress} toggleFollow={props.toggleFollow} />
+const Users: React.FC<PropsType> = React.memo((props) => {
+    const usersBlock = props.users.map(user => (
+        <User key={user.id} user={user} followingInProgress={props.followingInProgress} toggleFollow={props.toggleFollowUnfollow} />
     ))
+
+    const noUsersBlock = <div className={s.no_users}>
+        <p>{props.isModeSearch ? 'Пользователей не найдено' : 'Ваш запрос не дал результатов'}</p>
+    </div>
 
     return (
         <div className={s.users}>
@@ -33,9 +41,9 @@ const Users: React.FC<PropsType> = (props) => {
                     <span className={s.count_people}>{props.totalUsersCount}</span>
                 </div>
                 <div className={s.search}>
-                    Search
+                    <UsersSearch onFilterChanged={props.onFilterChanged} />
                 </div>
-                <div className={s.search}>
+                <div className={s.paginator}>
                     <Paginator
                         currentPage={props.currentPage}
                         onPageChanged={props.onPageChanged}
@@ -44,17 +52,18 @@ const Users: React.FC<PropsType> = (props) => {
                     />
                 </div>
                 <div className={s.users_list}>
-                    {props.isFetching ? <Preloader /> : users}
+                    {props.users.length === 0 ? noUsersBlock : ''}
+                    {props.isFetching ? <Preloader /> : usersBlock}
                 </div>
                 <div className={s.show_btn}>
                     <button className='button_blue'>Показать еще</button>
                 </div>
             </div>
             <div className='card'>
-                <Filters />
+                <Filters/>
             </div>
         </div>
     )
-}
+})
 
 export default Users
