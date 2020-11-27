@@ -4,20 +4,18 @@ import s from './Header.module.css'
 import defaultPhoto from '../../assets/images/no-avatar.png'
 import { NavLink } from 'react-router-dom'
 import ContextProfileMenu from './ContextProfileMenu/ContextProfileMenu'
+import {useDispatch, useSelector} from "react-redux";
+import {logout} from "../../redux/auth-reducer";
+import {getIsAuthSelector, getLoginSelector, getPhotoAvatarSelector} from "../../redux/auth-selectors";
 
 
-export type MapStatePropsType = {
-  photo?: string | null
-  login: string | null
-  isAuth: boolean
-}
-export type MapDispatchPropsType = {
-  logout: () => void
-}
+const Header: React.FC = () => {
+  const dispatch = useDispatch()
+  const isAuth = useSelector(getIsAuthSelector)
+  const login = useSelector(getLoginSelector)
+  const photo = useSelector(getPhotoAvatarSelector)
+  const onLogout = () => dispatch(logout())
 
-
-const Header: React.FC<MapStatePropsType & MapDispatchPropsType> =
-    ({isAuth, login, logout, photo}) => {
   const [openMenu, setOpenMenu] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
@@ -55,7 +53,7 @@ const Header: React.FC<MapStatePropsType & MapDispatchPropsType> =
                   <ContextProfileMenu
                       isMenuActive={openMenu}
                       login={login}
-                      logout={logout}
+                      logout={onLogout}
                       photo={photo || defaultPhoto}
                   />
                 </div>

@@ -4,14 +4,15 @@ import s from './UsersSearch.module.css'
 import cn from 'classnames'
 import magnifierImage from '../../../assets/images/magnifier.png'
 import {FilterUsersType} from "../../../redux/users-reducer";
+import {useSelector} from "react-redux";
+import {getFilter} from "../../../redux/users-selectors";
 
 
-type PropsType = {
-    onFilterChanged: (filter: FilterUsersType) => void
-}
+type PropsType = {onFilterChanged: (filter: FilterUsersType) => void }
+type FriendType = 'true' | 'false' | 'null'
 type FormType = {
     term: string,
-    friend: 'true' | 'false' | 'null'
+    friend: FriendType
 }
 const UsersSearch: React.FC<PropsType> = React.memo((props) => {
     return (
@@ -23,11 +24,13 @@ const UsersSearch: React.FC<PropsType> = React.memo((props) => {
 
 
 const UsersSearchForm: React.FC<PropsType> = React.memo(({onFilterChanged}) => {
+    const filter = useSelector(getFilter)
+
     const onHandlerSubmit = async (values: FormType,
                              { setSubmitting }: FormikHelpers<FormType>) => {
         const filter: FilterUsersType = {
             term: values.term,
-            friend: values.friend === 'null' ? null : Boolean(values.friend)
+            friend: values.friend === 'null' ? null : values.friend === 'true'
         }
         await onFilterChanged(filter)
         setSubmitting(false);
@@ -35,7 +38,8 @@ const UsersSearchForm: React.FC<PropsType> = React.memo(({onFilterChanged}) => {
 
     return (
             <Formik
-                initialValues={{term: '', friend: 'null'}}
+                enableReinitialize
+                initialValues={{term: filter.term, friend: String(filter.friend) as FriendType}}
                 onSubmit={onHandlerSubmit}
             >
                 {({ isSubmitting }) => (

@@ -5,14 +5,14 @@ import {Provider} from 'react-redux';
 import {connect} from 'react-redux';
 import store, {AppStateType} from './redux/redux-store';
 import {initializeApp} from './redux/app-reducer';
-import HeaderContainer from './components/Header/HeaderContainer'
+import Header from './components/Header/Header'
 import Navbar from './components/Navbar/Navbar'
 import Preloader from './components/common/Preloader/Preloader';
-const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const Profile = React.lazy(() => import('./components/Profile/Profile'));
 const Login = React.lazy(() => import('./components/Login/Login'));
 const News = React.lazy(() => import('./components/News/News'));
 const Audio = React.lazy(() => import('./components/Audio/Audio'));
-const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
+const Users = React.lazy(() => import('./components/Users/Users'));
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 
 
@@ -39,16 +39,16 @@ class App extends React.Component<MapStatePropsType & MapDispatchPropsType> {
 
         return (
             <div>
-                <HeaderContainer />
+                <Header />
                 <div className="wrapper">
                     <div className="container">
                         <Navbar />
                         <Suspense fallback={<Preloader />}>
                             <Switch>
                                 <Redirect exact from='/' to='/profile'/>
-                                <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+                                <Route path="/profile/:userId?" render={() => <Profile />} />
                                 <Route path="/dialogs" render={() => <DialogsContainer />} />
-                                <Route path="/users" render={() => <UsersContainer />} />
+                                <Route path="/users" render={() => <Users/>} />
                                 <Route path="/news" component={News} />
                                 <Route path="/audio" component={Audio} />
                                 <Route path="/login" render={() => <Login />} />
@@ -73,9 +73,9 @@ const AppContainer = connect(mapStateToProps, {initializeApp}) (App)
 const MainApp: React.FC = () => {
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
-            <Provider store={store}>
-                <AppContainer />
-            </Provider>
+                <Provider store={store}>
+                    <AppContainer />
+                </Provider>
         </BrowserRouter>
     )
 }
