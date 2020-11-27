@@ -56,4 +56,4 @@ const Paginator: React.FC<PropsType> = ({currentPage = 1, onPageChanged = x => x
     )
 }
 
-export default Paginator
+export default React.memo(Paginator)

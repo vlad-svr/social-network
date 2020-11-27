@@ -12,7 +12,7 @@ const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileCo
 const Login = React.lazy(() => import('./components/Login/Login'));
 const News = React.lazy(() => import('./components/News/News'));
 const Audio = React.lazy(() => import('./components/Audio/Audio'));
-const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
+const Users = React.lazy(() => import('./components/Users/Users'));
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 
 
@@ -48,7 +48,7 @@ class App extends React.Component<MapStatePropsType & MapDispatchPropsType> {
                                 <Redirect exact from='/' to='/profile'/>
                                 <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
                                 <Route path="/dialogs" render={() => <DialogsContainer />} />
-                                <Route path="/users" render={() => <UsersContainer />} />
+                                <Route path="/users" render={() => <Users/>} />
                                 <Route path="/news" component={News} />
                                 <Route path="/audio" component={Audio} />
                                 <Route path="/login" render={() => <Login />} />
@@ -73,9 +73,9 @@ const AppContainer = connect(mapStateToProps, {initializeApp}) (App)
 const MainApp: React.FC = () => {
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
-            <Provider store={store}>
-                <AppContainer />
-            </Provider>
+                <Provider store={store}>
+                    <AppContainer />
+                </Provider>
         </BrowserRouter>
     )
 }
