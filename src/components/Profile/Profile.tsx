@@ -12,9 +12,10 @@ import Preloader from '../common/Preloader/Preloader'
 import ProfileEditForm from './ProfileInfo/ProfileEdit/ProfileEditForm';
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory, useParams } from 'react-router-dom'
-import {AppStateType} from "../../redux/redux-store";
 import {actions, getStatus, getUserProfile } from '../../redux/profile-reducer'
 import {ErrorType, ProfileType} from "../../types/types";
+import {getIsEditModeProfileSelector, getIsFetchingSelector, getProfileSelector, getStatusSelector } from '../../redux/profile-selectors'
+import { getUserIdSelector } from '../../redux/auth-selectors'
 
 
 type QueryParamsType = {userId: string}
@@ -25,11 +26,11 @@ const Profile:React.FC = () => {
     const dispatch = useDispatch()
 
     const isOwner = !params.userId
-    const profile = useSelector((state: AppStateType) => state.profilePage.profile)
-    const status = useSelector((state: AppStateType) => state.profilePage.status)
-    const authorizedUserId = useSelector((state: AppStateType) => state.auth.userId)
-    const isFetching = useSelector((state: AppStateType) => state.profilePage.isFetching)
-    const isEditModeProfile = useSelector((state: AppStateType) => state.profilePage.editModeProfile)
+    const profile = useSelector(getProfileSelector)
+    const status = useSelector(getStatusSelector)
+    const authorizedUserId = useSelector(getUserIdSelector)
+    const isFetching = useSelector(getIsFetchingSelector)
+    const isEditModeProfile = useSelector(getIsEditModeProfileSelector)
 
     const prevUserId = useRef(null as number | null)
 
@@ -46,10 +47,12 @@ const Profile:React.FC = () => {
 
     useEffect(() => {
         refreshProfile()
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
         if (+params.userId !== prevUserId.current) refreshProfile()
+        // eslint-disable-next-line
     }, [params.userId, authorizedUserId, history])
 
     const savePhoto = (photo: File) => {

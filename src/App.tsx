@@ -5,7 +5,7 @@ import {Provider} from 'react-redux';
 import {connect} from 'react-redux';
 import store, {AppStateType} from './redux/redux-store';
 import {initializeApp} from './redux/app-reducer';
-import HeaderContainer from './components/Header/HeaderContainer'
+import Header from './components/Header/Header'
 import Navbar from './components/Navbar/Navbar'
 import Preloader from './components/common/Preloader/Preloader';
 const Profile = React.lazy(() => import('./components/Profile/Profile'));
@@ -39,7 +39,7 @@ class App extends React.Component<MapStatePropsType & MapDispatchPropsType> {
 
         return (
             <div>
-                <HeaderContainer />
+                <Header />
                 <div className="wrapper">
                     <div className="container">
                         <Navbar />

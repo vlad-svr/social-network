@@ -28,7 +28,6 @@ const initialState = {
   status: '',
   isFetching: false,
   editModeProfile: false,
-  // friends: null as Array<UserType> | null
 }
 
 

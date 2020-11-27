@@ -45,6 +45,7 @@ const Users: React.FC = React.memo(() => {
         if (parsed.term) actualFilter = {...actualFilter, term: parsed.term as string}
         if (parsed.friend) actualFilter = {...actualFilter, friend: parsed.friend === 'null' ? null : parsed.friend === 'true'}
         dispatch(requestUsers(+actualPage, pageSize, actualFilter))
+        // eslint-disable-next-line
     }, [])
 
     const onPageChanged = (pageNum: number) => dispatch(requestUsers(pageNum,  pageSize, filter))
