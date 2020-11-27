@@ -25,7 +25,7 @@ export type MapDispatchPropsType = {
 type PropsType = MapStatePropsType & MapDispatchPropsType & RouteComponentProps<PathParamsType>;
 
 
-class ProfileContainer extends React.Component<PropsType> {
+class ProfileContainerNotUsed extends React.Component<PropsType> {
   refreshProfile() {
     if (+this.props.match.params.userId === this.props.authorizedUserId) {
       return this.props.history.push('/profile')
@@ -52,6 +52,7 @@ class ProfileContainer extends React.Component<PropsType> {
   }
 
   render() {
+    // @ts-ignore
     return <Profile {...this.props} isOwner={!this.props.match.params.userId} />
   }
 }
@@ -71,4 +72,4 @@ export default compose<React.ComponentType>(
       { getUserProfile, getStatus, updateStatus, savePhoto, saveProfile,
         editModeProfile: actions.editModeProfile}),
   withRouter
-)(ProfileContainer)
+)(ProfileContainerNotUsed)

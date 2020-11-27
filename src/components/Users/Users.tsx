@@ -39,7 +39,6 @@ const Users: React.FC = React.memo(() => {
     const history = useHistory()
 
     useEffect(() => {
-        debugger
         const parsed = queryString.parse(history.location.search) as QueryParamsType
         const actualPage = parsed.page || currentPage
         let actualFilter = filter

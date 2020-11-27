@@ -8,7 +8,7 @@ import {initializeApp} from './redux/app-reducer';
 import HeaderContainer from './components/Header/HeaderContainer'
 import Navbar from './components/Navbar/Navbar'
 import Preloader from './components/common/Preloader/Preloader';
-const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const Profile = React.lazy(() => import('./components/Profile/Profile'));
 const Login = React.lazy(() => import('./components/Login/Login'));
 const News = React.lazy(() => import('./components/News/News'));
 const Audio = React.lazy(() => import('./components/Audio/Audio'));
@@ -46,7 +46,7 @@ class App extends React.Component<MapStatePropsType & MapDispatchPropsType> {
                         <Suspense fallback={<Preloader />}>
                             <Switch>
                                 <Redirect exact from='/' to='/profile'/>
-                                <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+                                <Route path="/profile/:userId?" render={() => <Profile />} />
                                 <Route path="/dialogs" render={() => <DialogsContainer />} />
                                 <Route path="/users" render={() => <Users/>} />
                                 <Route path="/news" component={News} />
