@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react'
+import React, {ChangeEvent, useEffect, useRef, useState} from 'react'
 import s from './ProfileStatus.module.css'
 import cn from 'classnames'
 
@@ -13,6 +13,7 @@ type PropsType = {
 const ProfileStatus: React.FC<PropsType> = (props) => {
     const [editMode, setEditMode] = useState(false)
     const [status, setStatus] = useState(props.status)
+    const statusMenuRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => setStatus(props.status), [props.status])
 
@@ -22,6 +23,20 @@ const ProfileStatus: React.FC<PropsType> = (props) => {
         setEditMode(false)
         props.onUpdateStatus(status)
     }
+
+    const clickOutside = (e: MouseEvent) => {
+        if (statusMenuRef.current?.contains(e.target as Node)) return
+        setEditMode(false)
+    }
+
+    useEffect(() => {
+        if (editMode) {
+            document.addEventListener('click', clickOutside);
+        } else {
+            document.removeEventListener('click', clickOutside);
+        }
+        return () => document.removeEventListener('click', clickOutside);
+    }, [editMode])
 
     const onClickEnter = (e: React.KeyboardEvent<HTMLDivElement>) => e.key !== 'Enter' || onDeactivateEditMode()
 
@@ -37,7 +52,7 @@ const ProfileStatus: React.FC<PropsType> = (props) => {
     const notMyStatus = <span className={s.status}>{props.status}</span>
 
     const statusInput = (
-        <div className={s.editor_container}>
+        <div ref={statusMenuRef} className={s.editor_container}>
             <input
                 onChange={onStatusChange}
                 onKeyPress={onClickEnter}
