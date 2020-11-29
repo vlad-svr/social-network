@@ -6,7 +6,7 @@ import cn from 'classnames'
 type PropsType = {
     isOwner: boolean
     status: string
-    updateStatus: (status: string) => void
+    onUpdateStatus: (status: string) => void
 }
 
 
@@ -20,7 +20,7 @@ const ProfileStatus: React.FC<PropsType> = (props) => {
 
     const onDeactivateEditMode = () => {
         setEditMode(false)
-        props.updateStatus(status)
+        props.onUpdateStatus(status)
     }
 
     const onClickEnter = (e: React.KeyboardEvent<HTMLDivElement>) => e.key !== 'Enter' || onDeactivateEditMode()

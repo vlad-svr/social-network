@@ -8,13 +8,13 @@ import ModalAvatar from './ModalAvatar/ModalAvatar';
 
 type PropsType = {
     avatar: string | null
-    savePhoto: (photo: File) => void
+    onSavePhoto: (photo: File) => void
     isOwner: boolean
     isFetching: boolean
     userId: number
     editModeProfile: (editModeProfile: boolean) => void
 }
-const Avatar: React.FC<PropsType> = ({avatar, savePhoto, isOwner, isFetching, userId, editModeProfile}) => {
+const Avatar: React.FC<PropsType> = ({avatar, onSavePhoto, isOwner, isFetching, userId, editModeProfile}) => {
     const [activeModal, setActiveModal] = useState(false)
 
     const onEditModeProfile = () => editModeProfile(true)
@@ -30,7 +30,7 @@ const Avatar: React.FC<PropsType> = ({avatar, savePhoto, isOwner, isFetching, us
                     </div>}
             </div>
             { activeModal &&
-                <Modal onClosed={clickOutside}><ModalAvatar isFetching={isFetching} setActiveModal={setActiveModal} savePhoto={savePhoto}/></Modal>}
+                <Modal onClosed={clickOutside}><ModalAvatar isFetching={isFetching} setActiveModal={setActiveModal} onSavePhoto={onSavePhoto}/></Modal>}
             {isOwner &&
                 <button onClick={onEditModeProfile} className={cn('button_gray', s.button)}>Редактировать</button>}
             {!isOwner &&

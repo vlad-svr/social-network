@@ -28,18 +28,18 @@ const ContactItem: React.FC<ContactItemType> = ({contactTitle, contactValue}) =>
 type ProfileInfoType = {
     profile: ProfileType
     status: string
-    updateStatus: (status: string) => void
+    onUpdateStatus: (status: string) => void
     isOwner: boolean
 }
 
-const ProfileInfo: React.FC<ProfileInfoType> = ({profile, status, updateStatus, isOwner}) => {
+const ProfileInfo: React.FC<ProfileInfoType> = ({profile, status, onUpdateStatus, isOwner}) => {
   return (
     <div className={s.main_profile_info}>
       <div className={s.item}>
         <div className={s.fullname}>
           <h1 className="h1">{stringsToUpperCase(profile.fullName)}</h1>
         </div>
-        <ProfileStatus isOwner={isOwner} status={status} updateStatus={updateStatus}/>
+        <ProfileStatus isOwner={isOwner} status={status} onUpdateStatus={onUpdateStatus}/>
       </div>
       <div className={s.item}>
           {<div className={s.row}>

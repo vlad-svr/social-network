@@ -5,22 +5,22 @@ import s from './ProfileEditForm.module.css'
 import {Input, Textarea} from '../../../common/FormsControl/FormsControl';
 import styleFormControl from '../../../common/FormsControl/FormsControl.module.css';
 import {stringsToUpperCase} from '../../../../utils/core'
-import {ErrorType, ProfileType} from "../../../../types/types";
+import {ProfileType} from "../../../../types/types";
 
 
 type PropsType = {
     profile: ProfileType
     editModeProfile: (editModeProfile: boolean) => void
-    saveProfile: (profile: ProfileType) => Promise<void | ErrorType>
+    onSaveProfile: (profile: ProfileType) => void
 }
 
 
-const ProfileEditForm: React.FC<PropsType> = ({profile, editModeProfile, saveProfile}) => {
+const ProfileEditForm: React.FC<PropsType> = React.memo(({profile, editModeProfile, onSaveProfile}) => {
     const onChangeCancel = () => editModeProfile(false)
 
     return (
       <Form initialValues={profile}
-            onSubmit={saveProfile}
+            onSubmit={onSaveProfile}
             render={({ submitError, handleSubmit, hasValidationErrors, submitting }) => {
       return (
           <form onSubmit={handleSubmit} className={s.edit_profile}>
@@ -112,6 +112,6 @@ const ProfileEditForm: React.FC<PropsType> = ({profile, editModeProfile, savePro
     }}
   />
   )
-}
+})
 
 export default ProfileEditForm
