@@ -7,15 +7,16 @@ import Video from './Video/Video'
 import Avatar from './Avatar/Avatar'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import Photos from './Photos/Photos'
-import MyPostsContainer from './MyPosts/MyPostsContainer'
 import Preloader from '../common/Preloader/Preloader'
 import ProfileEditForm from './ProfileInfo/ProfileEdit/ProfileEditForm';
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory, useParams } from 'react-router-dom'
-import {actions, getStatus, getUserProfile } from '../../redux/profile-reducer'
-import {ErrorType, ProfileType} from "../../types/types";
+import {actions, getStatus, getUserProfile, savePhoto, saveProfile, updateStatus } from '../../redux/profile-reducer'
+import {ProfileType} from "../../types/types";
 import {getIsEditModeProfileSelector, getIsFetchingSelector, getProfileSelector, getStatusSelector } from '../../redux/profile-selectors'
 import { getUserIdSelector } from '../../redux/auth-selectors'
+import {RouterManager} from "../../RouterManager";
+import MyPosts from './MyPosts/MyPosts'
 
 
 type QueryParamsType = {userId: string}
@@ -36,10 +37,10 @@ const Profile:React.FC = () => {
 
     const refreshProfile = () => {
         if (+params.userId === authorizedUserId) {
-            return history.push('/profile')
+            return history.push(RouterManager.profile.my.path)
         }
         const userId = +params.userId || authorizedUserId
-        if (!userId) return history.push('/login')
+        if (!userId) return history.push(RouterManager.auth.login.path)
         prevUserId.current = userId
         dispatch(getUserProfile(userId as number))
         dispatch(getStatus(userId as number))
@@ -55,16 +56,17 @@ const Profile:React.FC = () => {
         // eslint-disable-next-line
     }, [params.userId, authorizedUserId, history])
 
-    const savePhoto = (photo: File) => {
+    const onSavePhoto = (photo: File) => {
         dispatch(savePhoto(photo))
     }
     const editModeProfile = (editModeProfile: boolean) => {
         dispatch(actions.editModeProfile(editModeProfile))
     }
-    const updateStatus = (status: string) => {
+    const onUpdateStatus = (status: string) => {
         dispatch(updateStatus(status))
     }
-    const saveProfile = (profile: ProfileType): Promise<void | ErrorType> => {
+
+    const onSaveProfile = (profile: ProfileType) => {
         return dispatch(saveProfile(profile))
     }
 
@@ -75,7 +77,7 @@ const Profile:React.FC = () => {
         <div className={s.column_first}>
             <div className={cn('card', s.block)}>
                 <Avatar
-                    savePhoto={savePhoto}
+                    onSavePhoto={onSavePhoto}
                     isOwner={isOwner}
                     avatar={profile.photos.large}
                     isFetching={isFetching}
@@ -99,12 +101,12 @@ const Profile:React.FC = () => {
                     ? <ProfileInfo
                         profile={profile}
                         status={status}
-                        updateStatus={updateStatus}
+                        onUpdateStatus={onUpdateStatus}
                         isOwner={isOwner}
                     />
                     : <ProfileEditForm
                         profile={profile}
-                        saveProfile={saveProfile}
+                        onSaveProfile={onSaveProfile}
                         editModeProfile={editModeProfile}
                     />}
             </div>
@@ -112,7 +114,7 @@ const Profile:React.FC = () => {
                 <Photos photos={profile.photos} />
             </div>
             <div className={cn('card', s.block)}>
-                <MyPostsContainer />
+                <MyPosts />
             </div>
         </div>
     </div>

@@ -7,6 +7,7 @@ import { Redirect } from 'react-router-dom'
 import {LoginFormValuesType} from "../../types/types";
 import {AppStateType} from "../../redux/redux-store";
 import { login } from '../../redux/auth-reducer'
+import {RouterManager} from "../../RouterManager";
 
 
 
@@ -21,7 +22,7 @@ const Login: React.FC = () => {
     return dispatch(login(email, password, rememberMe, captcha))
   }
 
-  if (isAuth) return <Redirect to="/profile" />
+  if (isAuth) return <Redirect to={RouterManager.profile.my.path} />
   return (
     <div className={s.container}>
       <div className={cn('card', s.card_login)}>

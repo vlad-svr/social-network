@@ -2,9 +2,10 @@ import React from 'react';
 import s from './User.module.css';
 import cn from 'classnames'
 import userPhoto from '../../../assets/images/no-avatar.png';
-import {NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {stringsToUpperCase} from '../../../utils/core';
 import {UserType} from "../../../types/types";
+import {RouterManager} from "../../../RouterManager";
 
 
 type PropsType = {
@@ -17,14 +18,14 @@ type PropsType = {
 const User: React.FC<PropsType> = React.memo(({user: u, followingInProgress, toggleFollow}) => {
     return (
         <div className={s.users_card}>
-            <NavLink to={'/profile/' + u.id}>
+            <Link to={RouterManager.profile.getUserProfile(u.id)}>
                 <img className='mini_avatar_80' src={u.photos.small ? u.photos.small : userPhoto} alt="avatar"/>
-            </NavLink>
+            </Link>
             <div className={s.users_info}>
                 <div className={s.label}>
-                    <NavLink to={'/profile/' + u.id} className={cn("link_normalize", s.name)}>
+                    <Link to={RouterManager.profile.getUserProfile(u.id)} className={cn("link_normalize", s.name)}>
                         {stringsToUpperCase(u.name)}
-                    </NavLink>
+                    </Link>
                 </div>
                 <span className={s.label}>{`user.location.city, user.location.country`}</span>
                 <span className={s.label}>{u.status}</span>
