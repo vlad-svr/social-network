@@ -4,27 +4,28 @@ import s from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
 import MessageForm, { NewMessageFormType } from './MessageForm/MessageForm'
-import {DialogType, MessagesType} from "../../types/types";
+import {useDispatch, useSelector} from "react-redux";
+import {getDialogsSelector, getMessagesSelector} from "../../redux/dialogs-selectors";
+import {actions} from "../../redux/dialogs-reducer";
 
 
 
-type PropsType = {
-    messages: Array<MessagesType>
-    dialogs: Array<DialogType>
-    sendMessage: (newMessage: string) => Promise<void>
-}
-const Dialogs: React.FC<PropsType> = (props) => {
-  const dialogsElements = props.dialogs.map((d) => (
+const Dialogs: React.FC = () => {
+    const dispatch = useDispatch()
+    const messages = useSelector(getMessagesSelector)
+    const dialogs = useSelector(getDialogsSelector)
+
+  const dialogsElements = dialogs.map((d) => (
     <DialogItem key={d.id} name={d.name} id={d.id} />
   ))
 
-  const messagesElements = props.messages.map((m) => (
+  const messagesElements = messages.map((m) => (
     <Message key={m.id} message={m.message} myMessage={m.myMessage} />
   ))
 
   function onSendMessage(data: NewMessageFormType):Promise<void> {
-    props.sendMessage(data.newMessageBody)
-    return Promise.resolve()
+        dispatch(actions.sendMessage(data.newMessageBody))
+        return Promise.resolve()
   }
 
   return (

@@ -8,12 +8,13 @@ import {initializeApp} from './redux/app-reducer';
 import Header from './components/Header/Header'
 import Navbar from './components/Navbar/Navbar'
 import Preloader from './components/common/Preloader/Preloader';
+import {RouterManager} from "./RouterManager";
 const Profile = React.lazy(() => import('./components/Profile/Profile'));
 const Login = React.lazy(() => import('./components/Login/Login'));
 const News = React.lazy(() => import('./components/News/News'));
 const Audio = React.lazy(() => import('./components/Audio/Audio'));
 const Users = React.lazy(() => import('./components/Users/Users'));
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs'));
 
 
 
@@ -45,13 +46,13 @@ class App extends React.Component<MapStatePropsType & MapDispatchPropsType> {
                         <Navbar />
                         <Suspense fallback={<Preloader />}>
                             <Switch>
-                                <Redirect exact from='/' to='/profile'/>
-                                <Route path="/profile/:userId?" render={() => <Profile />} />
-                                <Route path="/dialogs" render={() => <DialogsContainer />} />
-                                <Route path="/users" render={() => <Users/>} />
-                                <Route path="/news" component={News} />
-                                <Route path="/audio" component={Audio} />
-                                <Route path="/login" render={() => <Login />} />
+                                <Redirect exact from='/' to={RouterManager.profile.my.path}/>
+                                <Route path={RouterManager.profile.userId.path} render={() => <Profile />} />
+                                <Route path={RouterManager.dialogs.list.path} render={() => <Dialogs />} />
+                                <Route path={RouterManager.users.list.path} render={() => <Users/>} />
+                                <Route path={RouterManager.news.list.path} component={News} />
+                                <Route path={RouterManager.audio.list.path} component={Audio} />
+                                <Route path={RouterManager.auth.login.path} render={() => <Login />} />
                                 <Route path="*" render={() => <div>404 NOT FOUND</div>} />
                             </Switch>
                         </Suspense>

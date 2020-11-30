@@ -4,6 +4,8 @@ import cn from 'classnames'
 import defaultPhoto from '../../../assets/images/no-avatar.png'
 import Modal from '../../common/Modal/Modal';
 import ModalAvatar from './ModalAvatar/ModalAvatar';
+import {RouterManager} from "../../../RouterManager";
+import { Link } from 'react-router-dom';
 
 
 type PropsType = {
@@ -23,7 +25,7 @@ const Avatar: React.FC<PropsType> = ({avatar, onSavePhoto, isOwner, isFetching, 
     return (
         <div className={s.main_avatar}>
             <div className={s.avatar_content}>
-                <a href={`/profile/${userId}`}><img className={s.img} src={avatar || defaultPhoto} alt="avatar"/></a>
+                <Link to={RouterManager.profile.getUserProfile(userId)}><img className={s.img} src={avatar || defaultPhoto} alt="avatar"/></Link>
                 {isOwner &&
                     <div className={s.avatar_menu}>
                         <span onClick={() => setActiveModal(true)} className={s.avatar_menu_item}>Обновить фотографию</span>

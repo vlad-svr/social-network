@@ -7,7 +7,6 @@ import Video from './Video/Video'
 import Avatar from './Avatar/Avatar'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import Photos from './Photos/Photos'
-import MyPostsContainer from './MyPosts/MyPostsContainer'
 import Preloader from '../common/Preloader/Preloader'
 import ProfileEditForm from './ProfileInfo/ProfileEdit/ProfileEditForm';
 import {useDispatch, useSelector} from "react-redux";
@@ -16,6 +15,8 @@ import {actions, getStatus, getUserProfile, savePhoto, saveProfile, updateStatus
 import {ProfileType} from "../../types/types";
 import {getIsEditModeProfileSelector, getIsFetchingSelector, getProfileSelector, getStatusSelector } from '../../redux/profile-selectors'
 import { getUserIdSelector } from '../../redux/auth-selectors'
+import {RouterManager} from "../../RouterManager";
+import MyPosts from './MyPosts/MyPosts'
 
 
 type QueryParamsType = {userId: string}
@@ -36,10 +37,10 @@ const Profile:React.FC = () => {
 
     const refreshProfile = () => {
         if (+params.userId === authorizedUserId) {
-            return history.push('/profile')
+            return history.push(RouterManager.profile.my.path)
         }
         const userId = +params.userId || authorizedUserId
-        if (!userId) return history.push('/login')
+        if (!userId) return history.push(RouterManager.auth.login.path)
         prevUserId.current = userId
         dispatch(getUserProfile(userId as number))
         dispatch(getStatus(userId as number))
@@ -113,7 +114,7 @@ const Profile:React.FC = () => {
                 <Photos photos={profile.photos} />
             </div>
             <div className={cn('card', s.block)}>
-                <MyPostsContainer />
+                <MyPosts />
             </div>
         </div>
     </div>

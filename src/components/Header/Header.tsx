@@ -2,11 +2,12 @@ import React, {useEffect, useRef, useState} from 'react'
 import cn from 'classnames'
 import s from './Header.module.css'
 import defaultPhoto from '../../assets/images/no-avatar.png'
-import { NavLink } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import ContextProfileMenu from './ContextProfileMenu/ContextProfileMenu'
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../redux/auth-reducer";
 import {getIsAuthSelector, getLoginSelector, getPhotoAvatarSelector} from "../../redux/auth-selectors";
+import { RouterManager } from '../../RouterManager'
 
 
 const Header: React.FC = () => {
@@ -57,9 +58,9 @@ const Header: React.FC = () => {
                       photo={photo || defaultPhoto}
                   />
                 </div>
-                : <NavLink className={s.profile} to="/login">
+                : <Link className={s.profile} to={RouterManager.auth.login.path}>
                     <span className={s.login}>Войти</span>
-                </NavLink>
+                </Link>
             }
           </div>
         </div>

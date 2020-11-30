@@ -17,3 +17,6 @@ export const getIsEditModeProfileSelector = (state: AppStateType) => {
     return state.profilePage.editModeProfile
 }
 
+export const getPostsSelector = (state: AppStateType) => {
+    return state.profilePage.posts
+}
