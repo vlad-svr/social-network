@@ -7,14 +7,14 @@ import {
   required,
 } from '../../../utils/validators'
 import { Textarea } from '../../common/FormsControl/FormsControl'
-import s from './MessageForm.module.css'
+import s from './AddMessageForm.module.css'
 
 
 export type NewMessageFormType = { newMessageBody: string }
 type PropsType = { onSubmit: (data: NewMessageFormType) => Promise<void> }
 
 
-const MessageForm: React.FC<PropsType> = ({onSubmit}) => {
+const AddMessageForm: React.FC<PropsType> = ({onSubmit}) => {
   return (
     <Form
       onSubmit={onSubmit}
@@ -40,4 +40,4 @@ const MessageForm: React.FC<PropsType> = ({onSubmit}) => {
   )
 }
 
-export default MessageForm
+export default AddMessageForm

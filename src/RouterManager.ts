@@ -9,6 +9,9 @@ export const RouterManager = {
     dialogs: {
         list: {path: '/dialogs'}
     },
+    chat: {
+        index: {path: '/chat'}
+    },
     users: {
         list: {path: '/users'}
     },

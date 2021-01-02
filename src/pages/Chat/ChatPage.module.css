@@ -1,0 +1,21 @@
+.container {
+  max-height: calc(100vh - 10vh);
+}
+
+.messages_items {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 10vh);
+}
+
+.messages {
+  padding: 10px 20px;
+  overflow-y: auto;
+  font-size: 1rem;
+}
+
+.form_message {
+  padding: 12px 26px;
+  background: var(--steel_gray_10);
+  border-top: 1px solid var(--steel_gray_120);
+}
