@@ -58,3 +58,10 @@ export type LoginFormValuesType = {
     captcha?: string | null;
     rememberMe?: boolean;
 }
+
+export type ChatMessageType = {
+    message: string
+    photo: string
+    userId: number
+    userName: string
+}

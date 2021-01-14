@@ -15,6 +15,7 @@ const News = React.lazy(() => import('./components/News/News'));
 const Audio = React.lazy(() => import('./components/Audio/Audio'));
 const Users = React.lazy(() => import('./components/Users/Users'));
 const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs'));
+const ChatPage = React.lazy(() => import('./pages/Chat/ChatPage'));
 
 
 
@@ -53,6 +54,7 @@ class App extends React.Component<MapStatePropsType & MapDispatchPropsType> {
                                 <Route path={RouterManager.news.list.path} component={News} />
                                 <Route path={RouterManager.audio.list.path} component={Audio} />
                                 <Route path={RouterManager.auth.login.path} render={() => <Login />} />
+                                <Route path={RouterManager.chat.index.path} render={() => <ChatPage />} />
                                 <Route path="*" render={() => <div>404 NOT FOUND</div>} />
                             </Switch>
                         </Suspense>

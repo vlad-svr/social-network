@@ -3,11 +3,10 @@ import cn from 'classnames'
 import s from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
-import MessageForm, { NewMessageFormType } from './MessageForm/MessageForm'
+import AddMessageForm, { NewMessageFormType } from './AddMessageForm/AddMessageForm'
 import {useDispatch, useSelector} from "react-redux";
 import {getDialogsSelector, getMessagesSelector} from "../../redux/dialogs-selectors";
 import {actions} from "../../redux/dialogs-reducer";
-
 
 
 const Dialogs: React.FC = () => {
@@ -19,9 +18,9 @@ const Dialogs: React.FC = () => {
     <DialogItem key={d.id} name={d.name} id={d.id} />
   ))
 
-  const messagesElements = messages.map((m) => (
-    <Message key={m.id} message={m.message} myMessage={m.myMessage} />
-  ))
+  // const messagesElements = messages.map((m) => (
+  //   <Message key={m.id} message={m.message} myMessage={m.myMessage} />
+  // ))
 
   function onSendMessage(data: NewMessageFormType):Promise<void> {
         dispatch(actions.sendMessage(data.newMessageBody))
@@ -35,9 +34,9 @@ const Dialogs: React.FC = () => {
       </div>
       <div className={s.dialogs_items}>{dialogsElements}</div>
       <div className={s.messages_items}>
-        <div className={s.messages}>{messagesElements}</div>
+        {/*<div className={s.messages}>{messagesElements}</div>*/}
         <div className={s.form_message}>
-          <MessageForm onSubmit={onSendMessage} />
+          <AddMessageForm onSubmit={onSendMessage} />
         </div>
       </div>
     </div>

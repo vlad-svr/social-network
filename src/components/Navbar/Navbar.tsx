@@ -28,6 +28,11 @@ const Navbar: React.FC = React.memo(() => {
                     Сообщения
                 </div>
             </Link>
+            <Link className={c.link} to={RouterManager.chat.index.path}>
+                <div className={c.item}>
+                    Чат
+                </div>
+            </Link>
             <Link className={c.link} to={RouterManager.friends.list.path}>
                 <div className={c.item}>
                     Друзья
