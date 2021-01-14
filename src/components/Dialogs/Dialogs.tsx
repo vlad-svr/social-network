@@ -4,27 +4,25 @@ import s from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
 import AddMessageForm, { NewMessageFormType } from './AddMessageForm/AddMessageForm'
-import {useDispatch, useSelector} from "react-redux";
-import {getDialogsSelector, getMessagesSelector} from "../../redux/dialogs-selectors";
-import {actions} from "../../redux/dialogs-reducer";
-
+import { useDispatch, useSelector } from 'react-redux'
+import { getDialogsSelector, getMessagesSelector } from '../../redux/dialogs-selectors'
+import { actions } from '../../redux/dialogs-reducer'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 
 const Dialogs: React.FC = () => {
-    const dispatch = useDispatch()
-    const messages = useSelector(getMessagesSelector)
-    const dialogs = useSelector(getDialogsSelector)
+  const dispatch = useDispatch()
+  const messages = useSelector(getMessagesSelector)
+  const dialogs = useSelector(getDialogsSelector)
 
-  const dialogsElements = dialogs.map((d) => (
-    <DialogItem key={d.id} name={d.name} id={d.id} />
-  ))
+  const dialogsElements = dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id} />)
 
   // const messagesElements = messages.map((m) => (
   //   <Message key={m.id} message={m.message} myMessage={m.myMessage} />
   // ))
 
-  function onSendMessage(data: NewMessageFormType):Promise<void> {
-        dispatch(actions.sendMessage(data.newMessageBody))
-        return Promise.resolve()
+  function onSendMessage(data: NewMessageFormType): Promise<void> {
+    dispatch(actions.sendMessage(data.newMessageBody))
+    return Promise.resolve()
   }
 
   return (
@@ -43,4 +41,4 @@ const Dialogs: React.FC = () => {
   )
 }
 
-export default Dialogs
+export default withAuthRedirect(Dialogs)

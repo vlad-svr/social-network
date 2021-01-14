@@ -17,10 +17,11 @@ const Messages: React.FC<MessagesType> = ({ wsChannel }) => {
 
   React.useEffect(() => {
     const messageHandler = (e: MessageEvent) => {
-      setIsLoading(false)
       setMessages(prevMessages => [...prevMessages, ...JSON.parse(e.data)])
     }
     wsChannel?.addEventListener('message', messageHandler)
+    setIsLoading(false)
+
     return () => {
       wsChannel?.removeEventListener('message', messageHandler)
     }

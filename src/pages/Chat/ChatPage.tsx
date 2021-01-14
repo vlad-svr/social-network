@@ -3,6 +3,7 @@ import cn from 'classnames'
 import s from './ChatPage.module.css'
 import Messages from './components/Messages/Messages'
 import SendMessage from './components/SendMessage'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 
 const ChatPage: React.FC = () => {
   const [wsChannel, setWsChannel] = React.useState<WebSocket | null>(null)
@@ -38,4 +39,4 @@ const ChatPage: React.FC = () => {
   )
 }
 
-export default ChatPage
+export default withAuthRedirect(ChatPage)
