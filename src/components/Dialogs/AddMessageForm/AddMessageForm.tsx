@@ -9,11 +9,10 @@ import { ReadyStatusType } from '../../../pages/Chat/components/SendMessage'
 export type NewMessageFormType = { newMessageBody: string }
 type PropsType = {
   onSubmit: (data: NewMessageFormType) => Promise<void>
-  wsChannel?: WebSocket | null
   readyStatus?: ReadyStatusType
 }
 
-const AddMessageForm: React.FC<PropsType> = ({ onSubmit, wsChannel, readyStatus = 'ready' }) => {
+const AddMessageForm: React.FC<PropsType> = ({ onSubmit, readyStatus = 'ready' }) => {
   return (
     <Form
       onSubmit={onSubmit}
@@ -36,7 +35,7 @@ const AddMessageForm: React.FC<PropsType> = ({ onSubmit, wsChannel, readyStatus 
               autoFocus
             />
             <button
-              disabled={!wsChannel || readyStatus !== 'ready' || submitting || hasValidationErrors}
+              disabled={readyStatus !== 'ready' || submitting || hasValidationErrors}
               type="submit"
               className={cn('button_blue', s.button)}
             >

@@ -6,26 +6,13 @@ import { ChatMessageType } from '../../../../types/types'
 import './Messages.module.css'
 import s from './Messages.module.css'
 import Preloader from '../../../../components/common/Preloader/Preloader'
+import { getMessagesSelector, isLoadingSelector } from '../../../../redux/chat-selectors'
 
-export type MessagesType = { wsChannel?: WebSocket | null }
-
-const Messages: React.FC<MessagesType> = ({ wsChannel }) => {
-  const [messages, setMessages] = useState<ChatMessageType[]>([])
+const Messages: React.FC = () => {
+  const messages = useSelector(getMessagesSelector)
   const myId = useSelector(getUserIdSelector)
   const messagesBlockRef = useRef<HTMLDivElement | null>(null)
-  const [isLoading, setIsLoading] = React.useState(true)
-
-  React.useEffect(() => {
-    const messageHandler = (e: MessageEvent) => {
-      setMessages(prevMessages => [...prevMessages, ...JSON.parse(e.data)])
-    }
-    wsChannel?.addEventListener('message', messageHandler)
-    setIsLoading(false)
-
-    return () => {
-      wsChannel?.removeEventListener('message', messageHandler)
-    }
-  }, [wsChannel])
+  const isLoading = useSelector(isLoadingSelector)
 
   React.useEffect(() => {
     if (messagesBlockRef?.current) {

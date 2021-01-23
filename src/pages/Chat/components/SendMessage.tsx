@@ -2,28 +2,30 @@ import React from 'react'
 import AddMessageForm, {
   NewMessageFormType,
 } from '../../../components/Dialogs/AddMessageForm/AddMessageForm'
+import { useDispatch } from 'react-redux'
+import { sendMessage } from '../../../redux/chat-reducer'
 
 export type ReadyStatusType = 'pending' | 'ready'
-type PropsType = { wsChannel?: WebSocket | null }
 
-const SendMessage: React.FC<PropsType> = ({ wsChannel }) => {
-  const [readyStatus, setReadyStatus] = React.useState<ReadyStatusType>('pending')
+const SendMessage: React.FC = () => {
+  const [readyStatus, setReadyStatus] = React.useState<ReadyStatusType>('ready')
+  const dispatch = useDispatch()
 
   const onSendMessage = (data: NewMessageFormType) => {
-    wsChannel?.send(data.newMessageBody)
+    dispatch(sendMessage(data.newMessageBody))
     return Promise.resolve()
   }
 
-  React.useEffect(() => {
-    const openHandler = () => setReadyStatus('ready')
+  // React.useEffect(() => {
+  //   const openHandler = () => setReadyStatus('ready')
+  //
+  //   wsChannel?.addEventListener('open', openHandler)
+  //   return () => {
+  //     wsChannel?.removeEventListener('open', openHandler)
+  //   }
+  // }, [wsChannel])
 
-    wsChannel?.addEventListener('open', openHandler)
-    return () => {
-      wsChannel?.removeEventListener('open', openHandler)
-    }
-  }, [wsChannel])
-
-  return <AddMessageForm wsChannel={wsChannel} onSubmit={onSendMessage} readyStatus={readyStatus} />
+  return <AddMessageForm onSubmit={onSendMessage} readyStatus={readyStatus} />
 }
 
 export default SendMessage
