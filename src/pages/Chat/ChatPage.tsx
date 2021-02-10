@@ -3,39 +3,33 @@ import cn from 'classnames'
 import s from './ChatPage.module.css'
 import Messages from './components/Messages/Messages'
 import SendMessage from './components/SendMessage'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
+import { useDispatch, useSelector } from 'react-redux'
+import { offMessagesListening, onMessagesListening } from '../../redux/chat-reducer'
+import { statusSelector } from '../../redux/chat-selectors'
 
 const ChatPage: React.FC = () => {
-  const [wsChannel, setWsChannel] = React.useState<WebSocket | null>(null)
+  const dispatch = useDispatch()
+  const status = useSelector(statusSelector)
 
   React.useEffect(() => {
-    let ws: WebSocket
-    const closeHandler = () => setTimeout(createChannel, 3000)
-
-    function createChannel() {
-      ws?.removeEventListener('close', closeHandler)
-      ws?.close()
-
-      ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
-      ws.addEventListener('close', closeHandler)
-      setWsChannel(ws)
-    }
-    createChannel()
+    dispatch(onMessagesListening())
     return () => {
-      ws.removeEventListener('close', closeHandler)
-      ws.close()
+      dispatch(offMessagesListening())
     }
-  }, [])
+  }, [dispatch])
 
   return (
     <div className={cn('card', s.container)}>
       <div className={s.messages_items}>
-        <Messages wsChannel={wsChannel} />
+        {status === 'error' && <div>Some error occured. Please refresh the page</div>}
+        <Messages />
         <div className={s.form_message}>
-          <SendMessage wsChannel={wsChannel} />
+          <SendMessage />
         </div>
       </div>
     </div>
   )
 }
 
-export default ChatPage
+export default withAuthRedirect(ChatPage)

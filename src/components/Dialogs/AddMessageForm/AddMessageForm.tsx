@@ -4,16 +4,15 @@ import cn from 'classnames'
 import { composeValidators, maxLength, required } from '../../../utils/validators'
 import { Textarea } from '../../common/FormsControl/FormsControl'
 import s from './AddMessageForm.module.css'
-import { ReadyStatusType } from '../../../pages/Chat/components/SendMessage'
+import { StatusType } from '../../../redux/chat-reducer'
 
 export type NewMessageFormType = { newMessageBody: string }
 type PropsType = {
   onSubmit: (data: NewMessageFormType) => Promise<void>
-  wsChannel?: WebSocket | null
-  readyStatus?: ReadyStatusType
+  readyStatus?: StatusType
 }
 
-const AddMessageForm: React.FC<PropsType> = ({ onSubmit, wsChannel, readyStatus = 'ready' }) => {
+const AddMessageForm: React.FC<PropsType> = ({ onSubmit, readyStatus = 'ready' }) => {
   return (
     <Form
       onSubmit={onSubmit}
@@ -30,13 +29,13 @@ const AddMessageForm: React.FC<PropsType> = ({ onSubmit, wsChannel, readyStatus 
             <Field<string>
               name="newMessageBody"
               component={Textarea}
-              validate={composeValidators(required, maxLength(50))}
+              validate={composeValidators(required, maxLength(150))}
               placeholder="Напишите сообщение..."
               className={cn('textarea', s.textarea)}
               autoFocus
             />
             <button
-              disabled={!wsChannel || readyStatus !== 'ready' || submitting || hasValidationErrors}
+              disabled={readyStatus !== 'ready' || submitting || hasValidationErrors}
               type="submit"
               className={cn('button_blue', s.button)}
             >
