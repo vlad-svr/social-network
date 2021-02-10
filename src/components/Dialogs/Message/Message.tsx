@@ -3,14 +3,14 @@ import cn from 'classnames'
 import s from './Message.module.css'
 import { RouterManager } from '../../../RouterManager'
 import { Link } from 'react-router-dom'
-import { ChatMessageType } from '../../../types/types'
 import defaultPhoto from '../../../assets/images/no-avatar.png'
+import { ChatMessageType } from '../../../redux/chat-reducer'
 
 type PropsType = {
   isMyMessage: boolean
   item: ChatMessageType
 }
-const Message: React.FC<PropsType> = ({ isMyMessage, item }) => {
+const Message: React.FC<PropsType> = React.memo(({ isMyMessage, item }) => {
   const isMyMessageClass = isMyMessage ? s.message + ' ' + s.my_message : s.message
   return (
     <div className={isMyMessageClass}>
@@ -29,6 +29,6 @@ const Message: React.FC<PropsType> = ({ isMyMessage, item }) => {
       </div>
     </div>
   )
-}
+})
 
 export default Message

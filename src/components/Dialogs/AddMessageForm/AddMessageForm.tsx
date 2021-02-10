@@ -4,12 +4,12 @@ import cn from 'classnames'
 import { composeValidators, maxLength, required } from '../../../utils/validators'
 import { Textarea } from '../../common/FormsControl/FormsControl'
 import s from './AddMessageForm.module.css'
-import { ReadyStatusType } from '../../../pages/Chat/components/SendMessage'
+import { StatusType } from '../../../redux/chat-reducer'
 
 export type NewMessageFormType = { newMessageBody: string }
 type PropsType = {
   onSubmit: (data: NewMessageFormType) => Promise<void>
-  readyStatus?: ReadyStatusType
+  readyStatus?: StatusType
 }
 
 const AddMessageForm: React.FC<PropsType> = ({ onSubmit, readyStatus = 'ready' }) => {
@@ -29,7 +29,7 @@ const AddMessageForm: React.FC<PropsType> = ({ onSubmit, readyStatus = 'ready' }
             <Field<string>
               name="newMessageBody"
               component={Textarea}
-              validate={composeValidators(required, maxLength(50))}
+              validate={composeValidators(required, maxLength(150))}
               placeholder="Напишите сообщение..."
               className={cn('textarea', s.textarea)}
               autoFocus

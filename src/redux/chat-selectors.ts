@@ -1,6 +1,6 @@
 import { AppStateType } from './redux-store'
-import { ChatMessageType } from '../types/types'
+import { ChatMessageType, StatusType } from './chat-reducer'
 
 export const getMessagesSelector = (state: AppStateType): ChatMessageType[] => state.chat.messages
 
-export const isLoadingSelector = (state: AppStateType): boolean => state.chat.isLoading
+export const statusSelector = (state: AppStateType): StatusType => state.chat.status
